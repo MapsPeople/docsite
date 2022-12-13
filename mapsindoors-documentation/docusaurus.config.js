@@ -53,7 +53,7 @@ const config = {
         title: ' ',
         logo: {
           alt: 'MapsPeople Logo',
-          src: 'img/MapsPeople_RGB_Logotype_Petrol.svg',
+          src: 'img/MapsPeople_RGB_Logotype_White.png',
         },
         items: [
           {

@@ -32,3 +32,11 @@
 .footer {
   background-color: #005655;
 }
+
+.navbar {
+  background-color: #005655;
+}
+
+.navbar__item {
+  color: #ffffff;
+}
