@@ -82,41 +82,52 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Documentation',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Getting Started',
+                to: '/getting-started',
+              },
+              {
+                label: 'MapsIndoors CMS',
+                to: '/cms',
+              },
+              {
+                label: 'Map',
+                to: '/Map',
+              },
+              {
+                label: 'Directions',
+                to: '/directions',
+              },
+              {
+                label: 'Searching',
+                to: '/searching',
+              },
+              {
+                label: 'Working with Data',
+                to: '/data',
+              },
+              {
+                label: 'Integration API',
+                to: '/api',
+              },
+              {
+                label: 'Various',
+                to: '/various',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Product',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Product Overview',
+                href: '/product/',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Requirements',
+                href: '/product/platform-requirements/',
               },
             ],
           },
