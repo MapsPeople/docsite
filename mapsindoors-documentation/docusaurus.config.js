@@ -33,19 +33,12 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: '/', // Serve the docs at the site's root
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
+        blog: false, // Optional: disable the blog plugin
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -57,22 +50,30 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: ' ',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'MapsPeople Logo',
+          src: 'img/MapsPeople_RGB_Logotype_Petrol.svg',
         },
         items: [
           {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/mapspeople',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            href: 'https://mapspeople.com/support',
+            label: 'Support Center',
+            position: 'right',
+          },
+          {
+            href: 'https://blog.mapspeople.com/tag/product',
+            label: 'Product Blog',
+            position: 'right',
+          },
+          {
+            href: 'https://cms.mapsindoors.com/',
+            label: 'MapsIndoors CMS',
             position: 'right',
           },
         ],
@@ -120,7 +121,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} MapsPeople A/S. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
