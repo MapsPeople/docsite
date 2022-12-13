@@ -137,6 +137,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['json', 'java', 'kotlin', 'objectivec', 'swift', 'javascript', 'python', 'dart'],
       },
     }),
 };
