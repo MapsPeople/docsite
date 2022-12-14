@@ -137,6 +137,52 @@ Replace "REPLACE" with the name of your collection. Your menu should now appear 
 
 Eleventy uses Markdown ([cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)) for rendering posts to html.
 
+### Important Notes to Avoid Crashes
+
+Because Docusaurus uses .mdx files instead of regular markdown, there are a few things to keep in mind, as it has some hiccups in behaviour at times. `Tabs` and `TabItems` in particular can cause problems.
+
+1. Remember to import the tab functionality on each individual page!
+
+```javascript
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
+2. It is very important to include newline-characters between the tab and the content, else the engine cannot distinguish the difference.
+
+```javascript
+<TabItem value="kotlin" label="Kotlin">
+
+```kotlin
+class MapsActivity : FragmentActivity(), OnMapReadyCallback, OnRouteResultListener
+```
+
+</TabItem>
+```
+
+3. You cannot indent `TabItem`, both `Tab` and `TabItem` must be in the first column. This also applies to the 3 backticks indicating the start of a codeblock, it must start at the first column, else it will not render correctly.
+
+```javascript
+
+<Tabs groupId="getting-started-android-directions">
+<TabItem value="java" label="Java" default>
+
+```java
+private Point mUserLocation = new Point(38.897389429704695, -77.03740973527613,0);
+```
+
+</TabItem>
+<TabItem value="kotlin" label="Kotlin">
+
+```kotlin
+private val mUserLocation: Point = Point(38.897389429704695, -77.03740973527613, 0.0)
+```
+
+</TabItem>
+</Tabs>
+
+```
+
 #### Linting Markdown
 
 To ensure consistency throughout the Markdown-files, we use a linter. The best linter for VS Code is the extension with the telling name "[VS Code Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)".
