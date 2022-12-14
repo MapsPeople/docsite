@@ -1,9 +1,6 @@
 ---
-title: Getting Started with Android
-toc: true
-eleventyNavigation:
-  title: Getting Started with Android
-  key: getting-started-android
-  parent: getting-started
-  order: 100
+title: Android
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 1
 ---
