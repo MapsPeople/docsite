@@ -2,7 +2,7 @@
 title: iOS
 hide_title: false
 hide_table_of_contents: false
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 In this tutorial, you will build your own app from the ground up, gaining experience with the typical development process when working with the MapsIndoors Software Development Kit (SDK). Furthermore, you should be able to gain an understanding of the basic concepts, tools and terminology commonly used when interacting with the SDK. The goal of this guide is to enable you to develop a basic app, that is able to display a map, and incorporate a few basic features such as searching, directions and Live Data integration.
