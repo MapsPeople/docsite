@@ -1,12 +1,12 @@
 ---
 title: Integrating MapsIndoors into your own App
-toc: true
-eleventyNavigation:
-  parent: getting-started-ios
-  key: getting-started-ios-mapsindoors-template
-  title: Integrating MapsIndoors into your own App
-  order: 9999
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 99
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 The **MapsIndoors Template** is a downloadable starting point for you to integrate basic usage of MapsIndoors, containing search and directions functionalities, into your existing app. If you just want to get started with a simple solution with no customisation, this should fulfil your needs. Going through this guide will also teach you some principles on how MapsIndoors interacts with an app, and is a natural next step after the "Getting Started" guides.
 
@@ -59,8 +59,12 @@ This project is specifically built so you can easily re-use this functionality i
 * Look at `ViewController.swift` for an example of how to initialize the MapsIndoors SDK and use the **MapsIndoors Template** implementation in an UIKit app. The `ViewController.swift` reads the API keys retrieved as described above from the file `MapsIndoors-Info.plist`
 * Update your podfile so it matches the podfile in the MapsIndoors **MapsIndoors Template**
 
-<!-- Known Issues -->
-{% include "src/content/shared/known-issues-ios.md" %}
+:::danger Known iOS issues
+
+1. Developing on the new Arm-based Apple Silicon (M1) Macs requires building and running on a physical iOS device or using an iOS simulator running iOS 13.7, e.g. iPhone 11. This is a temporary limitation in Google Maps SDK for iOS, and as such also a limitation in MapsIndoors, due to the dependency to Google Maps.
+1. Due to [a bug in CocoaPods](https://github.com/CocoaPods/CocoaPods/issues/7155) it is necessary to include the `post_install` hook in your Podfile described in the [PodFile post_install](https://github.com/MapsIndoors/MapsIndoorsIOS/wiki/Podfile-post_install) wiki.
+
+:::
 
 ### The Final Result
 
