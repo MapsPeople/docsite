@@ -1,12 +1,12 @@
 ---
 title: Application User Roles
-toc: true
-eleventyNavigation:
-    key: map-displaying-objects-app-user-roles
-    parent: map-displaying-objects
-    title: Application User Roles
-    order: 1000
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 3
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 _Application User Roles_ are a feature that lets you define various roles you can assign to your users, or they can choose between themselves.
 
@@ -22,11 +22,25 @@ Click `Add App User Role` and enter the name of the newly created Role in all de
 
 Assigning or changing App User Roles to users is done in the app itself. The method depends on which platform you're developing for. Here are some examples:
 
-<mi-tabs>
-<mi-tab label="iOS" tab-for="iOS"></mi-tab>
-<mi-tab label="Android" tab-for="Android"></mi-tab>
-<mi-tab label="Web" tab-for="Web"></mi-tab>
-<mi-tab-panel id="iOS">
+<Tabs groupId="live-data-practice">
+<TabItem value="android" label="Android" default>
+
+To fetch User Roles from the SDK, you call `MapsIndoors.getUserRoles()` to retrieve a collection of `MPUserRoles` tied to a loaded solution:
+
+```java
+final List<MPUserRole> cmsUserRoles = MapsIndoors.getUserRoles().getUserRoles();
+```
+
+To set User Roles, `applyUserRoles` is used:
+
+```java
+MapsIndoors.applyUserRoles(savedUserRoles);
+```
+
+> For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/reference/android/v3/index.html).
+
+</TabItem>
+<TabItem value="ios" label="iOS">
 
 You get the available Roles with help of the `MPSolutionProvider`:
 
@@ -47,25 +61,8 @@ User roles can also be set for a specific direction query using `DirectionsQuery
 
 > For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_solution_provider.html).
 
-</mi-tab-panel>
-<mi-tab-panel id="Android">
-
-To fetch User Roles from the SDK, you call `MapsIndoors.getUserRoles()` to retrieve a collection of `MPUserRoles` tied to a loaded solution:
-
-```java
-final List<MPUserRole> cmsUserRoles = MapsIndoors.getUserRoles().getUserRoles();
-```
-
-To set User Roles, `applyUserRoles` is used:
-
-```java
-MapsIndoors.applyUserRoles(savedUserRoles);
-```
-
-> For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/reference/android/v3/index.html).
-
-</mi-tab-panel>
-<mi-tab-panel id="Web">
+</TabItem>
+<TabItem value="Web" label="web">
 
 To get the available Roles in the Web SDK, you use `SolutionsService`:
 
@@ -83,8 +80,8 @@ mapsindoors.MapsIndoors.setUserRoles(['myUserRoleId']);
 
 > For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/mapsindoors.MapsIndoors.html#.setUserRoles).
 
-</mi-tab-panel>
-</mi-tabs>
+</TabItem>
+</Tabs>
 
 ## Features Affected by App User Roles
 
@@ -92,7 +89,7 @@ The App User Roles are useful for setting limits on who can find certain Locatio
 
 For any Location defined on the map, there is a menu named `Restrictions`, where you are presented with options for limiting functionality certain App User Roles.
 
-![app-user-role-restrictions](/assets/various/app-user-role-restrictions.png)
+<img src="/img/map/app-user-role-restrictions.png" alt="app user role restrictions" width="600"/>
 
 * **Open for all** - All users can view, search for, and get directions to this Location.
 * **Open for specific App User Roles** - Select which App User Roles have access to viewing, searching and getting directions to this specific Location.
