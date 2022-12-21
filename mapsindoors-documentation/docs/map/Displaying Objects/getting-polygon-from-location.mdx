@@ -1,16 +1,15 @@
 ---
 title: Getting a Polygon from a Location
-eleventyNavigation:
-  key: map-displaying-objects-polygon-from-location
-  parent: map-displaying-objects
-  title: Getting a Polygon from a Location
-  order: 221
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 3
 ---
 
-<mi-tabs>
-<mi-tab label="Android" tab-for="android"></mi-tab>
-<mi-tab label="iOS" tab-for="ios"></mi-tab>
-<mi-tab-panel id="android">
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="display-rules">
+<TabItem value="android" label="Android" default>
 
 Some locations in MapsIndoors can have additional polygon information. These polygons can be used to render a room or area in a special way or make geofences, calculating whether another point or location is contained within the polygon. If a `MPLocation` has polygons, these can be retrieved using:
 
@@ -48,11 +47,8 @@ when (geometry.iType) {
 
 As demonstrated above, a polygon's outer ring/path as well as holes are arranged as [longitude, latitude] pairs. As not all locations has polygons, the polygon array may be empty. On the contrary, some locations, like entire building floors, might have more than polygon.
 
-</mi-tab-panel>
-<mi-tab-panel id="ios">
-
-<!-- Known Issues -->
-{% include "src/content/shared/known-issues-ios.md" %}
+</TabItem>
+<TabItem value="ios" label="iOS">
 
 Some locations in MapsIndoors can have additional polygon information. These polygons can be used to render a room or area in a special way or make geofences, calculating whether another point or location is contained within the polygon. If a `MPLocation` has polygons, these can be retrieved using the `MPGeometryHelper` class.
 
@@ -69,5 +65,5 @@ for coordinate in path {
 
 As demonstrated above, a polygon's outer ring/path as well as holes are arranged as [longitude, latitude] pairs. As not all locations has polygons, the polygon array may be empty. On the contrary, some locations, like entire building floors, might have more than polygon.
 
-</mi-tab-panel>
-</mi-tabs>
+</TabItem>
+</Tabs>

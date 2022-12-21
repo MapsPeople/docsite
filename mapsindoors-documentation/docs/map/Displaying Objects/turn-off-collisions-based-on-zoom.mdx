@@ -1,20 +1,17 @@
 ---
 title: Turn Off Collisions Based on Zoom Level
-toc: true
-eleventyNavigation:
-    key: map-displaying-objects-turn-off-collision-based-on-zoom
-    parent: map-displaying-objects
-    title: Turn Off Collisions Based on Zoom Level
-    order: 1100
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 5
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 When using the MapsIndoors SDK, the system for detecting collisions will sometimes, at high zoom levels, result in the Labels of POI's that are close together being hidden, no matter what you do. Here we present a small workaround, so you can disable collisions for specific zoom levels.
 
-<mi-tabs>
-<mi-tab label="Android" tab-for="Android"></mi-tab>
-<mi-tab label="iOS" tab-for="iOS"></mi-tab>
-<mi-tab label="Web" tab-for="Web"></mi-tab>
-<mi-tab-panel id="Android">
+<Tabs groupId="display-rules">
+<TabItem value="android" label="Android" default>
 
 For Android, there are two ways of implementing this, and which you should use depends on your desired map behavior.
 
@@ -78,8 +75,8 @@ mMapBoxMap?.addOnMoveListener(object : OnMoveListener {
 })
 ```
 
-</mi-tab-panel>
-<mi-tab-panel id="iOS">
+</TabItem>
+<TabItem value="ios" label="iOS">
 
 > Please note that v3 of the MapsIndoors iOS SDK only uses **Google Maps**.
 
@@ -111,8 +108,8 @@ func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D)
 }
 ```
 
-</mi-tab-panel>
-<mi-tab-panel id="Web">
+</TabItem>
+<TabItem value="web" label="Web">
 
 > Please note that on Web it is only possible to do this when using **Mapbox** as a map provider.
 
@@ -128,5 +125,5 @@ mapView.on('zoom_changed', () => {
 });
 ```
 
-</mi-tab-panel>
-</mi-tabs>
+</TabItem>
+</Tabs>

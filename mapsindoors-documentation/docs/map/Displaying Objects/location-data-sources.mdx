@@ -1,16 +1,15 @@
 ---
 title: Location Data Sources
-eleventyNavigation:
-  parent: map-displaying-objects
-  key: map-displaying-objects-location-sources
-  title: Location Data Sources
-  order: 40
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 3
 ---
 
-<mi-tabs>
-<mi-tab label="Android" tab-for="android"></mi-tab>
-<mi-tab label="iOS" tab-for="ios"></mi-tab>
-<mi-tab-panel id="android">
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="display-rules">
+<TabItem value="android" label="Android" default>
 
 In this tutorial we will show how you can build a custom Location Source, representing locations of robot vacuums. The robots locations will be served from a mocked list and displayed on a map.
 
@@ -205,11 +204,8 @@ fun updateLocations() {
 
 [See the samples in the locationsources folder](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/MapsIndoorsSamples/app/src/main/java/com/mapspeople/mapsindoorssamples/ui/locationsources)
 
-</mi-tab-panel>
-<mi-tab-panel id="ios">
-
-<!-- Known Issues -->
-{% include "src/content/shared/known-issues-ios.md" %}
+</TabItem>
+<TabItem value="ios" label="iOS">
 
 ## The Concepts
 
@@ -579,5 +575,5 @@ override func viewDidDisappear(_ animated: Bool) {
 
 [See the sample in LocationSourcesController.swift](https://github.com/MapsIndoors/MapsIndoorsIOS/blob/master/Example/DemoSamples/Location%20Sources/LocationSourcesController.swift)
 
-</mi-tab-panel>
-</mi-tabs>
+</TabItem>
+</Tabs>

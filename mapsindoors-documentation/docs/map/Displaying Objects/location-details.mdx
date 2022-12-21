@@ -1,15 +1,15 @@
 ---
 title: Location Details
-eleventyNavigation:
-  parent: map-displaying-objects
-  key: map-displaying-objects-location-details
-  title: Location Details
-  order: 100
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 3
 ---
-<mi-tabs>
-<mi-tab label="Android" tab-for="android"></mi-tab>
-<mi-tab label="iOS" tab-for="ios"></mi-tab>
-<mi-tab-panel id="android">
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="display-rules">
+<TabItem value="android" label="Android" default>
 
 This is an example of displaying some details of a MapsIndoors location
 
@@ -80,11 +80,8 @@ A `TextView` will now appear when a user selects a location and it will disapear
 
 [See the sample in LocationDetailsFragment.kt](https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/MapsIndoorsSamples/app/src/main/java/com/mapspeople/mapsindoorssamples/ui/locationdetails/LocationDetailsFragment.kt)
 
-</mi-tab-panel>
-<mi-tab-panel id="ios">
-
-<!-- Known Issues -->
-{% include "src/content/shared/known-issues-ios.md" %}
+</TabItem>
+<TabItem value="ios" label="iOS">
 
 This is an example of displaying some details of a MapsIndoors location
 
@@ -166,5 +163,5 @@ func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D)
 
 [See the sample in LocationDetailsController.swift](https://github.com/MapsIndoors/MapsIndoorsIOS/blob/master/Example/DemoSamples/Location%20Details/LocationDetailsController.swift)
 
-</mi-tab-panel>
-</mi-tabs>
+</TabItem>
+</Tabs>
