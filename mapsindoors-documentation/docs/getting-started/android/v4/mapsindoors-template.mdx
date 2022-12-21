@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 The **MapsIndoors Template** is a downloadable starting point for you to integrate basic usage of MapsIndoors, containing search and directions functionalities, into your existing app. If you just want to get started with a simple solution with no customisation, this should fulfil your needs. Going through this guide will also teach you some principles on how MapsIndoors interacts with an app, and is a natural next step after the "Getting Started" guides.
 
-If you need more customisation you can implementing your own solution using the documentation found [here]({{site.url}}/content/map/), or modify this code as needed.
+If you need more customisation you can implementing your own solution using the documentation found [here](/map/), or modify this code as needed.
 
 **MapsIndoors Template** is provided as is, and can be integrated into your existing app. If you need further features, or want to customize existing ones, you're free to modify this one to your needs. However, MapsPeople offers no support or responsibility for changes made.
 
@@ -20,7 +20,7 @@ Before you get started, you need to get the API keys needed. This process is the
 
 ### Get Your Google Maps API key
 
-First, you need to [setup at a new project in the Google Cloud Console](https://developers.google.com/maps/gmp-get-started), just like you did in the ["Getting Started"]({{site.url}}/content/getting-started/android) guide (**Please note:** You are going to need a Google Billing Account for this step, so go ahead and [create one](https://cloud.google.com/billing/docs/how-to/manage-billing-account#create_a_new_billing_account) if you haven't already). When the project is created, the following APIs and the specific SDK you plan to use must be enabled from the [Maps API Library Page](https://console.cloud.google.com/apis/library?filter=category:maps).
+First, you need to [setup at a new project in the Google Cloud Console](https://developers.google.com/maps/gmp-get-started), just like you did in the ["Getting Started"](/getting-started/android) guide (**Please note:** You are going to need a Google Billing Account for this step, so go ahead and [create one](https://cloud.google.com/billing/docs/how-to/manage-billing-account#create_a_new_billing_account) if you haven't already). When the project is created, the following APIs and the specific SDK you plan to use must be enabled from the [Maps API Library Page](https://console.cloud.google.com/apis/library?filter=category:maps).
 
 * Google Maps Distance Matrix API
 * Google Maps Directions API
@@ -72,7 +72,7 @@ Material 1.5 is used for this app. If another version is used some UI elements m
 
 * Copy the layout and drawables from the `res` folder into your app
 * Copy the `String` values from `res/values` into your app
-* Copy the `google_maps_api.xml` file to your project and insert a valid Google Maps API key - [See more info on how to do that here.]({{site.url}}/content/getting-started/android/prerequisites/)
+* Copy the `google_maps_api.xml` file to your project and insert a valid Google Maps API key - [See more info on how to do that here.](/getting-started/android/prerequisites/)
 * Add the API key to the manifest file under the `Application` tag like so:
 
 ```json
