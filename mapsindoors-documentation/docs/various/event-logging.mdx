@@ -1,0 +1,52 @@
+---
+title: Event Logging
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 6
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+The MapsIndoors SDK records anonymous usage statistics and diagnostic events per default and sends the logged data to a server at MapsPeople.
+
+Logging may be disabled entirely by calling:
+
+<Tabs groupId="various-event-logging">
+<TabItem value="android" label="Android" default>
+
+<Tabs>
+<TabItem value="java" label="Java" default>
+
+```java
+MapsIndoors.disableEventLogging(true);
+```
+
+</TabItem>
+<TabItem value="kotlin" label="Kotlin">
+
+```kotlin
+MapsIndoors.disableEventLogging(true)
+```
+
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+<TabItem value="ios" label="iOS">
+
+:::danger Known iOS Issues
+
+1. Developing on the new Arm-based Apple Silicon (M1) Macs requires building and running on a physical iOS device or using an iOS simulator running iOS 13.7, e.g. iPhone 11. This is a temporary limitation in Google Maps SDK for iOS, and as such also a limitation in MapsIndoors, due to the dependency to Google Maps.
+1. Note: Due to [a bug in CocoaPods](https://github.com/CocoaPods/CocoaPods/issues/7155) it is necessary to include the `post_install` hook in your Podfile described in the [PodFile post_install](https://github.com/MapsIndoors/MapsIndoorsIOS/wiki/Podfile-post_install) wiki.
+
+:::
+
+```swift
+MapsIndoors.eventLoggingDisabled = true
+```
+
+
+</TabItem>
+</Tabs>
