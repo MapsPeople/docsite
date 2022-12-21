@@ -1,11 +1,8 @@
 ---
 title: Introduction to Display Rules
-toc: true
-eleventyNavigation:
-    key: map-map-styling-display-rules-intro
-    parent: map-map-styling
-    title: Introduction to Display Rules
-    order: 10
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 1
 ---
 
 ## What Are Display Rules?
@@ -28,9 +25,9 @@ In each MapsIndoors SDK, a "Main Display Rule" outlines a list of sensible defau
 
 Each Location (Room, Area or POI) uses the Display Rule from the Type, except for values that are specifically set for the individual Location.
 
-Here's a visualization of the inheritance principle (click to view larger version):
+Here's a visualization of the inheritance principle:
 
-[![Display Rules inheritance principle]({{ "/assets/various/display-rule-inheritance.png" | url }})]({{ "/assets/various/display-rule-inheritance.png" | url }})
+<img src="/img/map/display-rule-inheritance.png" alt="Display Rule Inheritance" width="900"/>
 
 As an example, you might want all polygons to be `red`. However, the Location Type for "Meeting Room" specifies that their polygons should be `blue`, while the "Executive Meeting Room" Location specifically has an `orange` polygon.
 
@@ -50,7 +47,7 @@ In the CMS, you can edit your Display Rules in `Solution Details > Types > Edit 
 
 ### General
 
-![display-rules-general](/assets/map/display-rules/Display_Rules_General.png)
+<img src="/img/map/Display_Rules_General.png" alt="Display Rules" width="600"/>
 
 The "General" visibility switch determines whether Locations of this Type are visible on the map. Moreover, the Location data is not available to the SDKs when the general visibility is turned off. The system will accept a Boolean here, so either `true` or `false`.
 
@@ -68,7 +65,7 @@ An example of in-app Display Rules using only the General Visibility option coul
 
 ### Icon
 
-![display-rules-icon](/assets/map/display-rules/Display_Rules_Icon.png)
+<img src="/img/map/Display_Rules_Icon.png" alt="Display Rules" width="600"/>
 
 The "Icon" section contains options related to the appearance of the Icon.
 
@@ -104,7 +101,7 @@ An example of in-app Display Rules using only "Icon" Display Rules could look li
 
 ### Label
 
-![display-rules-label](/assets/map/display-rules/Display_Rules_Label.png)
+<img src="/img/map/Display_Rules_Label.png" alt="Display Rules" width="600"/>
 
 The "Label" section contains options related to the appearance of the Label. The Label is the text associated with the Location on the map, often positioned next to the Icon.
 
@@ -140,7 +137,7 @@ An example of in-app Display Rules using only "Label" Display Rules could look l
 
 ### Polygon
 
-![display-rules-polygon](/assets/map/display-rules/Display_Rules_Polygon.png)
+<img src="/img/map/Display_Rules_Polygon.png" alt="Display Rules" width="600"/>
 
 Polygons are independent from tiles. Tiles are drawn by MapsPeople and overlaid onto the mapping provider. Polygons are an overlay with customisable attributes that are then overlaid on top of the Tiles. Therefore, while you can edit the "Polygon" attributes of a Location connected to a Tile, be that an Area or a Room, you need to account for attributes such as the opacity of the Polygon in the resulting appearance. It is not currently possible to override the appearance of Tiles.
 

@@ -1,0 +1,109 @@
+---
+title: Display Language
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 3
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+The language of MapsIndoors is independent of the chosen language on the device on which the app is used. This means that you need to explicitly tell MapsIndoors which language to use.
+
+If you do not specify a language, MapsIndoors will show information in the default language defined in the MapsIndoors CMS. Likewise, if you specify a language that is not supported, MapsIndoors will also show information in the default language.
+
+Additionally, aside from methods mentioned here, you can provide translations via the standard method for your device, such as using individual localized strings.
+
+## Configuring POI translations in CMS
+
+To provide multiple languages for items in the MapsIndoors CMS, such as "Meeting Room" or "Restroom", the translation must be provided by the user in the CMS. A translation can be provided in any language. In order to add support for additional languages that we currently do not support, please contact your MapsIndoors representative, and we will enable you to add translations in your desired language.
+
+Once your language of choice has been created, you can add the translation by clicking on any POI, which will open a menu on the left side of the screen. Here, you will see the following menu point, where you can enter translations for the languages you wish. If a field is left empty, the fallback language is English. In the example below, English (en) and Danish (da) are the enabled languages.
+
+<img src="/img/map/cms-languages.PNG" alt="Languages in the CMS" width="450"/>
+
+## Use Fixed Language
+
+The MapsIndoors language can be fixed to a specific language by supplying an [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), for example French:
+
+<Tabs groupId="display-rules">
+<TabItem value="android" label="Android" default>
+
+<Tabs groupId="display-rules-platform">
+<TabItem value="java" label="Java" default>
+
+```java
+MapsIndoors.setLanguage("fr");
+```
+
+
+</TabItem>
+<TabItem value="kotlin" label="Kotlin" default>
+
+```kotlin
+MapsIndoors.setLanguage("fr")
+```
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+<TabItem value="ios" label="iOS">
+
+```swift
+MapsIndoors.setLanguage("fr");
+```
+
+</TabItem>
+</Tabs>
+
+## Use Device Language
+
+The MapsIndoors language can be aligned with the device language by supplying the current language code of the device:
+
+<Tabs groupId="display-rules">
+<TabItem value="android" label="Android" default>
+
+<Tabs groupId="display-rules-platform">
+<TabItem value="java" label="Java" default>
+
+```java
+String languageCode = getResources().getConfiguration().getLocales().get(0).getLanguage();
+MapsIndoors.setLanguage(languageCode);
+```
+
+</TabItem>
+<TabItem value="kotlin" label="Kotlin" default>
+
+```kotlin
+val lang = resources.configuration.locales[0].language
+MapsIndoors.setLanguage(lang)
+```
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+<TabItem value="ios" label="iOS">
+
+
+```swift
+let languageCode = Locale.current.languageCode
+MapsIndoors.setLanguage(languageCode!);
+```
+
+</TabItem>
+<TabItem value="web" label="Web">
+
+The web-app will automatically adjust the language to the language set in the user's browser settings, otherwise default to English. When using Safari, the device's language setting will be used. This is limited to the following languages, and will default to English if the selected language is not supported:
+
+* English
+* Danish
+* Spanish
+* Portuguese
+* Italian
+* French
+
+
+</TabItem>
+</Tabs>

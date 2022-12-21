@@ -1,11 +1,12 @@
 ---
 title: Display Rules in Practice
-eleventyNavigation:
-  key: map-map-styling-display-rules-practice
-  parent: map-map-styling
-  title: Display Rules in Practice
-  order: 20
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 2
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 There are two ways to change the appearance of the map content in MapsIndoors and Google Maps.
 
@@ -14,12 +15,11 @@ There are two ways to change the appearance of the map content in MapsIndoors an
 
 Each has its own purpose which will be explained below.
 
-<mi-tabs>
-<mi-tab label="Android - Java" tab-for="android-java"></mi-tab>
-<mi-tab label="Android - Kotlin" tab-for="android-kotlin"></mi-tab>
-<mi-tab label="iOS" tab-for="ios"></mi-tab>
-<mi-tab label="Web" tab-for="web"></mi-tab>
-<mi-tab-panel id="android-java">
+<Tabs groupId="display-rules">
+<TabItem value="android" label="Android" default>
+
+<Tabs groupId="display-rules-platform">
+<TabItem value="java" label="Java" default>
 
 ## Style the Map using Display Rules
 
@@ -128,8 +128,8 @@ When styling the map in Mapbox make sure to add the style on the map before crea
 mapboxMap.loadStyleUri(Style.MAPBOX_STREETS);
 ```
 
-</mi-tab-panel>
-<mi-tab-panel id="android-kotlin">
+</TabItem>
+<TabItem value="kotlin" label="Kotlin" default>
 
 ## Style the Map using Display Rules with Kotlin
 
@@ -231,11 +231,11 @@ When styling the map in Mapbox make sure to add the style on the map before crea
 mapboxMap.loadStyleUri(Style.MAPBOX_STREETS)
 ```
 
-</mi-tab-panel>
-<mi-tab-panel id="ios">
+</TabItem>
+</Tabs>
 
-<!-- Known Issues -->
-{% include "src/content/shared/known-issues-ios.md" %}
+</TabItem>
+<TabItem value="ios" label="iOS">
 
 ## Style the Map using Display Rules on iOS
 
@@ -511,8 +511,10 @@ At this point you should be able to run this view controller in your own applica
 
 [See the sample in ChangeDisplaySettingController.swift](https://github.com/MapsIndoors/MapsIndoorsIOS/blob/master/Example/DemoSamples/Change%20Display%20Setting/ChangeDisplaySettingController.swift)
 
-</mi-tab-panel>
-<mi-tab-panel id="web">
+
+</TabItem>
+<TabItem value="web" label="Web">
+
 
 To get an overview of what Display Rules are and can be used for, read the [Display Rules Introduction]({{ "/various/display-rules" | url }}) first.
 
@@ -571,5 +573,5 @@ mapsIndoors.setDisplayRule('c66dccd480624c428ea5b78d', null);
 mapsIndoors.setDisplayRule(['c66dccd480624c428ea5b780', 'c66dccd480624c428ea5b79c','c66dccd480624c428ea5b76a', ...], null);
 ```
 
-</mi-tab-panel>
-</mi-tabs>
+</TabItem>
+</Tabs>
