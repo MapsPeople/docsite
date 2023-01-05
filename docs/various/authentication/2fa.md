@@ -9,7 +9,6 @@ sidebar_position: 98
 
 You can enable 2-Factor Authentication (2FA) in the MapsIndoors CMS. Click the avatar in the top-right corner, and click on "Settings". Follow the instructions to enable 2FA.
 
-
 <img src="/img/various/2fa.png" alt="A screenshot of how to enable 2FA" width="900"/>
 
 ## Disabling 2FA

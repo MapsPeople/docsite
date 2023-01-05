@@ -10,7 +10,7 @@ const config = {
   tagline: 'We build maps, so you don\'t have to',
   url: 'https://docs.mapsindoors.com/',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/MapsPeople_RGB_Bomærke_Petrol.svg',
 

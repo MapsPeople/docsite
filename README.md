@@ -148,7 +148,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 ```
 
-2. It is very important to include newline-characters between the tab and the content, else the engine cannot distinguish the difference.
+1. It is very important to include newline-characters between the tab and the content, else the engine cannot distinguish the difference.
 
 ```javascript
 <TabItem value="kotlin" label="Kotlin">
@@ -160,7 +160,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, OnRouteResultListen
 </TabItem>
 ```
 
-3. You cannot indent `TabItem`, both `Tab` and `TabItem` must be in the first column. This also applies to the 3 backticks indicating the start of a codeblock, it must start at the first column, else it will not render correctly.
+1. You cannot indent `TabItem`, both `Tab` and `TabItem` must be in the first column. This also applies to the 3 backticks indicating the start of a codeblock, it must start at the first column, else it will not render correctly.
 
 ```javascript
 
@@ -190,19 +190,19 @@ Two rules are turned off specifically:
 * [MD013 - Line length](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md#md013)
 * [MD033 - No inline HTML](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md#md033)
 
-# Website
+## Website
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
 ### Installation
 
-```
+```bash
 $ yarn
 ```
 
 ### Local Development
 
-```
+```bash
 $ yarn start
 ```
 
@@ -210,7 +210,7 @@ This command starts a local development server and opens up a browser window. Mo
 
 ### Build
 
-```
+```bash
 $ yarn build
 ```
 
@@ -220,13 +220,13 @@ This command generates static content into the `build` directory and can be serv
 
 Using SSH:
 
-```
+```bash
 $ USE_SSH=true yarn deploy
 ```
 
 Not using SSH:
 
-```
+```bash
 $ GIT_USER=<Your GitHub username> yarn deploy
 ```
 
