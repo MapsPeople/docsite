@@ -12,7 +12,7 @@ jobs:
       - name: Broken Link Check
         uses: technote-space/broken-link-checker-action@v2
         with:
-          TARGET: https://documentation.mapsindoors.com
+          TARGET: https://docsite.mapsindoors.com
           EXCLUDED_KEYWORDS: nuget, openid
           RECURSIVE: true
           RATE_LIMIT: 0
