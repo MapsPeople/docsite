@@ -2,8 +2,6 @@
 title: Integration API
 ---
 
-# Integration API
-
 ## Introduction and Getting Started
 
 From the MapsIndoors Integration API you can get, add, change and delete data related to your MapsIndoors Solution via a REST service.

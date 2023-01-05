@@ -2,8 +2,6 @@
 title: SDK Platform Support and Requirements
 ---
 
-# SDK Platform Support and Requirements
-
 The MapsIndoors SDK is a collection of software libraries, guides and documentation that enables developers to create applications with the indoor wayfinding capabilities facilitated by MapsIndoors from MapsPeople. MapsIndoors SDK is available on iOS, Android and Web platforms.
 
 ## Platform Requirements

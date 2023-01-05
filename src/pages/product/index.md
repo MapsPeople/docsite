@@ -2,8 +2,6 @@
 title: Product Overview
 ---
 
-# Product Overview
-
 MapsIndoors is an Indoor Navigation Platform and can be integrated into existing applications for mobile, desktop, and Kiosk, or as a standalone service.
 
 MapsIndoors consists of:
