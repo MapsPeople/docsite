@@ -35,8 +35,12 @@ const config = {
         docs: {
           routeBasePath: '/', // Serve the docs at the site's root
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          exclude: [
+            '**/_*.{js,jsx,ts,tsx,md,mdx}',
+            '**/_*/**',
+            '**/*.test.{js,jsx,ts,tsx}',
+            '**/__tests__/**',
+          ],
         },
         blog: false, // Optional: disable the blog plugin
         theme: {
