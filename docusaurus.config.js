@@ -61,22 +61,22 @@ const config = {
         },
         items: [
           {
-            href: 'https://github.com/mapspeople',
+            to: 'https://github.com/mapspeople',
             label: 'GitHub',
             position: 'right',
           },
           {
-            href: 'https://mapspeople.com/support',
+            to: 'https://mapspeople.com/support',
             label: 'Support Center',
             position: 'right',
           },
           {
-            href: 'https://blog.mapspeople.com/tag/product',
+            to: 'https://blog.mapspeople.com/tag/product',
             label: 'Product Blog',
             position: 'right',
           },
           {
-            href: 'https://cms.mapsindoors.com/',
+            to: 'https://cms.mapsindoors.com/',
             label: 'MapsIndoors CMS',
             position: 'right',
           },
