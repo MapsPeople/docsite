@@ -77,7 +77,7 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
 
 8. Wait 5-10 minutes for the back-end dark magic to do it's thing.
 
-6. Go to [docs.mapsindoors.com](https://docs.mapsindoors.com) to see your new page live!
+9. Go to [docs.mapsindoors.com](https://docs.mapsindoors.com) to see your new page live!
 
 ### Markdown
 
