@@ -16,55 +16,53 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
 
 * Node JS version 16 or higher (as of 14th December 2022, check Docusaurus requirements to ensure up to date)
 
-#### Clone repository and run Eleventy
+#### Clone repository and run Docusaurus
 
-1. Clone this repository to your machine:
+1. Clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/):
 
     ```bash
-    git clone git@github.com:MapsPeople/docs
-    cd docs
+    git clone git@github.com:MapsPeople/docsite
+    cd docsite
     ```
 
-1. Install dependencies
+1. Install dependencies from the terminal in your code editor, such as [VS Code](https://code.visualstudio.com/).
 
     ```bash
     npm i
     ```
 
-1. Run Docusaurus
+1. Run Docusaurus from your terminal
 
     ```bash
-    cd mapsindoors-documentation
     npm run start
     ```
 
-1. Open <http://localhost:3000>
+1. Open <http://localhost:3000> (if it does not open automatically).
 
 ### Create a new page
 
-1. Create a feature branch:
+1. Create a new feature branch using the CLI or a Git client:
 
     ```bash
     git checkout -b feature/teleportation-guide
     ```
 
-2. Copy an existing `.md`-file from e.g. `./ios/v3/search/` to `./ios/v3/teleportation/`.
-3. The [Front matter](https://jekyllrb.com/docs/step-by-step/03-front-matter/) at the top of the file only needs to things; `title` and `eleventyNavigation`:
+2. Copy an existing `.md`- or `mdx`-file from e.g. `./docs/search/` to `./docs/directions/teleportation/`. As long as it is inside `./docs/`, you can place your new file (or folder) anywhere!
+3. The [Front matter](https://jekyllrb.com/docs/step-by-step/03-front-matter/) at the top of the file has various things that can be included, but most files will look something like this:
 
     ```yaml
     ---
-    title: Teleportation
-    eleventyNavigation:
-        key: Teleportation
-        parent: ios-v3-teleportation
-        order: 420
+    title: Teleportation Guide
+    hide_title: false
+    hide_table_of_contents: false
+    sidebar_position: 2
     ---
     ```
 
-    `tags` and `layout` are defined in the `*.json`-files named after their parent folders to avoid having to write it for every file.
+`hide_table_of_contents` may sometimes be set to `true` (and therefore hidden) if it seems too cluttered, and `sidebar_position` determines the order of articles in the sidebar on the left of the page.
 
 4. Navigate to your new page to check it out.
-5. If all looks well, use `git` to add, commit and push your new page:
+5. If all looks well, use the CLI or a Git client to add, commit and push your new page:
 
     ```bash
     git status
@@ -73,75 +71,23 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
     git push -u origin feature/teleportation-guide
     ```
 
-6. Go to [docs.mapsindoors.com](https://docs.mapsindoors.com) to see your new page live.
+6. Create a Pull Request on Github, to merge your `feature/teleportation-guide` branch into `main`. Be sure to get someone to review your work!
 
-#### Create a new root folder
+7. Once approved, merge your `feature/teleportation-guide` branch into `main`.
 
-You might need to add a new folder alongside the existing "Map", "Searching", "Data" and "Directions" folders. In order to ensure that the exisiting templates are applied correctly, and that these folders can feature in, for example, the sidebar and footer, there are some steps you must take.
+8. Wait 5-10 minutes for the back-end dark magic to do it's thing.
 
-If in doubt for any of these steps, take a look at how it's already done in `.eleventy.js`, `sidebar.njk` and `footer.njk`.
-
-1. In `.eleventy.js`, add the following lines of code:
-
-```js
-eleventyConfig.addCollection("REPLACE", function (collectionApi) {
-        return collectionApi.getFilteredByTags("REPLACE");
-    });
-```
-
-This creates a "collection", which gathers all the files under this new root folder to a combined entity. Replace "REPLACE" with whatever you wish to name your collection, often the same as the name of the folder.
-
-1. In `sidebar.njk`, to ensure your new folder displays a sidebar, add the following code:
-
-```html
-{% if '/REPLACE' in page.url %}
-    <p class="sidebar__header"><a href="/replace/">REPLACE</p>
-    {% set navPages = collections.published | eleventyNavigation("REPLACE") %}
-  {% endif %}
-```
-
-Replace "REPLACE" with the name of the collection to created in Step 1.
-
-1. Lastly, you might want to ensure that your new menu features in the footer as well. To do this, insert the following code in `footer.njk`
-
-```html
-    <h2>
-      <a href="/REPLACE/">REPLACE</a>
-    </h2>
-    <ul class="list">
-      {% set REPLACE = collections.published | eleventyNavigation("REPLACE") %}
-      {%- for entry in REPLACE %}
-        {{ renderNavListItem(entry) }}
-      {%- endfor -%}
-    </ul>
-```
-
-Replace "REPLACE" with the name of your collection. Your menu should now appear in the footer as well.
-
-#### Tips
-
-1. Use feature-branches. That makes it much easier to review new tutorials before they're live.
-2. The folder structure determines the url structure of the page.
-3. The `*.json`-files named for their parent folders are used to inject data into the Markdown-files in that folder. That way you can set the template for all files without repeating yourself in each file's Front Matter, or set a tag on all pages to add it to a collection to set up navigation.
-4. If a page has the same `key` in `eleventyNavigation` as another page, we have a problem. You can override what is displayed in the sidebar by setting a `title` under `eleventyNavigation` and making the `key` something distinct.
-5. Creating a redirecting page
-
-    Set the front matter to the following:
-
-    ```markdown
-    layout: redirect
-    destination: /path/to/page/
-    ```
+9. Go to [docs.mapsindoors.com](https://docs.mapsindoors.com) to see your new page live!
 
 ### Markdown
 
-Eleventy uses Markdown ([cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)) for rendering posts to html.
+Docusaurus uses Markdown ([cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)) for rendering posts to html. Docusaurus also supports [.mdx files](https://mdxjs.com/docs/), which are based on Markdown, but also support more reactive components. Generally, it is only neccesary to use `.mdx` on pages needing the functionality, such as pages containing tabs, but there is no harm in making every page in the `.mdx` format.
 
 ### Important Notes to Avoid Crashes
 
-Because Docusaurus uses .mdx files instead of regular markdown, there are a few things to keep in mind, as it has some hiccups in behaviour at times. `Tabs` and `TabItems` in particular can cause problems.
+Because Docusaurus uses `.mdx` files instead of regular markdown, there are a few things to keep in mind, as it has some hiccups in behaviour at times. `Tabs` and `TabItems` in particular can cause problems.
 
-1. Remember to import the tab functionality on each individual page!
+1. Remember to import the tab functionality on each individual page! These two lines of code should go right below the front matter.
 
 ```javascript
 import Tabs from '@theme/Tabs';
@@ -185,49 +131,31 @@ private val mUserLocation: Point = Point(38.897389429704695, -77.03740973527613,
 
 To ensure consistency throughout the Markdown-files, we use a linter. The best linter for VS Code is the extension with the telling name "[VS Code Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)".
 
-Two rules are turned off specifically:
+These rules are turned off specifically:
 
+* [MD001 - Heading increment](https://github.com/DavidAnson/markdownlint/blob/main/doc/md001.md)
 * [MD013 - Line length](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md#md013)
+* [MD014 - Dollar signs used before commands without showing output](https://github.com/DavidAnson/markdownlint/blob/main/doc/md014.md)
+* [MD024 - No duplicate headers](https://github.com/DavidAnson/markdownlint/blob/main/doc/md024.md) - Depending on your how your Table of Contents is structured, you may want to turn this one on.
+* [MD026 - No trailing punctuation in headers](https://github.com/DavidAnson/markdownlint/blob/main/doc/md026.md)
 * [MD033 - No inline HTML](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md#md033)
+* [MD034 - No Bare URL's](https://github.com/DavidAnson/markdownlint/blob/main/doc/md034.md)
+* [MD041 - First line heading](https://github.com/DavidAnson/markdownlint/blob/main/doc/md041.md)
 
-## Website
+The full list of rules can be found [here](https://github.com/DavidAnson/markdownlint). While it shouldn't be neccesary, occaisionally strange errors may occur, and you will have to disable some rules in order to compile your code, and the formatting used doesn't have an alternative. Rules can be enabled/disabled in `.markdownlint.json`, like the following:
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
-
-### Installation
-
-```bash
-$ yarn
+```json
+{
+    "default": true,
+    "MD013": false,
+    "MD014": false,
+    "MD024": {
+        "siblings_only": true
+    },
+    "MD026": false,
+    "MD033": false,
+    "MD034": false,
+    "MD041": false,
+    "MD001": false
+}
 ```
-
-### Local Development
-
-```bash
-$ yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-### Build
-
-```bash
-$ yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-Using SSH:
-
-```bash
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```bash
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
