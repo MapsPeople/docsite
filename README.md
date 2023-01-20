@@ -16,7 +16,7 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
 
 * Node JS version 16 or higher (as of 14th December 2022, check Docusaurus requirements to ensure up to date)
 
-#### Clone repository and run Eleventy
+#### Clone repository and run Docusaurus
 
 1. Clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/):
 
@@ -131,7 +131,31 @@ private val mUserLocation: Point = Point(38.897389429704695, -77.03740973527613,
 
 To ensure consistency throughout the Markdown-files, we use a linter. The best linter for VS Code is the extension with the telling name "[VS Code Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)".
 
-Two rules are turned off specifically:
+These rules are turned off specifically:
 
+* [MD001 - Heading increment](https://github.com/DavidAnson/markdownlint/blob/main/doc/md001.md)
 * [MD013 - Line length](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md#md013)
+* [MD014 - Dollar signs used before commands without showing output](https://github.com/DavidAnson/markdownlint/blob/main/doc/md014.md)
+* [MD024 - No duplicate headers](https://github.com/DavidAnson/markdownlint/blob/main/doc/md024.md) - Depending on your how your Table of Contents is structured, you may want to turn this one on.
+* [MD026 - No trailing punctuation in headers](https://github.com/DavidAnson/markdownlint/blob/main/doc/md026.md)
 * [MD033 - No inline HTML](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md#md033)
+* [MD034 - No Bare URL's](https://github.com/DavidAnson/markdownlint/blob/main/doc/md034.md)
+* [MD041 - First line heading](https://github.com/DavidAnson/markdownlint/blob/main/doc/md041.md)
+
+The full list of rules can be found [here](https://github.com/DavidAnson/markdownlint). While it shouldn't be neccesary, occaisionally strange errors may occur, and you will have to disable some rules in order to compile your code, and the formatting used doesn't have an alternative. Rules can be enabled/disabled in `.markdownlint.json`, like the following:
+
+```json
+{
+    "default": true,
+    "MD013": false,
+    "MD014": false,
+    "MD024": {
+        "siblings_only": true
+    },
+    "MD026": false,
+    "MD033": false,
+    "MD034": false,
+    "MD041": false,
+    "MD001": false
+}
+```
