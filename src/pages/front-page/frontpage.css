@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
+
+body {
+  background: white url("/static/img/frontpage-bg.png") no-repeat fixed 50% 50%;
+}
+
+h1 {
+  font-family: 'Beatrice', Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+}
+
+.hero-text {
+  font-family: 'Beatrice', Arial, sans-serif;
+  font-size: 40px;
+  text-align: left;
+  color: #005655;
+}
+
+.description {
+  color: #005655;
+  font-family: 'Figtree', Arial, sans-serif;
+  font-size: 28px;
+}
+
+.left-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.left-button {
+  font-family: 'Figtree', Arial, sans-serif;
+  background-color: #005655;
+  color: white;
+  padding: 16px;
+  font-size: 24px;
+  border-radius: 50px;
+  border: none;
+  width: 180px;
+}
+
+.learn-more {
+  font-family: 'Beatrice', Arial, sans-serif;
+  color: #005655;
+}
+
+.learn-more-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  gap: 24px;
+}
+
+.learn-more-button {
+  font-family: 'Figtree', Arial, sans-serif;
+  background-color: white;
+  color: #005655;
+  padding: 16px;
+  font-size: 24px;
+  border-radius: 50px;
+  border-color: #005655;
+  width: 260px;
+  text-align: left;
+}
