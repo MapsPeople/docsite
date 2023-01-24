@@ -4,10 +4,6 @@ body {
   background: transparent url("/static/img/frontpage-bg-lighter-v2.png") no-repeat fixed 0% -30%;
 }
 
-h1 {
-  font-family: 'Beatrice', Arial, sans-serif;
-}
-
 .container {
   display: flex;
   align-items: center;
