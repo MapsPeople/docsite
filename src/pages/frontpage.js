@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '@theme/Layout';
-import './frontpage.css';
+import '/src/pages/front-page/frontpage.css';
 
 export default function frontPage() {
   return (
