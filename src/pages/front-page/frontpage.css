@@ -51,6 +51,10 @@ body {
   cursor:pointer;
 }
 
+.left-button:hover {
+  color: #cdff00;
+}
+
 .learn-more {
   font-family: 'Beatrice', Arial, sans-serif;
   color: #005655;
@@ -70,11 +74,17 @@ body {
   color: #005655;
   padding: 16px;
   font-size: 24px;
+  border-style: solid;
   border-radius: 50px;
   border-color: #005655;
   width: 260px;
   text-align: left;
   cursor:pointer;
+}
+
+.learn-more-button:hover {
+  background-color: #005655;
+  color: white;
 }
 
 .divider {
