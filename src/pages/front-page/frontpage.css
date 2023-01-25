@@ -55,6 +55,11 @@ body {
   color: #cdff00;
 }
 
+.left-button:active {
+  /* transform:scale(1.02); */
+  background-color: #003c3b;
+}
+
 .learn-more {
   font-family: 'Beatrice', Arial, sans-serif;
   color: #005655;
@@ -85,6 +90,11 @@ body {
 .learn-more-button:hover {
   background-color: #005655;
   color: white;
+}
+
+.learn-more-button:active {
+  /* transform:scale(1.02); */
+  background-color: #003c3b;
 }
 
 .divider {
