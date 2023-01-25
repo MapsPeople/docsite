@@ -49,6 +49,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      docs: {
+        sidebar: {
+          /* autoCollapseCategories: true, */
+        },
+      },
       colorMode: {
         /*below line disables ability to switch to dark mode*/
         disableSwitch: true,

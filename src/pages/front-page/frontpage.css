@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
+
+body {
+  background: transparent url("/static/img/frontpage-bg-lighter-v2.png") no-repeat fixed 0% -30%;
+}
+
+.front-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 256px 128px 256px 128px;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+
+.hero-text {
+  font-family: 'Beatrice', Arial, sans-serif;
+  font-size: 40px;
+  text-align: left;
+  color: #005655;
+}
+
+.description {
+  color: #005655;
+  font-family: 'Figtree', Arial, sans-serif;
+  font-size: 28px;
+}
+
+.left-buttons-container {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  gap: 32px;
+  padding-top: 32px;
+}
+
+.left-button {
+  font-family: 'Figtree', Arial, sans-serif;
+  background-color: #005655;
+  color: white;
+  padding: 16px;
+  font-size: 24px;
+  border-radius: 50px;
+  border: none;
+  width: 180px;
+  cursor:pointer;
+}
+
+.left-button:hover {
+  color: #cdff00;
+}
+
+.left-button:active {
+  /* transform:scale(1.02); */
+  background-color: #003c3b;
+}
+
+.learn-more {
+  font-family: 'Beatrice', Arial, sans-serif;
+  color: #005655;
+}
+
+.learn-more-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  gap: 16px;
+}
+
+.learn-more-button {
+  font-family: 'Figtree', Arial, sans-serif;
+  background-color: white;
+  color: #005655;
+  padding: 16px;
+  font-size: 24px;
+  border-style: solid;
+  border-radius: 50px;
+  border-color: #005655;
+  width: 260px;
+  text-align: left;
+  cursor:pointer;
+}
+
+.learn-more-button:hover {
+  background-color: #005655;
+  color: white;
+}
+
+.learn-more-button:active {
+  /* transform:scale(1.02); */
+  background-color: #003c3b;
+}
+
+.divider {
+  height: 500px;
+  padding: 64px;
+  background: transparent url("/static/img/frontpage-divider.png") no-repeat scroll 50% 50%;
+}
