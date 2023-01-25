@@ -5,7 +5,7 @@ import '/src/pages/front-page/frontpage.css';
 export default function frontPage() {
   return (
     <Layout title="Front Page" description="Hello React Page">
-    <div className="container">
+    <div className="front-page-container">
       <div className="left-side">
         <h1 className="hero-text">MapsIndoors is a dynamic mapping platform with endless use cases.</h1>
         <h3 className="description">Use our SDKs to integrate MapsIndoors into your existing apps, or build a custom app suited to your needs.</h3>

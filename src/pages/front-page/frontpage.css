@@ -4,7 +4,7 @@ body {
   background: transparent url("/static/img/frontpage-bg-lighter-v2.png") no-repeat fixed 0% -30%;
 }
 
-.container {
+.front-page-container {
   display: flex;
   align-items: center;
   justify-content: center;
