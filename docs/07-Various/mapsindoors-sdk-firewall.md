@@ -3,6 +3,7 @@ title: Work with MapsIndoors SDK Behind a Firewall
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 1
+slug: /firewall
 ---
 
 If you need to work with MapsIndoors SDK from behind a firewall, you might need to allowlist these IP-addresses:

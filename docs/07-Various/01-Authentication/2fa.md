@@ -3,6 +3,7 @@ title: 2-Factor Authentication
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 98
+slug: /2fa
 ---
 
 ## Enabling 2-Factor Authentication

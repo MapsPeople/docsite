@@ -3,6 +3,7 @@ title: External ID
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 2
+slug: /external-id
 ---
 
 The ExternalID is a reference from your real-life data to a piece of MapsIndoors geodata.

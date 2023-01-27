@@ -3,6 +3,7 @@ title: Glossary
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 1
+slug: /glossary
 ---
 
 MapsIndoors is a mapping platform designed to help users navigate your venues and buildings using a digital solution, either on their own smartphone or a kiosk that you provide at certain locations.

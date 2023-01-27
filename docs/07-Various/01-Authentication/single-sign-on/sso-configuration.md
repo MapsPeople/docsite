@@ -3,6 +3,7 @@ title: SSO Configuration
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 1
+slug: /sso-configuration
 ---
 
 Configuring the SSO is currently handled by MapsPeople. Therefore there needs to be an exchange of information - metadata and credentials related to the authentication server, and a unique redirect URL to MapsIndoors. In case of issues, these details must also be documented.

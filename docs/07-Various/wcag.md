@@ -3,6 +3,7 @@ title: WCAG Compliance
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 4
+slug: /wcag
 ---
 
 Making MapsIndoors accessible to all is important to us at MapsPeople, and we go to great lengths to make sure you can build accessible apps using our SDKs.

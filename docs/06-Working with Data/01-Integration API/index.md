@@ -1,5 +1,9 @@
 ---
 title: Integration API
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 1
+slug: /api
 ---
 
 ## Introduction and Getting Started

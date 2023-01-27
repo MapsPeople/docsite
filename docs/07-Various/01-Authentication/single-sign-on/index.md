@@ -3,6 +3,7 @@ title: Single Sign-On
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 1
+slug: /sso
 ---
 
 In order to access certain MapsIndoors apps, and certain custom apps, SSO (Single Sign-On) login can be used. This includes the MapsIndoors Auth SSO, as well as organization-specific authentication providers - see [Configuration](/various/authentication/sso/sso-configuration/).

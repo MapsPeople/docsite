@@ -3,6 +3,7 @@ title: Password Reset
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 99
+slug: /resetting-password
 ---
 
 ## Password Validation

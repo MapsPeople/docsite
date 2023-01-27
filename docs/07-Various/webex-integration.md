@@ -3,6 +3,7 @@ title: Webex Integration
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 5
+slug: /webex
 ---
 
 The Webex integration is one of our supported server-side Live Data integrations.

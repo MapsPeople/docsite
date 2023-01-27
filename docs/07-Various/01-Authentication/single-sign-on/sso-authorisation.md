@@ -3,6 +3,7 @@ title: SSO Authorisation
 hide_title: false
 hide_table_of_contents: false
 sidebar_position: 2
+slug: /sso-authorisation
 ---
 
 What a user can see and do is by default controlled in the MapsIndoors CMS.
