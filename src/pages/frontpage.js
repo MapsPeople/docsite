@@ -23,12 +23,12 @@ export default function frontPage() {
         <h2 className="learn-more">Or learn more...</h2>
         <div className="learn-more-button-container">
           <a href="/product/"> <button className="learn-more-button">Product Overview</button> </a>
-          <a href="/map/"> <button className="learn-more-button">Map</button> </a>
-          <a href="/directions/"> <button className="learn-more-button">Directions & Routing</button> </a>
+          <a href="/display-rules/"> <button className="learn-more-button">Map</button> </a>
+          <a href="/directions-intro/"> <button className="learn-more-button">Directions & Routing</button> </a>
           <a href="/searching/"> <button className="learn-more-button">Searching</button> </a>
-          <a href="/data/"> <button className="learn-more-button">Working with Data</button> </a>
+          <a href="/booking/"> <button className="learn-more-button">Working with Data</button> </a>
           <a href="/api/"> <button className="learn-more-button">Integration API</button> </a>
-          <a href="/various/"> <button className="learn-more-button">Various</button> </a>
+          <a href="/glossary/"> <button className="learn-more-button">Various</button> </a>
         </div>
       </div>
     </div>
