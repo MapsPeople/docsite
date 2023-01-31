@@ -99,31 +99,31 @@ const config = {
               },
               {
                 label: 'MapsIndoors CMS',
-                to: '/cms',
+                to: '/cms/',
               },
               {
                 label: 'Map',
-                to: '/Map',
+                to: '/display-rules/',
               },
               {
                 label: 'Directions',
-                to: '/directions',
+                to: '/directions-intro/',
               },
               {
                 label: 'Searching',
-                to: '/searching',
+                to: '/searching/',
               },
               {
                 label: 'Working with Data',
-                to: '/data',
+                to: '/booking/',
               },
               {
                 label: 'Integration API',
-                to: '/api',
+                to: '/api/',
               },
               {
                 label: 'Various',
-                to: '/various',
+                to: '/glossary',
               },
             ],
           },
