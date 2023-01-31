@@ -1,0 +1,51 @@
+---
+title: Getting Locations by External ID
+hide_title: false
+hide_table_of_contents: false
+sidebar_position: 1
+slug: /external-id-search
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+A method on MapsIndoors is available to retrieve locations by their externalId. This is only for exact matches and is not a part of the general search implementations, so must be specifically implemented.
+
+The function on all 3 platforms functions similarly, returning an Array or List of Locations that match the supplied External ID strings.
+
+<Tabs groupId="various-external-id-search">
+<TabItem value="android" label="Android" default>
+
+Running the below snippet will return a List of `MPLocations`.
+
+```java
+val locations = MapsIndoors.getLocationsByExternalIds(externalIds)
+```
+
+</TabItem>
+<TabItem value="ios" label="iOS">
+
+:::danger Known iOS Issues
+
+1. Developing on the new Arm-based Apple Silicon (M1) Macs requires building and running on a physical iOS device or using an iOS simulator running iOS 13.7, e.g. iPhone 11. This is a temporary limitation in Google Maps SDK for iOS, and as such also a limitation in MapsIndoors, due to the dependency to Google Maps.
+1. Note: Due to [a bug in CocoaPods](https://github.com/CocoaPods/CocoaPods/issues/7155) it is necessary to include the `post_install` hook in your Podfile described in the [PodFile post_install](https://github.com/MapsIndoors/MapsIndoorsIOS/wiki/Podfile-post_install) wiki.
+
+:::
+
+Running the below snippet will return an Array of `MPLocations`.
+
+```swift
+MPLocationService.sharedInstance().getLocationsByExternalIds(externalIds)
+```
+
+</TabItem>
+<TabItem value="web" label="Web" default>
+
+Running the below snippet will return an Array of `MPLocations`.
+
+```js
+locationsService.getLocationsByExternalId(externalIds)
+```
+
+</TabItem>
+</Tabs>

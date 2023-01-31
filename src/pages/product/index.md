@@ -11,7 +11,7 @@ MapsIndoors consists of:
   * Android
   * iOS
   * Web (JavaScript)
-* Standard Apps built on top of each SDK
+* Map Templates built on top of each SDK
 * An Integration API
 
 ## Getting Started with MapsIndoors

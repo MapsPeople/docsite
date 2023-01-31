@@ -1,5 +1,8 @@
 ---
 title: SDK Platform Support and Requirements
+hide_title: false
+hide_table_of_contents: false
+slug: /platform-requirements
 ---
 
 The MapsIndoors SDK is a collection of software libraries, guides and documentation that enables developers to create applications with the indoor wayfinding capabilities facilitated by MapsIndoors from MapsPeople. MapsIndoors SDK is available on iOS, Android and Web platforms.
@@ -8,28 +11,49 @@ The MapsIndoors SDK is a collection of software libraries, guides and documentat
 
 ### Android
 
+#### V3
+
 - Supports all newer Android phones and tablets
-- Minimum supported Android Platform is Android 4.4 KitKat (API level 19) as of version 2.0 of MapsIndoors Android SDK
-- Minimum supported Android Platform is Android 5.0 Lollipop (API level 21) as of version 3.0 of MapsIndoors Android SDK
+- Minimum supported Android Platform is Android 5.0 Lollipop (API level 21)K
 - Rely on Java 8 features
 - Available through a remote Maven repository, integrated with Gradle
 - Depends on Google Maps Android API
 
+#### V4
+
+- Supports all newer Android phones and tablets
+- Minimum supported Android Platform is Android 5.0 Lollipop (API level 21)
+- Rely on Java 8 features
+- Available through a remote Maven repository, integrated with Gradle
+- Depends on Google Maps Android API or Mapbox Android API
+
 ### iOS
 
-- Supports all newer Apple phones and tablets
-- Minimum supported iOS Platform SDK version is 9 as of version 2.0 of MapsIndoors iOS SDK
-- Minimum supported iOS Platform SDK version is 10 as of version 3.0 of MapsIndoors iOS SDK
+#### V3
+
+- Supports all newer Apple phones and tablets, with a minimum of iOS 10
+- Minimum supported iOS Platform SDK version is 10
 - Available as a remote framework library
   - Through the CocoaPods package dependency manager
   - Through manual download and installation as of version 3.30 of MapsIndoors iOS SDK
 - Depends on Google Maps iOS SDK
 
+<!-- #### V4
+
+- Supports all newer Apple phones and tablets with a minimum of iOS 13
+- Minimum supported iOS Platform SDK version is 13
+- Available as a remote framework library
+  - Through the CocoaPods package dependency manager
+  - Through manual download and installation as of version 3.30 of MapsIndoors iOS SDK
+- Depends on Google Maps iOS SDK or Mapbox iOS SDK -->
+
 ### Web
+
+#### V3
 
 - Supports all modern phones, tablets and desktop PCs
 - Available as one or more remote script references
-- Depends on Google Maps API for JavaScript v3
+- Depends on Google Maps API or Mapbox GLJS for JavaScript v3
 - Supports the following desktop browsers:
   - Current version of Microsoft Edge (Windows)
   - Current and previous version of Firefox (Windows, macOS, Linux)
