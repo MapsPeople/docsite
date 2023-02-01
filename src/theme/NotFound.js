@@ -8,8 +8,8 @@ export default function NotFoundWrapper(props) {
     <Layout title="Page Not Found" description="Hello React Page">
       <div className="notfound-container">
         <h1 className="notfound-whoops">Whoops!</h1>
-        <h2 className="notfound-descriptive">It seems the page you were trying to reach doesn't exist, and you've run into a 404 error! If you clicked a link, please contact the website administrator so we can get it fixed!</h2>
-        <h3>In the meantime, perhaps you can find what you were looking for in these topics?</h3>
+        <h2 className="notfound-descriptive">It seems the page you were trying to reach doesn't exist, and you've run into a 404 error!</h2>
+        <h3>Perhaps you can find what you were looking for in these suggested topics?</h3>
 
         <div className="notfound-button-container">
             <div className="notfound-buttons-row">
