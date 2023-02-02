@@ -1,7 +1,7 @@
 ---
 title: SDK Platform Support and Requirements
 hide_title: false
-hide_table_of_contents: false
+hide_table_of_contents: true
 slug: /platform-requirements
 ---
 

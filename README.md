@@ -54,7 +54,7 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
     ---
     title: Teleportation Guide
     hide_title: false
-    hide_table_of_contents: false
+    hide_table_of_contents: true
     sidebar_position: 2
     ---
     ```
