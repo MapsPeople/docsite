@@ -1,7 +1,7 @@
 ---
 title: 2-Factor Authentication
 hide_title: false
-hide_table_of_contents: false
+hide_table_of_contents: true
 sidebar_position: 98
 slug: /2fa
 ---

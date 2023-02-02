@@ -1,7 +1,7 @@
 ---
 title: Remove Labels from Buildings and Venues for Web
 hide_title: false
-hide_table_of_contents: false
+hide_table_of_contents: true
 sidebar_position: 6
 slug: /remove-labels-web
 ---

@@ -1,7 +1,7 @@
 ---
 title: SSO Configuration
 hide_title: false
-hide_table_of_contents: false
+hide_table_of_contents: true
 sidebar_position: 1
 slug: /sso-configuration
 ---

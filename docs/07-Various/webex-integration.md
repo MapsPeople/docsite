@@ -1,7 +1,7 @@
 ---
 title: Webex Integration
 hide_title: false
-hide_table_of_contents: false
+hide_table_of_contents: true
 sidebar_position: 5
 slug: /webex
 ---
