@@ -43,6 +43,11 @@ const sidebars = {
       label: 'Javascript SDK v3', // The link label
       href: 'https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/index.html', // The external URL
     },
+    {
+      type: 'html',
+      value: '<br>', // The HTML to be rendered
+      defaultStyle: true, // Use the default menu item styling
+    },
   ],
 
   // But you can create a sidebar manually
