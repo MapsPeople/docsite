@@ -59,7 +59,43 @@ This results in directions queries originating from the user's current location.
 </TabItem>
 <TabItem value="web" label="Web">
 
+Often you may want to get directions starting from a user's actual current position, instead of from another fixed Location. This involved using the `PositionControl` class to determine the user's current location, and using the routing API to generate a route to the desired Location. The following code snippet gives an example on how to implement this.
 
+```javascript
+// MapsIndoors MapView instantiation, which you should already have
+const mapViewInstance = new mapsindoors.mapView.GoogleMapsView(/*...*/);
+
+// MapsIndoors instantiation, which you should already have
+const mapsIndoorsInstance = new mapsindoors.MapsIndoors(/*...*/);
+
+// Obtain a reference to the Google map.
+const googleMapsInstance = mapViewInstance.getMap();
+
+// Create element to hold the position control
+const positionControlElement = document.createElement("div");
+
+// Create position control and attach it to element
+const positionControl = new mapsindoors.PositionControl(positionControlElement, {
+    mapsIndoors: mapsIndoorsInstance,
+});
+
+// Add the element now holding position control to your map
+googleMapsInstance.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(positionControlElement);
+
+// Get the user's current location
+let currentLocation;
+positionControl.getPosition().then((position) => {
+    currentLocation = position;
+    // Generate a route to the desired location, using the user's current location as the origin
+    mapsIndoorsInstance.routing.getRoute({ origin: currentLocation, destination: desiredLocation }).then((route) => {
+        // Render the route on the map
+    });
+});
+```
+
+Further details on how user positioning works, and how to display it, can be found [here](/blue-dot/).
+
+This results in directions queries originating from the user's current location.
 
 </TabItem>
 </Tabs>
