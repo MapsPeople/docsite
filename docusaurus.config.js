@@ -149,31 +149,7 @@ const config = {
         additionalLanguages: ['json', 'java', 'kotlin', 'objectivec', 'swift', 'javascript', 'python', 'dart'],
       },
     }),
-    plugins: [
-      [
-        require.resolve("@cmfcmf/docusaurus-search-local"),
-        {
-          // whether to index docs pages
-          indexDocs: true,
-
-          // Whether to also index the titles of the parent categories in the sidebar of a doc page.
-          // 0 disables this feature.
-          // 1 indexes the direct parent category in the sidebar of a doc page
-          // 2 indexes up to two nested parent categories of a doc page
-          // 3...
-          //
-          // Do _not_ use Infinity, the value must be a JSON-serializable integer.
-          indexDocSidebarParentCategories: 3,
-
-          // whether to index blog pages
-          indexBlog: false,
-
-          // whether to index static pages
-          // /404.html is never indexed
-          indexPages: false,
-        },
-      ],
-    ],
+    plugins: [require.resolve('docusaurus-lunr-search')],
 };
 
 module.exports = config;
