@@ -109,6 +109,11 @@ const config = {
                 label: 'Directions',
                 to: '/directions-intro/',
               },
+            ],
+          },
+          {
+            title: 'Documentation',
+            items: [
               {
                 label: 'Searching',
                 to: '/searching/',
@@ -140,8 +145,21 @@ const config = {
               },
             ],
           },
+          {
+            title: 'Do you need help?',
+            items: [
+              {
+                label: 'Support Center',
+                href: 'https://mapspeople.com/support',
+              },
+              {
+                label: "Or if that doesn't work... Contact us!",
+                href: "https://www.mapspeople.com/contact",
+              },
+            ],
+          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} MapsPeople A/S. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} MapsPeople A/S`,
       },
       prism: {
         theme: lightCodeTheme,
