@@ -24,7 +24,7 @@ Your floor plans will then be georeferenced and digitized. After digitzation, yo
 
 The Content Management System (CMS) is a web-based portal used for day-to-day management of your map(s). Within the CMS you can manage Venue, Building, Room, Point of Interest (POI), and Route attributes. The content updated within the CMS is immediately accessible to the SDKs.
 
-<img src="/img/product/CMS.png" alt="CMS" width="750"/>
+<img src="/img/product/CMS-2023.png" alt="CMS" width="750"/>
 
 ## SDKs
 
