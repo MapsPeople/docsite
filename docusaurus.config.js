@@ -82,7 +82,7 @@ const config = {
           },
           {
             to: 'https://cms.mapsindoors.com/',
-            label: 'MapsIndoors CMS',
+            label: 'CMS Login',
             position: 'right',
           },
         ],
