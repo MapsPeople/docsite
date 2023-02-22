@@ -6,7 +6,7 @@ body {
 
 .front-page-container {
   display: grid;
-  grid-template-columns: 45% 10% 45%;
+  grid-template-columns: 70% 10% 20%;
   grid-row: auto;
   grid-template-areas:
     'description divide learn'
@@ -157,13 +157,14 @@ body {
   cursor:pointer;
 }
 
-@media only screen and (max-width: 1856px) {
+@media only screen and (max-width: 1720px) {
   .front-page-container {
     grid-template-areas:
       'description description description'
       'buttons divide learn'
       'buttons divide learn'
     ;
+    grid-template-columns: 33% 33% 33%;
   }
 
   .left-buttons-container {
@@ -176,7 +177,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 1857px) {
+@media only screen and (min-width: 1720px) {
   .left-button {
     margin: 15px
   }
