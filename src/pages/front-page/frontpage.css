@@ -40,10 +40,10 @@ body {
   color: #005655;
   font-family: 'Figtree', Arial, sans-serif;
   font-size: 28px;
+  margin: 0px
 }
 
 .left-buttons-container {
-  padding-top: 32px;
   grid-area: buttons;
 }
 
@@ -55,7 +55,7 @@ body {
   font-size: 24px;
   border-radius: 50px;
   border: none;
-  width: 260px;
+  width: 180px;
   cursor:pointer;
 }
 
@@ -157,7 +157,7 @@ body {
   cursor:pointer;
 }
 
-@media only screen and (max-width: 1720px) {
+@media only screen and (max-width: 1249px) {
   .front-page-container {
     grid-template-areas:
       'description description description'
@@ -177,7 +177,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 1720px) {
+@media only screen and (min-width: 1249px) {
   .left-button {
     margin: 15px
   }

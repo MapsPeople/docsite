@@ -15,6 +15,7 @@ export default function frontPage() {
           <a href="/getting-started/ios/"><button className="left-button">iOS</button></a>
           <a href="/getting-started/web/"><button className="left-button">Web</button></a>
           <a href="/cms/"><button className="left-button">CMS</button></a>
+          <a href="/api/"> <button className="left-button">API</button></a>
         </div>
         <div className="divider">
           {/* <img src={require("/static/img/frontpage-divider.png")} alt="divider" /> */}
@@ -27,8 +28,7 @@ export default function frontPage() {
             <a href="/directions-intro/"> <button className="learn-more-button">Directions & Routing</button> </a>
             <a href="/searching/"> <button className="learn-more-button">Searching</button> </a>
             <a href="/booking/"> <button className="learn-more-button">Working with Data</button> </a>
-            <a href="/api/"> <button className="learn-more-button">Integration API</button> </a>
-            <a href="/glossary/"> <button className="learn-more-button">Various</button> </a>
+            <a href="/glossary/"> <button className="learn-more-button">Other Guides</button> </a>
           </div>
         </div>
       </div>
