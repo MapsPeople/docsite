@@ -108,7 +108,7 @@ body {
 
 .divider {
   grid-area: divide;
-  height: 500px;
+  height: 100%;
   background: transparent url("/static/img/frontpage-divider.png") no-repeat scroll 50% 50%;
 }
 
@@ -158,14 +158,52 @@ body {
   cursor:pointer;
 }
 
-@media only screen and (max-width: 1249px) {
+@media only screen and (min-width: 768px) and (max-width: 1149px) {
+  .front-page-container {
+    display: grid;
+    grid-template-columns: 60% 10% 30%;
+    grid-row: auto;
+    grid-template-areas:
+      'description divide learn'
+      'description divide learn'
+      'buttons divide learn'
+    ;
+    padding: 64px 32px 64px 32px;
+  }
+
+  .left-button {
+    padding: 12px;
+    font-size: 16px;
+    width: 180px;
+    height: 47px;
+    margin: 8px;
+  }
+
+  .learn-more-button {
+    padding: 12px;
+    font-size: 16px;
+    width: 180px;
+  }
+
+  .hero-text {
+    font-size: 36px;
+  }
+  
+  .description {
+    font-size: 24px;
+    padding-bottom: 16px;
+  }
+}
+
+@media only screen and (min-width: 301px) and (max-width: 767px) {
   .front-page-container {
     grid-template-areas:
       'description description description'
       'buttons divide learn'
       'buttons divide learn'
     ;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 45% 10% 45%;
+    padding: 32px 16px 32px 16px;
   }
 
   .left-buttons-container {
@@ -177,9 +215,83 @@ body {
     gap: 16px;
     padding-top: 76px;
   }
+
+  .left-button {
+    padding: 6px;
+    font-size: 12px;
+    width: 140px;
+    height: 30px;
+  }
+
+  .learn-more-button {
+    padding: 6px;
+    font-size: 12px;
+    width: 140px;
+  }
+
+  .hero-text {
+    font-size: 30px;
+  }
+  
+  .description {
+    font-size: 20px;
+    padding-bottom: 16px;
+  }
+
+  .learn-more {
+    font-size: 20px;
+  }
 }
 
-@media only screen and (min-width: 1249px) {
+@media only screen and (max-width: 300px) {
+  .front-page-container {
+    grid-template-areas:
+      'description description description'
+      'buttons divide learn'
+      'buttons divide learn'
+    ;
+    grid-template-columns: 45% 10% 45%;
+    padding: 16px
+  }
+
+  .left-buttons-container {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 16px;
+    padding-top: 76px;
+  }
+
+  .left-button {
+    padding: 6px;
+    font-size: 12px;
+    width: 120px;
+    height: 30px;
+  }
+
+  .learn-more-button {
+    padding: 6px;
+    font-size: 12px;
+    width: 120px;
+  }
+
+  .hero-text {
+    font-size: 24px;
+  }
+  
+  .description {
+    font-size: 18px;
+    padding-bottom: 16px;
+  }
+
+  .learn-more {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 1149px) {
   .left-button {
     margin: 15px
   }
