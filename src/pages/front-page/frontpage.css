@@ -58,6 +58,8 @@ body {
   width: 180px;
   height: 65px;
   cursor:pointer;
+  margin-right: 16px;
+  margin-bottom: 16px;
 }
 
 .left-button:hover {
@@ -288,11 +290,5 @@ body {
 
   .learn-more {
     font-size: 14px;
-  }
-}
-
-@media only screen and (min-width: 1149px) {
-  .left-button {
-    margin: 15px
   }
 }
