@@ -5,9 +5,14 @@ body {
 }
 
 .front-page-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 70% 10% 20%;
+  grid-row: auto;
+  grid-template-areas:
+    'description divide learn'
+    'description divide learn'
+    'buttons divide learn'
+  ;
   padding: 256px 128px 256px 128px;
 }
 
@@ -16,6 +21,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: left;
+  grid-area: description;
+}
+
+.right-side {
+  text-align: center;
+  grid-area: learn;
 }
 
 .hero-text {
@@ -29,14 +40,11 @@ body {
   color: #005655;
   font-family: 'Figtree', Arial, sans-serif;
   font-size: 28px;
+  margin: 0px
 }
 
 .left-buttons-container {
-  display: flex;
-  align-items: left;
-  justify-content: left;
-  gap: 32px;
-  padding-top: 32px;
+  grid-area: buttons;
 }
 
 .left-button {
@@ -48,6 +56,7 @@ body {
   border-radius: 50px;
   border: none;
   width: 180px;
+  height: 65px;
   cursor:pointer;
 }
 
@@ -98,8 +107,8 @@ body {
 }
 
 .divider {
+  grid-area: divide;
   height: 500px;
-  padding: 64px;
   background: transparent url("/static/img/frontpage-divider.png") no-repeat scroll 50% 50%;
 }
 
@@ -147,4 +156,31 @@ body {
   width: 260px;
   text-align: center;
   cursor:pointer;
+}
+
+@media only screen and (max-width: 1249px) {
+  .front-page-container {
+    grid-template-areas:
+      'description description description'
+      'buttons divide learn'
+      'buttons divide learn'
+    ;
+    grid-template-columns: 33% 33% 33%;
+  }
+
+  .left-buttons-container {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 16px;
+    padding-top: 76px;
+  }
+}
+
+@media only screen and (min-width: 1249px) {
+  .left-button {
+    margin: 15px
+  }
 }
