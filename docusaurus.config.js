@@ -123,12 +123,12 @@ const config = {
                 to: '/booking/',
               },
               {
-                label: 'Integration API',
-                to: '/api/',
+                label: 'Other Guides',
+                to: '/glossary',
               },
               {
-                label: 'Various',
-                to: '/glossary',
+                label: 'Changelogs',
+                to: '/changelogs/android/',
               },
             ],
           },
