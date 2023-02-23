@@ -187,12 +187,24 @@ An example of in-app Display Rules using only "Polygon" Display Rules could look
 
 <img src="/img/cms/2d-models.png" alt="Display Rules" width="504"/>
 
-1. **Visibility** - Controls whether the 2D model is visible on the map or not.
-1. **Zoom from** - Controls at which zoom level the 2D model STARTS being visible.
-1. **Zoom to** - Controls at which zoom level the 2D model STOPS being visible (usually set to the highest setting, so they are visible at maximum zoom).
+2D models are a way of including images on the map, and customising their appearance. They are uploaded using the Media Library.
+
+1. **Visibility** - Controls whether the 2D model is visible on the map.
+    * The system will accept a Boolean here, so either `true` or `false`.
+1. **Zoom from** - Sets the minimum Zoom Level at which the 2D model is visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Zoom to** - Sets the maximum Zoom Level at which the 2D model is visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
 1. **2D Model** - Open the Media Library, where you can choose which 2D model to display.
+    * The Media Library is a tool to select the displayed Icon from either a pre-loaded selection of Icons, or for you to upload your own.
+    * In-app, you can provide a URL to a desired Icon.
+        * In-app, you can also define `iconSize`, by giving the desired size in pixels.
 1. **Width x Height** - Controls the width and height of the 2D model, measured in meters. These values cannot be changed individually, the 2D model must maintain its original aspect ratio.
-1. **Bearing (rotation)** - Controls the rotation of the 2D model.
+1. **Bearing (rotation)** - Controls the rotation of the 2D model. Measured in degrees, like a compass bearing. In the illustration below, the entered value would be 45, as the image would be placed at a 45 degree bearing.
+
+<img src="/img/cms/one_way_bearing_compass.png" alt="An illustration that demonstrates how to interpret bearing" width="300"/>
 
 :::caution
 
@@ -200,7 +212,7 @@ Due to temporary technical limitations, it is currently not possible to directly
 
 1. Use the `Visibility` toggle on the Display Rules panel. This will leave the model displayed in the CMS, but your customers will not see it.
 
-1. Navigate to `Solution Details` -> `Solution Settings` -> `2D Model`. Here you should find a preview image, and underneath, a button that says `Remove`. This removes any default 2D model on the Main Display Rule, and the Display Rule hierarchy will then ensure nothing is displayed if you untoggle `2D Model` on the Location in question.
+1. Navigate to `Solution Details` -> `Solution Settings` -> `2D Model`. Here you should find a preview image, and underneath, a button that says `Remove`. This removes any default 2D model on the Main Display Rule, and the Display Rule hierarchy will then ensure nothing is displayed if you inherit the 2D model setting from the Main Display Rules ("Locked" locks from Main to Type to Location level).
 
 :::
 
@@ -208,21 +220,39 @@ Due to temporary technical limitations, it is currently not possible to directly
 
 <img src="/img/cms/3d-walls.png" alt="Display Rules" width="504"/>
 
-1. **Visibility** - Controls whether the 3D walls are visible on the map or not.
-1. **Zoom from** - Controls at which zoom level the walls START being visible.
-1. **Zoom to** - Controls at which zoom level the walls STOP being visible (usually set to the highest setting, so they are visible at maximum zoom).
-1. **Walls color** - Controls the color of the 3D walls.
+The MapsIndoors CMS gives you the option of displaying your map in 3D. This is achieved by ensuring that any walls present in your solution are displayed as an extrusion, giving the usr the appearance of a 3D map. The appearance of the walls can be customised to match your desired visual identity.
+
+1. **Visibility** - Controls whether the 3D walls are visible on the map.
+    * The system will accept a Boolean here, so either `true` or `false`.
+1. **Zoom from** - Sets the minimum Zoom Level at which the 3D walls are visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Zoom to** - Sets the maximum Zoom Level at which the 3D walls are visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Wall color** - Controls the color of the 3D walls.
+    * In the CMS, you can select a color using the color picker displayed when clicking the color input field.
+    * If setting the color in-app, the value provided must be in 6-digit HEX code (eg. #3071D9).
 1. **Wall height** - Controls the height of the 3D walls, measured in meters.
 
 ### 3D Room Extrusion
 
 <img src="/img/cms/3d-room-extrusion.png" alt="Display Rules" width="504"/>
 
-1. **Visibility** - Controls whether the room is extruded on the map or not.
-1. **Zoom from** - Controls at which zoom level the extrusion STARTS being visible.
-1. **Zoom to** - Controls at which zoom level the extrusion STOPS being visible (usually set to the highest setting, so they are visible at maximum zoom).
-1. **Walls color** - Controls the color of the room extrusion.
-1. **Wall height** - Controls the height of the room extrusion, measured in meters.
+In addition to the ability to extrude all walls, you can additionally extrude specific rooms or areas, for example, if you wish to highlight a specific meeting room where an important meeting is taking place.
+
+1. **Visibility** - Controls whether the extrusion is visible on the map.
+    * The system will accept a Boolean here, so either `true` or `false`.
+1. **Zoom from** - Sets the minimum Zoom Level at which the extrusion is visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Zoom to** - Sets the maximum Zoom Level at which the extrusion is visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Extrusion color** - Controls the color of the extrusion.
+    * In the CMS, you can select a color using the color picker displayed when clicking the color input field.
+    * If setting the color in-app, the value provided must be in 6-digit HEX code (eg. #3071D9).
+1. **Extrusion height** - Controls the height of the room extrusion, measured in meters.
 
 ## Conclusion
 
