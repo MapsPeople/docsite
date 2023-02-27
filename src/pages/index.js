@@ -27,7 +27,7 @@ export default function frontPage() {
             <a href="/display-rules/"> <button className="learn-more-button">Map</button> </a>
             <a href="/directions-intro/"> <button className="learn-more-button">Directions & Routing</button> </a>
             <a href="/searching/"> <button className="learn-more-button">Searching</button> </a>
-            <a href="/booking/"> <button className="learn-more-button">Working with Data</button> </a>
+            <a href="/api/"> <button className="learn-more-button">Working with Data</button> </a>
             <a href="/glossary/"> <button className="learn-more-button">Other Guides</button> </a>
           </div>
         </div>
