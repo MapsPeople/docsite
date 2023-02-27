@@ -15,7 +15,6 @@ export default function frontPage() {
           <a href="/getting-started/ios/"><button className="left-button">iOS</button></a>
           <a href="/getting-started/web/"><button className="left-button">Web</button></a>
           <a href="/cms/"><button className="left-button">CMS</button></a>
-          <a href="/api/"><button className="left-button">API</button></a>
         </div>
         <div className="divider">
           {/* <img src={require("/static/img/frontpage-divider.png")} alt="divider" /> */}
