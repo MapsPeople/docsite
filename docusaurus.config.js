@@ -172,7 +172,16 @@ const config = {
         additionalLanguages: ['json', 'java', 'kotlin', 'objectivec', 'swift', 'javascript', 'python', 'dart'],
       },
     }),
-    plugins: [require.resolve('docusaurus-lunr-search')],
+    plugins: [
+      [
+        '@docusaurus/plugin-google-gtag',
+        {
+          trackingID: 'G-JY8SV01TXT',
+          anonymizeIP: true,
+        },
+      ],
+        require.resolve('docusaurus-lunr-search')
+    ],
 };
 
 module.exports = config;
