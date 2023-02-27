@@ -1,0 +1,60 @@
+---
+title: User's Location as Point of Origin
+hide_title: false
+hide_table_of_contents: true
+sidebar_position: 1
+slug: /current-location-as-origin
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="users-location-as-origin">
+<TabItem value="android" label="Android" default>
+
+Often you may want to get directions starting from a user's actual current position, instead of from another fixed Location. The following code snippet gives an example on how to implement this.
+
+To query for a route, create a `MPPoint` from the Latitude, longitude and the z-index of the user, and use that on the `DirectionsService.query` function, like this:
+
+```kotlin
+val directionsService = MPDirectionsService(mContext)
+//Create an Origin MPPoint with the users latitude, longitude and Z-index. If no Z-index is available just use 0.0
+val origin = MPPoint(userLatitude, userLongitude, userZIndex)
+val destination = destinationLocation.getPoint()
+directionsService.setRouteResultListener { route, error ->
+  //Handle the route result here
+}
+directionsService.query(origin, destination)
+```
+
+`userLatitude`, `userLongitude`. `userZIndex` and `destinationLocation` are all placeholder variable names where you insert your data.
+
+Further details on how user positioning works, and how to display it, can be found [here](/blue-dot/).
+
+This results in directions queries originating from the user's current location.
+
+</TabItem>
+<TabItem value="ios" label="iOS">
+
+Often you may want to get directions starting from a user's actual current location, instead of from another fixed Location. The following code snippet gives an example on how to implement this.
+
+First, [initialize a `PositionProvider`](/blue-dot/), which can be used with `MPDirectionsQuery` to achieve the desired result.
+
+In order to use the `PositionProvider` to extract a `MPPoint`, you need to use `MapsIndoors.latestPositionResult.geometry`. This returns an `MPPoint`. which will serve as the origin point for the directions query. This `MPPoint` is then given to the method `MPDirectionsQuery initWithOriginPoint:destination:`.
+
+```swift
+let userPosition = MapsIndoors.positionProvider?.latestPositionResult?.geometry
+let destination = MPPoint.init(lat: 57.058038, lon: 9.950509, zValue:0)!
+if let origin = userPosition {
+    let directionsQuery = MPDirectionsQuery.init(originPoint: origin, destination: destination)
+    directions.routing(with: directionsQuery) { (route, error) in
+    }
+}
+```
+
+Further details on how user positioning works, and how to display it, can be found [here](/blue-dot/).
+
+This results in directions queries originating from the user's current location.
+
+</TabItem>
+</Tabs>

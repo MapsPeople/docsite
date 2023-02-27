@@ -10,7 +10,7 @@ const config = {
   tagline: 'We build maps, so you don\'t have to',
   url: 'https://docs.mapsindoors.com/',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/MapsPeople_RGB_Bomærke_Petrol.svg',
 
@@ -49,6 +49,15 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      docs: {
+        sidebar: {
+          /* autoCollapseCategories: true, */
+        },
+      },
+      colorMode: {
+        /*below line disables ability to switch to dark mode*/
+        disableSwitch: true,
+      },
       navbar: {
         title: ' ',
         logo: {
@@ -57,23 +66,23 @@ const config = {
         },
         items: [
           {
-            href: 'https://github.com/mapspeople',
+            to: 'https://github.com/mapspeople',
             label: 'GitHub',
             position: 'right',
           },
           {
-            href: 'https://mapspeople.com/support',
+            to: 'https://mapspeople.com/support',
             label: 'Support Center',
             position: 'right',
           },
           {
-            href: 'https://blog.mapspeople.com/tag/product',
+            to: 'https://blog.mapspeople.com/tag/product',
             label: 'Product Blog',
             position: 'right',
           },
           {
-            href: 'https://cms.mapsindoors.com/',
-            label: 'MapsIndoors CMS',
+            to: 'https://cms.mapsindoors.com/',
+            label: 'CMS Login',
             position: 'right',
           },
         ],
@@ -90,31 +99,36 @@ const config = {
               },
               {
                 label: 'MapsIndoors CMS',
-                to: '/cms',
+                to: '/cms/',
               },
               {
                 label: 'Map',
-                to: '/Map',
+                to: '/display-rules/',
               },
               {
                 label: 'Directions',
-                to: '/directions',
+                to: '/directions-intro/',
               },
+            ],
+          },
+          {
+            title: 'Documentation',
+            items: [
               {
                 label: 'Searching',
-                to: '/searching',
+                to: '/searching/',
               },
               {
                 label: 'Working with Data',
-                to: '/data',
+                to: '/booking/',
               },
               {
-                label: 'Integration API',
-                to: '/api',
+                label: 'Other Guides',
+                to: '/glossary',
               },
               {
-                label: 'Various',
-                to: '/various',
+                label: 'Changelogs',
+                to: '/changelogs/android/',
               },
             ],
           },
@@ -131,8 +145,21 @@ const config = {
               },
             ],
           },
+          {
+            title: 'Do you need help?',
+            items: [
+              {
+                label: 'Support Center',
+                href: 'https://mapspeople.com/support',
+              },
+              {
+                label: "Or if that doesn't work... Contact us!",
+                href: "https://www.mapspeople.com/contact",
+              },
+            ],
+          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} MapsPeople A/S. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} MapsPeople A/S`,
       },
       prism: {
         theme: lightCodeTheme,
@@ -140,6 +167,7 @@ const config = {
         additionalLanguages: ['json', 'java', 'kotlin', 'objectivec', 'swift', 'javascript', 'python', 'dart'],
       },
     }),
+    plugins: [require.resolve('docusaurus-lunr-search')],
 };
 
 module.exports = config;

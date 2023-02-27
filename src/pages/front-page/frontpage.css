@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
+
+body {
+  background: transparent url("/static/img/frontpage-bg-lighter-v2.png") no-repeat fixed 0% -30%;
+}
+
+.front-page-container {
+  display: grid;
+  grid-template-columns: 70% 10% 20%;
+  grid-row: auto;
+  grid-template-areas:
+    'description divide learn'
+    'description divide learn'
+    'buttons divide learn'
+  ;
+  padding: 256px 128px 256px 128px;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  grid-area: description;
+}
+
+.right-side {
+  text-align: center;
+  grid-area: learn;
+}
+
+.hero-text {
+  font-family: 'Beatrice', Arial, sans-serif;
+  font-size: 40px;
+  text-align: left;
+  color: #005655;
+}
+
+.description {
+  color: #005655;
+  font-family: 'Figtree', Arial, sans-serif;
+  font-size: 28px;
+  margin: 0px
+}
+
+.left-buttons-container {
+  grid-area: buttons;
+}
+
+.left-button {
+  font-family: 'Figtree', Arial, sans-serif;
+  background-color: #005655;
+  color: white;
+  padding: 16px;
+  font-size: 24px;
+  border-radius: 50px;
+  border: none;
+  width: 180px;
+  height: 65px;
+  cursor:pointer;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+.left-button:hover {
+  color: #cdff00;
+}
+
+.left-button:active {
+  /* transform:scale(1.02); */
+  background-color: #003c3b;
+}
+
+.learn-more {
+  font-family: 'Beatrice', Arial, sans-serif;
+  color: #005655;
+}
+
+.learn-more-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  gap: 16px;
+}
+
+.learn-more-button {
+  font-family: 'Figtree', Arial, sans-serif;
+  background-color: white;
+  color: #005655;
+  padding: 16px;
+  font-size: 24px;
+  border-style: solid;
+  border-radius: 50px;
+  border-color: #005655;
+  width: 260px;
+  text-align: left;
+  cursor:pointer;
+}
+
+.learn-more-button:hover {
+  background-color: #005655;
+  color: white;
+}
+
+.learn-more-button:active {
+  /* transform:scale(1.02); */
+  background-color: #003c3b;
+}
+
+.divider {
+  grid-area: divide;
+  height: 100%;
+  background: transparent url("/static/img/frontpage-divider.png") no-repeat scroll 50% 50%;
+}
+
+.notfound-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 128px;
+  gap: 16px;
+}
+
+.notfound-whoops {
+  display: flex;
+  align-items: center;
+}
+
+.notfound-descriptive {
+  display: flex;
+  text-align: center;
+}
+
+.notfound-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  gap: 32px;
+}
+
+.notfound-buttons-row {
+  display: flex;
+  gap: 32px;
+}
+
+.notfound-button {
+  font-family: 'Figtree', Arial, sans-serif;
+  background-color: white;
+  color: #005655;
+  padding: 16px;
+  font-size: 24px;
+  border-style: solid;
+  border-radius: 50px;
+  border-color: #005655;
+  width: 260px;
+  text-align: center;
+  cursor:pointer;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1149px) {
+  .front-page-container {
+    display: grid;
+    grid-template-columns: 60% 10% 30%;
+    grid-row: auto;
+    grid-template-areas:
+      'description divide learn'
+      'description divide learn'
+      'buttons divide learn'
+    ;
+    padding: 64px 32px 64px 32px;
+  }
+
+  .left-button {
+    padding: 12px;
+    font-size: 16px;
+    width: 180px;
+    height: 47px;
+    margin: 8px;
+  }
+
+  .learn-more-button {
+    padding: 12px;
+    font-size: 16px;
+    width: 180px;
+  }
+
+  .hero-text {
+    font-size: 36px;
+  }
+  
+  .description {
+    font-size: 24px;
+    padding-bottom: 16px;
+  }
+}
+
+@media only screen and (min-width: 301px) and (max-width: 767px) {
+  .front-page-container {
+    grid-template-areas:
+      'description description description'
+      'buttons divide learn'
+      'buttons divide learn'
+    ;
+    grid-template-columns: 45% 10% 45%;
+    padding: 32px 16px 32px 16px;
+  }
+
+  .left-buttons-container {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 16px;
+    padding-top: 76px;
+  }
+
+  .left-button {
+    padding: 6px;
+    font-size: 12px;
+    width: 140px;
+    height: 30px;
+  }
+
+  .learn-more-button {
+    padding: 6px;
+    font-size: 12px;
+    width: 140px;
+  }
+
+  .hero-text {
+    font-size: 30px;
+  }
+  
+  .description {
+    font-size: 20px;
+    padding-bottom: 16px;
+  }
+
+  .learn-more {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .front-page-container {
+    grid-template-areas:
+      'description description description'
+      'buttons divide learn'
+      'buttons divide learn'
+    ;
+    grid-template-columns: 45% 10% 45%;
+    padding: 16px
+  }
+
+  .left-buttons-container {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 16px;
+    padding-top: 76px;
+  }
+
+  .left-button {
+    padding: 6px;
+    font-size: 12px;
+    width: 120px;
+    height: 30px;
+  }
+
+  .learn-more-button {
+    padding: 6px;
+    font-size: 12px;
+    width: 120px;
+  }
+
+  .hero-text {
+    font-size: 24px;
+  }
+  
+  .description {
+    font-size: 18px;
+    padding-bottom: 16px;
+  }
+
+  .learn-more {
+    font-size: 14px;
+  }
+}

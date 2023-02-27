@@ -1,0 +1,173 @@
+---
+title: Show a Map
+hide_title: false
+hide_table_of_contents: true
+sidebar_position: 3
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::danger Outdated Version
+
+A newer version of the Android SDK exists. If you are a new user of MapsIndoors, we recommend following the [SDK v4 "Getting Started Guide"](/getting-started/android/v4/) instead. 
+
+:::
+
+Your environment is now fully configured, and you have the necessary Google Maps and MapsIndoors API keys. Next you will learn how to load a Google Maps map with MapsIndoors.
+
+## Show a Map with MapsIndoors
+
+:::tip async
+
+Please note that data in MapsIndoors is loaded asynchronously. This results in behavior where data might not have finished loading if you call methods accessing it immediately after initializing MapsIndoors. Best practice is to set up `listeners` or `delegates` to inform of when data is ready. Please be aware of this when developing using the MapsIndoors SDK.
+
+:::
+
+### Initialize MapsIndoors
+
+We start by initializing `MapsIndoors`. `MapsIndoors` is used to get and store all references to MapsIndoors-specific data. This includes access to all MapsIndoors-specific geodata.
+
+Place the following initialization code in the `onCreate` method in the `MapsActivity` that displays the Google map. You should also assign the `mapFragment` view to a local variable, as we will use this later to initialize `MapControl` inside the `onCreate`, after it has been created:
+
+<Tabs groupId="getting-started-android-v3-map">
+<TabItem value="java" label="Java" default>
+
+<a href="https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android/blob/master/app/src/main/java/com/example/mapsindoorsgettingstarted/MapsActivity.java#L60-L65">MapsActivity.java</a>
+
+```java
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    mMapView = mapFragment.getView();
+    MapsIndoors.initialize(getApplicationContext(), "YOUR_MAPSINDOORS_API_KEY");
+    MapsIndoors.setGoogleAPIKey(“YOUR_GOOGLE_API_KEY”);
+    ...
+}
+```
+
+</TabItem>
+<TabItem value="kotlin" label="Kotlin">
+
+<a href="https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android-Kotlin/blob/main/app/src/main/java/com/example/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L50-L55">MapsActivity.kt</a>
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    ...
+    MapsIndoors.initialize(applicationContext, "YOUR_MAPSINDOORS_API_KEY")
+    MapsIndoors.setGoogleAPIKey(“YOUR_GOOGLE_API_KEY”)
+
+    mapFragment.view?.let {
+        mapView = it
+    }
+    ...
+}
+```
+
+</TabItem>
+</Tabs>
+
+If you are not a customer you can use this demo MapsIndoors API key `d876ff0e60bb430b8fabb145`.
+
+### Initialize MapsControl
+
+We now want to add all the data we get by initializing `MapsIndoors` to our Google map. This is done by initializing `MapControl` onto the Google map. `MapControl` is used as a layer between Google Maps and MapsIndoors.
+
+Here we use Google Maps logic to apply geodata onto the map. This also means we append logic onto many Google Maps listeners, which means that using Google Maps listeners directly might break intended behavior of the MapsIndoors experience. We recommend to check our reference docs, and see if you can add a specific `Listener` through the `MapControl` and always use those when possible.
+
+Start by creating an `initMapControl` method which is used to initiate the `MapControl` and assign it to our Google map:
+
+<Tabs groupId="getting-started-android-v3-map">
+<TabItem value="java" label="Java" default>
+
+<a href="https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android/blob/master/app/src/main/java/com/example/mapsindoorsgettingstarted/MapsActivity.java#L135-L168">MapsActivity.java</a>
+
+```java
+void initMapControl(View view) {
+    //Creates a new instance of MapControl
+    mMapControl = new MapControl(this);
+    //Sets the Google map object and the map view to the MapControl
+    mMapControl.setGoogleMap(mMap, view);
+    //Initiates the MapControl
+    mMapControl.init(miError -> {
+        if (miError == null) {
+            //No errors so getting the first venue (in the white house solution the only one)
+            Venue venue = MapsIndoors.getVenues().getCurrentVenue();
+            runOnUiThread( ()-> {
+                if (venue != null) {
+                    //Animates the camera to fit the new venue
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(venue.getLatLngBoundingBox(), 19));
+                }
+            });
+        }
+    });
+}
+```
+
+</TabItem>
+<TabItem value="kotlin" label="Kotlin">
+
+<a href="https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android-Kotlin/blob/main/app/src/main/java/com/example/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L108-L134">MapsActivity.kt</a>
+
+```kotlin
+private fun initMapControl(view: View) {
+    //Creates a new instance of MapControl
+    mMapControl = MapControl(this)
+    //Sets the Google map object and the map view to the MapControl
+    mMapControl.setGoogleMap(mMap, view)
+    mMapControl.init { miError ->
+        if (miError == null) {
+            //No errors so getting the first venue (in the white house solution the only one)
+            val venue = MapsIndoors.getVenues()?.currentVenue
+
+            runOnUiThread {
+                //Animates the camera to fit the new venue
+                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(venue?.latLngBoundingBox, 19));
+            }
+        }
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+In your `onMapReady` callback function, assign the `mMap` variable with the `GoogleMap` you get from the callback and call the `initMapControl` method with the `mMapView` you assigned in the `onCreate` to set up a Google map with MapsIndoors Venues, Buildings and Locations:
+
+<Tabs groupId="getting-started-android-v3-map">
+<TabItem value="java" label="Java" default>
+
+<a href="https://github.com/MapsIndoors/MapsIndoors-Getting-Started-Android/blob/master/app/src/main/java/com/example/mapsindoorsgettingstarted/MapsActivity.java#L135-L168">MapsActivity.java</a>
+
+```java
+@Override
+public void onMapReady(GoogleMap googleMap) {
+    mMap = googleMap;
+
+    if (mMapView != null) {
+        initMapControl(mMapView);
+    }
+}
+```
+</TabItem>
+<TabItem value="kotlin" label="Kotlin">
+
+<a href="https://github.com/MapsIndoors/MapsIndoors-Getting-Started-Android-Kotlin/blob/main/app/src/main/java/com/example/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L108-L134">MapsActivity.kt</a>
+
+```kotlin
+override fun onMapReady(googleMap: GoogleMap) {
+    mMap = googleMap
+
+    mapView?.let { view ->
+        initMapControl(view)
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+Expected result:
+
+<img src="/img/getting-started/android_map_gif.gif" alt="An animation showing the desired behaviour of this tutorial" width="350"/>
+
+See the full example of MapsActivity here [MapsActivity.java](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android/blob/master/app/src/main/java/com/example/mapsindoorsgettingstarted/MapsActivity.java) or [MapsActivity.kt](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android-Kotlin/blob/main/app/src/main/java/com/example/mapsindoorsgettingstartedkotlin/MapsActivity.kt)

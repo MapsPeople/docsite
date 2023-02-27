@@ -56,6 +56,15 @@
   color: #ffffff;
 }
 
+
+a.navbar__item.navbar__link:hover {
+  color: #cdff00;
+}
+
+a.footer__link-item:hover {
+  color: #cdff00;
+}
+
 /* .menu__link {
   font-weight: bold;
 } */
