@@ -14,7 +14,13 @@ A method on MapsIndoors is available to retrieve locations by their externalId. 
 The function on all 3 platforms functions similarly, returning an Array or List of Locations that match the supplied External ID strings.
 
 <Tabs groupId="various-external-id-search">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 Running the below snippet will return a List of `MPLocations`.
 
@@ -23,7 +29,7 @@ val locations = MapsIndoors.getLocationsByExternalIds(externalIds)
 ```
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 :::danger Known iOS Issues
 
@@ -39,7 +45,7 @@ MPLocationService.sharedInstance().getLocationsByExternalIds(externalIds)
 ```
 
 </TabItem>
-<TabItem value="web" label="Web" default>
+<TabItem value="web" label="Web v4" default>
 
 Running the below snippet will return an Array of `MPLocations`.
 

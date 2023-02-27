@@ -27,7 +27,13 @@ Usually, access to the services behind the MapsIndoors SDK is restricted with AP
 We recommend using a library such as AppAuth to handle verification and response to get a token to use in the MapsIndoors SDK.
 
 <Tabs groupId="various-authentication">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 <Tabs>
 <TabItem value="java" label="Java" default>
@@ -171,7 +177,7 @@ The SDK will ensure all subsequent performed data requests will include the set 
 > Note that the access token obtained from a MapsIndoors Single Sign-on flow cannot be used as access token for the [Booking service](/user-authenticated-booking/). Single Sign-on access tokens are issued by MapsIndoors and not the underlying tenant. You need to login directly on your Booking tenant to get an access token that can be used for working with the Booking Service as an authenticated user.
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 :::danger Known iOS Issues
 
@@ -259,7 +265,7 @@ The SDK will then make sure that all requests for data is performed using this a
 > Note that the access token obtained from a MapsIndoors Single Sign-on flow cannot be used as access token for the [Booking Service](/booking/). Single Sign-on access tokens are issued by MapsIndoors and not the underlying tenant. You need to login directly on your Booking tenant to get an access token that can be used for working with the Booking Service as an authenticated user.
 
 </TabItem>
-<TabItem value="web" label="Web">
+<TabItem value="web" label="Web v4">
 
 To utilize an OAuth2 login flow for your MapsIndoors project, you will need to provide some details to the OAuth2 client, like the _issuer url_, _client id_, _scopes_ and possibly a _preferred identity provider_ if there is more than one option. These details are available as arguments in the `MapsIndoors.onAuthRequired` callback.
 

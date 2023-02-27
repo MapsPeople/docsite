@@ -20,7 +20,13 @@ At it's core, this is done simply by switching out the API key and reloading the
 To initialise MapsIndoors, do the following:
 
 <Tabs groupId="various-switch-solutions">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 <Tabs groupId="various-switch-solutions-platform">
 <TabItem value="gm" label="Google Maps" default>
@@ -141,7 +147,7 @@ fun initMapControl(view: View) {
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 When you load your initial Solution, it's beneficial to initialise MapsIndoors properly, to ensure it's easy to switch Solutions later if needed.
 
@@ -180,7 +186,13 @@ You switch Solutions by changing the active API key using `setAPIKey()`.
 We recommend creating your own function to call in the future for this purpose, like the example here with `switchSolution()`:
 
 <Tabs groupId="various-switch-solutions">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 <Tabs groupId="various-switch-solutions-platform">
 <TabItem value="gm" label="Google Maps" default>
@@ -238,7 +250,7 @@ initMapControl(mMapBoxMap, mMapView)
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 To switch Solutions, you first need to ensure that all your existing instances are closed down safely. Once this is done, you can use `setupMapIndoors` to restart with your new desired API key.
 
