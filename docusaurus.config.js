@@ -85,6 +85,11 @@ const config = {
             label: 'CMS Login',
             position: 'right',
           },
+          {
+            to: 'https://docs-legacy.mapsindoors.com/content/legacy/',
+            label: 'Legacy Documentation',
+            position: 'right',
+          },
         ],
       },
       footer: {
