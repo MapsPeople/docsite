@@ -14,7 +14,13 @@ One way you can alter the look and feel of your map is by changing the color of 
 The method to do this is different for each platform.
 
 <Tabs groupId="display-rules">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 To change the building outline color, along with other display properties, you must get and modify the Display Rule.
 
@@ -27,7 +33,7 @@ MapsIndoors.getDisplayRule(MPSolutionDisplayRule.BUILDING_OUTLINE).setPolygonStr
 The parameter `strokeColor` takes the color in RGB format (with an alpha-channel value), the the syntax being `AARRGGBB`.
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 To change the building outline, use the properties of `MapControl.locationHighlightDisplayRule`.
 
@@ -38,7 +44,7 @@ myMapControl.locationHighlightDisplayRule?.highlightOutlineColor = UIColor.red
 The sample uses the example `UIColor.red`, but this can be any standard color such as `UIColor.green` or `UIColor.lightGray`. You can also define RGB values as follows: `UIColor(red: 123, blue: 36, green: 273, alpha: 100)`.
 
 </TabItem>
-<TabItem value="web" label="Web">
+<TabItem value="web" label="Web v4">
 
 To change the building outline color, use the `strokeColor` property of the `BuildingOutlineOptions` interface. This property accepts any color as defined by conventional CSS color values. See [https://developer.mozilla.org/en-US/docs/Web/CSS/color_value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) for more information on CSS color values.
 
