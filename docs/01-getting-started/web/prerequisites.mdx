@@ -5,7 +5,7 @@ hide_table_of_contents: true
 sidebar_position: 1
 ---
 
-MapsIndoors is built on top of Google Maps and on this page, you'll create a Google Maps API key with the relevant APIs enabled, retrieve a MapsIndoors API key and install the necessary dependencies to get started building your own app.
+MapsIndoors is built on top of an external map provider, and on this page, you'll create a an Access Token for your chosen map provider with the relevant APIs enabled, retrieve a MapsIndoors API key and install the necessary dependencies to get started building your own app.
 
 ## Get your Google Maps API Keys
 
@@ -20,6 +20,18 @@ Some Web Service APIs are also needed for the MapsIndoors SDK, so make sure to e
 * [Google Places API Web Service](https://developers.google.com/places/web-service/intro)
 
 Remember to enable relevant Maps products (i.e. Maps JavaScript API) in your Google project and include these on your API key if you apply restrictions.
+
+## Alternatively: Get your Mapbox Access Token
+
+You need to create and setup a Mapbox Access Token by following the steps in the link below:
+
+* [Mapbox Access Token documentation](https://docs.mapbox.com/help/getting-started/access-tokens/)
+
+Remember to enable relevant *scopes* on the Mapbox Access Token, such as:
+
+* [Vector Tiles API](https://docs.mapbox.com/api/maps/vector-tiles/)
+* [Styles API](https://docs.mapbox.com/api/maps/styles/)
+* [Directions API](https://docs.mapbox.com/api/navigation/directions/)
 
 ## Get your MapsIndoors API Key
 
