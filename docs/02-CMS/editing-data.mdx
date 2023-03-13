@@ -1,0 +1,224 @@
+---
+title: Editing Data
+hide_title: false
+hide_table_of_contents: false
+slug: /cms-editing-data
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Editing Data
+
+<iframe width="480" height="300" src="https://www.youtube-nocookie.com/embed/GKnbEiINEtU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Location
+
+Each Location also has a number of settings associated with it. If you select a Location on the Map or in the List view in the CMS, you will be presented with a modal with the following settings:
+
+* **Type** - Locations must have a Type applied, which can be set in the Location details editor. When creating a new Location some settings are inherited from the selected Type e.g. Name and Icon. You can always change the inherited settings to something else if necessary.
+* **Name & Description** - Type in the name of your Location, and a Description. Entering it in the default language is mandatory, but you also have options to enter it in alternative languages.
+* **Area** - Choose the colour of the Area the Location covers. You can also set whether the Area is visible or not.
+* **Status** - Toggle whether or not this Location appears in searches.
+* **Restrictions** - Determine which, if any, App User Role Restrictions this Location should be subject to.
+* **Categories** - Add which, if any, Categories this Location belongs to.
+* **Location Icon** - You can set an Icon to be used on the Map for this Location.
+* **Image Options** - Here you have the option to connect an image to a Location. See below for further details.
+* **Search Aliases** - Other search terms that can be searched, and still return this Location, even if it is not a match to the Name, Type or Category.
+* **Venue Details** - Select which Building and Floor this Location should belong to.
+* **External ID** - You can define an External ID that a Location should use alongside its internal ID.
+* **Coordinates** - The coordinates of your Location.
+* **MapsIndoors Location ID** - The internal ID of your Location.
+* **Active** - If your Location is only displayed and searchable for a given time period, you can define that here.
+* **Custom Properties** - MapsIndoors supports Custom Properties, defined by key-value pairs.
+* **Location History** - See the editing history of this Location.
+
+#### Image Options with IndoorView
+
+> IndoorView is only supported for web
+
+To get started using the IndoorView feature for your Locations, please make sure that the *Google Street View panorama images* are publicly available for your building by looking at [Google Maps](https://www.google.com/maps). If no imagery is available, please [contact a certified Street View Photographer](https://www.google.com/streetview/contacts-tools/).
+
+1. Click "Set Street View image”
+
+   * This will open a Google Street View window showing the image closest to this Location. Please note that the MapsIndoors CMS looks for panorama images within a certain radius from the Location's position, so make sure to have panorama images published in that area.
+
+1. Navigate Street View and find an image and viewing angle that is suitable
+1. Click "Set image”
+
+##### Mapsindoors Support Matrix
+
+| MapsIndoors | Support for IndoorView                                             | Private hosted panorama images |
+| ----------- | ------------------------------------------------------------------ | ------------------------------ |
+| CMS         | Yes                                                                | No                             |
+| Web App     | Yes                                                                | No                             |
+| Android App | No                                                                 | No                             |
+| iOS App     | No                                                                 | No                             |
+| Web SDK     | Yes, through Google Maps Street View API or Static Street View API | No                             |
+| Android SDK | No                                                                 | No                             |
+| iOS SDK     | No                                                                 | No                             |
+
+IndoorView only supports **publicly** available Google Street View imagery. If you would like to know more about **privately** hosted panorama images, please see [Googles Custom Street View documentation](https://developers.google.com/maps/documentation/javascript/streetview#CustomStreetView).
+
+##### Developing Your Own App
+
+When developing your own app, you can still use the MapsIndoors CMS to save the Google Street View image information to a Location. When the Panorama image is set, the Location gets populated with a `streetViewConfig` property. Please see below for an example.
+
+Location Object:
+
+```javascript
+{
+  "id": "586ce41ebc1f571794b9e924",
+   ...
+  "properties": {
+    "name": "Copenhagen",
+     ...
+    "streetViewConfig": {
+      "panoramaId": "CAoSLEFGMVFpcE41dTZnVzNpVnU1WmliRjk0T2tpMENhZ3Fya3ljVFh3TjVzN2lY",
+      "povHeading": 203.1294893976259,
+      "povPitch": -13.068754012666432
+    }
+  }
+}
+```
+
+The parameters above can be used to show a static Street View image through the Street View Static API. Please see [the Street View documentation](https://developers.google.com/maps/documentation/streetview/intro) for more information.
+
+A Street View panorama image can be initialized in a `<div>` the following way:
+
+```javascript
+function initStreetView(streetViewConfig) {
+       const panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('panorama'),
+            {
+                pano: streetViewConfig.panoramaId,
+                pov: {
+                    heading: streetViewConfig.povHeading,
+                    pitch: streetViewConfig.povPitch
+                },
+                zoom: 0,
+                visible: true
+            });
+}
+```
+
+Please see the official [Google Street View Service documentation](https://developers.google.com/maps/documentation/javascript/streetview) for more information.
+
+### 2D Models and Icons
+
+The Media Library currently supports 2D models and Icons.
+
+In the CMS you can change the Icons for markers on the Map by using the Media Library. This is done by opening the Media Library from the Icon and 2D model sections in the Display Rules editor, both on Location and Type level. More information about the Media Library can be found [here](/cms-media-library/).
+
+In the Media Library, you can see and manage all uploaded media, both 2D models and icons. Media can be either in .jpg, .png or .svg file formats. For icons specifically, we highly recommend using the SVG format.
+
+Icons have a suggested limit of 128x64 pixels, and no more than 150kb in size, but this can be overridden. There is a hard limit on file size of 8 mb.
+
+Please note, that when using the Integration API, all Media must reside on a server that has CORS enabled. Otherwise the Media can't be loaded when using the JavaScript SDK.
+
+> If your images appear "too large" on the map, please revisit your settings.
+
+#### Uploading SVGs
+
+SVG is a vector file format, which lets MapsIndoors convert your Icon in a range of sizes to get the best looking Icon in every situation.
+
+SVGs should be uploaded with a `width` and `height` that you want the SVG to be displayed on the Map in. Make sure you define it in `px`, not `cm` or `%`. E.g., if you want to display a 32x24px Icon on the Map, upload an SVG with the attributes `width='32px'` and `height='24px'`. For consistency, it's good form to make the `viewport` the same size as the `width` and `height`.
+
+#### Supported SVG Elements
+
+We only accept SVGs that conform to a very strict ruleset. If an uploaded SVG contains anything other than the elements and attributes listed below, it will be rejected. All child elements can be nested as supported by the SVG format.
+
+* `<svg>` element
+* `viewbox` attribute
+* `<path>` child element
+* `<rect>` child element
+* `<title>` child element
+* `<desc>` child element
+* `<circle>` child element
+* `<defs>` child element
+* `<ellipse>` child element
+* `<line>` child element
+* `<pattern>` child element
+* `<polygon>` child element
+* `<polyline>` child element
+* `<text>` child element
+* `<stop>` child element
+* `<use>` child element
+* `<linearGradient>` child element
+* `<radialGradient>` child element
+* `<symbol>` child element
+* `<style>` child element
+* `<tspan>` child element
+
+When you try to upload an SVG containing one or more of these elements and/or attributes, the upload is cancelled and you will see which files contain the unsupported elements.
+
+If your SVGs contain unsupported elements, you must remove them before they can be uploaded. One typical issue is embedded `base64` data in the SVG, which usually indicates the SVG will display raster image data (PNGs and the like) somewhere in it. That can lead to unintended consequences on the map.
+
+#### SVG Help
+
+Michelle Barker has written [a terrific guide to optimizing SVGs for the web](https://css-irl.info/optimising-svgs-for-the-web/) on her site.
+
+A great tool to strip unnecesary elements from your SVG-file is [SVGOMG by Jake Archibald](https://jakearchibald.github.io/svgomg/).
+
+#### Syncing Icons to Other Solutions
+
+If you have multiple Solutions, you can sync Media across multiple Solutions to make sure you can use the same Media in all of your Solutions.
+
+Open the Media Library. Find the Media you want to sync to one or more Solutions, and click the "Sync"-icon. Then you can select which other Solutions you want to sync this Media to.
+
+When you sync a piece of Media, if the Media exists in the target Solution (i.e. a piece of Media with the exact same filename), you override the Media in the target Solution. If the Media does not exist in the target Solution, it is added.
+
+#### PNG Image File Support
+
+We highly recommend using SVGs for Icons across MapsIndoors, but support PNG files as well.
+
+When uploading an Icon in the PNG format, make sure you upload it in a 3x size to accommodate for it being scaled down on the map. For example, to display a 20x20px Icon on the Map, upload it in 60x60px.
+
+### Split and Combine
+
+:::tip Paid Feature
+
+This is a paid feature. [Contact us to learn more!](https://resources.mapspeople.com/en-us/contact-us)
+
+:::
+
+Split and Combine are features that enable you to edit a Room's geometry. A Room can either be split in two, or combined with another Room.
+
+The Split and Combine features are useful if you want to make quick changes to your Rooms. If you want to make groundbreaking changes to a Floor or Building layout, reach out to your contact at MapsPeople with your updated CAD drawings.
+
+One use case for Split and Combine is to manage the layout of an exhibition for a temporary event in a convention center. Combine booths or split them into smaller ones based on the event demands.
+
+Another use case is if you make changes to your office layout without making any structural changes to the building. E.g. you might knock down a plaster wall to combine two meeting rooms or the like, which doesn’t necessarily require a full redrawing of your floor layout by our team of specialists.
+
+### How to split
+
+Select a Room on the map. In the Location Details editor, click on the “Split”-button. Place two points on the borders of the Rooms where you'd like to split it. Then choose which Room is the new Room on the map. The new Room will get a new ID, but otherwise copy all other data from the original Room. The old Room will retain all of the original data.
+
+You can get a helping hand after placing the first splitting point by holding down the "Shift" key on your keyboard. The line will be drawn perpendicular (at a 90° angle) to the Room's wall.
+
+If you exit the Split mode before completing the split, your changes will be discarded.
+
+#### Detailed constraints for Split
+
+1. The split must contain two points touching the edge/Walls of the Room.
+1. The split can not extend outside of the Room.
+1. The split must not intersect with any holes in the Room.
+1. The split must be at least 1 meter from any Walls or holes.
+1. The outcome of the split must be at least 1 square meters in size.
+1. A split must not overlap itself.
+
+### How to combine
+
+Select a Room on the map. In the Location Details editor, click on the “Combine”-button.
+
+The selected Room is now highlighted on the map, with the compatible Rooms highlighted in a different color. Click on the other Room you'd like to combine with your selected Room.
+
+The combined Room’s Location Details are based on the first selected Room’s Location Details. If you have any external integrations that rely on a Room's ID, make sure the Rooms are selected in the right order.
+
+If you exit the Combine mode before completing the combination, your changes will be discarded.
+
+#### Detailed constraints for Combine
+
+1. All Locations must be of the same Type.
+1. The Rooms must share at least 1 meter of unbroken Wall.
