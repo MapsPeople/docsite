@@ -83,7 +83,7 @@ If the Integration API is already familiar to you, here we present some of the m
 * `PUT /{apiKey}/api/geodata` - Updates/modifies a number of existing geodata.
   * This would often be used in extension of `GET /{apiKey}/api/geodata`, to modify the fetched data. An example use-case for this could be to modify the visibility of a specific Location Type, or to add a specific Custom Property to a given Type. -->
 
-### Login and Credentials
+## Login and Credentials
 
 First, log in to the service to get an `access token` to access the data.
 
@@ -96,7 +96,7 @@ No matter what login method you use, you will always need to use the following c
 Content-Type: application/x-www-form-urlencoded
 ```
 
-#### Log in with MapsIndoors Username/Password
+### Log in with MapsIndoors Username/Password
 
 To log in with your MapsIndoors login, send them with the `grant_type` set to `password`.
 
@@ -115,7 +115,7 @@ The body of the request must end up containing a query string like this:
 
 `grant_type=password&client_id=client&username=<your username>&password=<your password>`
 
-#### When You Are Authenticated
+### When You Are Authenticated
 
 If you sent valid credentials to the Auth API, you will receive a response like this:
 
