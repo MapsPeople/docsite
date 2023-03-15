@@ -5,6 +5,9 @@ hide_table_of_contents: true
 sidebar_position: 3
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Now that we have the prerequisite API keys, and the project set up, we can start adding basic functionality to the app. We will start by having the app display a map.
 
 ## Display a Map with MapsIndoors
@@ -17,45 +20,93 @@ Please note that data in MapsIndoors is loaded asynchronously. This results in b
 
 In order to accomplish this we will be utilising the [MPMapControl Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_map_control.html). Open the file, `ViewController.swift` and, once again, add in the following import statements to the top of the file,
 
+### Import MapsIndoors
+
+<Tabs groupId="getting-started-ios-v4-map">
+<TabItem value="swift-google" label="Swift - Google Maps" default>
+
 ```swift
 import GoogleMaps  
 import MapsIndoors
 ```
 
-Furthermore, within the ViewController class, add in a map controller variable as such,
+</TabItem>
+<TabItem value="swift-mapbox" label="Swift - Mapbox" default>
 
 ```swift
-class ViewController: UIViewController {
-private var mapControl:MPMapControl?
-var mapView = GMSMapView.map(withFrame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), camera: GMSCameraPosition())
-...
-}
-```  
+import Mapbox  
+import MapsIndoors
+```
 
-The [MPMapControl Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_map_control.html) the is connective class between the Google Map and the MapsIndoors. It allows the two services to collaborate by overlaying the MapsIndoors information over the Google Maps information.
+</TabItem>
+</Tabs>
+
+Furthermore, within the ViewController class, add in a map controller variable as such,
+
+<Tabs groupId="getting-started-ios-v4-map">
+<TabItem value="swift-google" label="Swift - Google Maps" default>
+
+```swift
+        // Set camera then create MapControl
+        Task {
+            // pass the previously created MapConfig to `createMapControl`
+            if let mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig) {
+                
+                let query = MPQuery()
+                let filter = MPFilter()
+                
+                query.query = "White House"
+                filter.take = 1
+                
+                let locations = await MPMapsIndoors.shared.locationsWith(query: query, filter: filter)
+                if let firstLocation = locations.first {
+                    mapControl.select(location: firstLocation, behavior: .default)
+                    mapControl.select(floorIndex: firstLocation.floorIndex.intValue)
+                }
+            }
+        }
+```
+
+</TabItem>
+<TabItem value="swift-mapbox" label="Swift - Mapbox" default>
+
+```swift
+        // Set camera then create MapControl
+        Task {
+            // pass the previously created MapConfig to `createMapControl`
+            if let mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig) {
+                
+                let query = MPQuery()
+                let filter = MPFilter()
+                
+                query.query = "White House"
+                filter.take = 1
+                
+                let locations = await MPMapsIndoors.shared.locationsWith(query: query, filter: filter)
+                if let firstLocation = locations.first {
+                    mapControl.select(location: firstLocation, behavior: .default)
+                    mapControl.select(floorIndex: firstLocation.floorIndex.intValue)
+                }
+            }
+        }
+```
+
+</TabItem>
+</Tabs>
+
+The [MPMapControl Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_map_control.html) the is connective class between the Map Engine(either Google Maps or Mapbox) and the MapsIndoors. It allows the two services to collaborate by overlaying the MapsIndoors information over the Map Engine information.
 
 *Note: This also means logic is appended onto many Google Maps listeners, which means that using Google Maps listeners directly might break intended behavior of the MapsIndoors experience. We recommend checking our [reference docs](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/index.html), and see if you can add a specific `Listener` through the `MapControl`. If this is possible, it is highly recommend you do so.*
 
-What this means is that we should first create our Google Map, in order to do this we add the following code to our `viewDidLoad()` method,
+What this means is that we should first create our Map, that is why in the previous `Set up Your Environment` we did so for `Mapbox`. This is how to do for `GoogleMaps`:
 
 ```swift
-self.view.addSubview(mapView)
-```
+// inside `viewDidLoad()`
+self.view = mapView
+// where mapView is of type `GMSMapView`
+ ````
 
-Running the app like this does indeed display a map, however this is through the use of Google Maps exclusively and with a default map region displayed. Let us try and add in MapsIndoors and showcase a specific location. To accomplish this we add in following after the previously inserted code,
-
-```swift
-self.mapControl = MPMapControl(map: mapView)  
-let query = MPQuery()  
-let filter = MPFilter()  
-query.query = "White House"  
-filter.take = 1  
-MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (locations, error) in  
-    if let location = locations?.first {  
-        self.mapControl?.go(to:location)  
-    }  
-}
-```
+Running the app wihtout the use of code aobve indeed displays a map, however this is through the use of the Map Engine of your choice exclusively and with a default map region displayed. But we used MapsIndoors to showcase a specific location.
 
 We have now added a *very* simple search feature! Running the app now should yield a combined map of The White House, showing both the external and internal geographical information. However, let us try and understand what is actually happening.
 

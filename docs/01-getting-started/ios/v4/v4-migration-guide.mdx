@@ -9,3 +9,28 @@ The iOS SDK for MapsIndoors has been upgraded from v3 to v4, which comes with im
 
 ## MapsIndoors SDK Map Engine Flavors
 
+With the release of v4 the MapsIndoors SDK is released as two separate libraries depending on the Map Provider - Google Maps or Mapbox.
+
+```swift
+import GoogleMaps
+// or
+import Mapbox
+```
+
+## MapsIndoors Provide API Key
+
+```swift
+ Task {
+        await MPMapsIndoors.shared.load(apiKey:`YOUR_MAPSINDOORS_API_KEY`)
+    }
+```
+
+## Introduction of asyn/await pattern for MPDirectionsService
+
+```swift
+    Task {
+        do {
+            let route = try await directions.routingWith(query: directionsQuery)
+          // ...
+    }
+```

@@ -19,7 +19,7 @@ Now that you have taken care of all the preliminary issues, we can start buildin
 
 ## Create an Xcode Project
 
-We recommend using [Xcode](https://developer.apple.com/xcode/) for following along, for this guide we will be using Xcode 13.0. Note that an iOS mobile device is not required, as Xcode allows the use of a simulator. Furthermore, in accordance with the known issues with Google Maps and Arm-based Apple Silicon (M1) Macs, we will be using an iPhone 11 (iOS 13.7) simulator throughout.
+We recommend using [Xcode](https://developer.apple.com/xcode/) for following along, for this guide we will be using Xcode 14.2. Note that an iOS mobile device is not required, as Xcode allows the use of a simulator. Furthermore, in accordance with the known issues with Google Maps and Arm-based Apple Silicon (M1) Macs, we will be using an iPhone 11 (iOS 13.7) simulator throughout.
 
 We start off by creating an Xcode project using the App template,
 
@@ -47,7 +47,7 @@ MapsIndoors can either be installed using CocoaPods ([Getting Started with Cocoa
 
 ### Installing MapsIndoors Using CocoaPods
 
-From MapsIndoors SDK version 3.32.0 and up, in order for CocoaPods to fetch the SDK properly it is neccessary to install `git-lfs` ([Install Guide](https://git-lfs.github.com/)).
+From MapsIndoors SDK version 4.0.0 and up, in order for CocoaPods to fetch the SDK properly it is neccessary to install `git-lfs` ([Install Guide](https://git-lfs.github.com/)).
 
 1. Create an empty text file named `Podfile` in your project directory (same folder as your *.xcodeproj*).
 2. Add your dependecies to the Podfile as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name),
@@ -60,13 +60,13 @@ From MapsIndoors SDK version 3.32.0 and up, in order for CocoaPods to fetch the 
     target 'YOUR_APPLICATION_TARGET_NAME_HERE' do
       use_frameworks!
 
-      pod 'MapsIndoors', '~>3.43'
+      pod 'MapsIndoors', '~>4.0'
     end
     ```
 
 :::caution
 
-In the line containing `pod 'MapsIndoors', '~>3.43'`, where it currently says `3.43`, be sure to replace this number with whatever the latest version of the iOS SDK is.
+In the line containing `pod 'MapsIndoors', '~>4.0'`, where it currently says `4.0`, be sure to replace this number with whatever the latest version of the iOS SDK is.
 
 :::
 
@@ -108,17 +108,54 @@ Open back up the project and navigate to the file `AppDelegate.swift`.
 
 1. Add the following import statements to the top of the file,  
 
-    ```swift
-    import GoogleMaps  
-    import MapsIndoors
-    ````
+    <Tabs>
+    <TabItem value="googlemaps" label="GoogleMaps" default>
 
-2. Insert the following into the `application(_:didFinishLaunchingWithOptions:)` method,
+      ```swift
+      import GoogleMaps  
+      import MapsIndoors
+      ```
+      
+    </TabItem>
+    <TabItem value="mapbox" label="Mapbox">
 
-```swift
-GMSServices.provideAPIKey(      "YOUR_GOOGLE_API_KEY")  
-MapsIndoors.provideAPIKey(      "YOUR_MAPSINDOORS_API_KEY",  
-            googleAPIKey:       "YOUR_GOOGLE_API_KEY")
-````
+      ```swift
+      import Mapbox  
+      import MapsIndoors
+      ```
 
-Finally, remember to replace `YOUR_GOOGLE_API_KEY` with your Google API key and `YOUR_MAPSINDOORS_API_KEY` with your MapsIndoors API demo key `d876ff0e60bb430b8fabb145`.
+    </TabItem>
+    </Tabs>
+
+2. Insert the following into the `application(_:didFinishLaunchingWithOptions:)` method. If you are using `Mapbox` then provide your API Key when you add your map to the view inside `viewDidLoad()` in your `ViewController.swift`
+
+    <Tabs>
+    <TabItem value="googlemaps" label="GoogleMaps" default>
+
+      ```swift
+       GMSServices.provideAPIKey(`YOUR_GOOGLE_API_KEY`)
+       // set the map view then set the MPMapConfig
+       let mapConfig = MPMapConfig(gmsMapView: googleMap!, googleApiKey: AppDelegate.gApiKey)
+        Task {
+            await MPMapsIndoors.shared.load(apiKey:`YOUR_MAPSINDOORS_API_KEY`)
+        }
+      ```
+      
+    </TabItem>
+    <TabItem value="mapbox" label="Mapbox">
+
+      ```swift
+       ResourceOptions(accessToken: `YOUR_MAPBOX_API_KEY`)
+       let initOptions = MapInitOptions(resourceOptions: myResourceOptions, styleURI: StyleURI.light)
+            self.mapView = MapView(frame: view.bounds, mapInitOptions: initOptions)
+            // set the MPMapConfig
+            MPMapConfig(mapBoxView: mapView!, accessToken: "---")
+            Task {
+            await MPMapsIndoors.shared.load(apiKey:`YOUR_MAPSINDOORS_API_KEY`)
+        }
+      ```
+
+    </TabItem>
+    </Tabs>
+
+Finally, remember to replace `YOUR_GOOGLE_API_KEY` or `YOUR_MAPBOX_API_KEY` with your Google API key and `YOUR_MAPSINDOORS_API_KEY` with your MapsIndoors API demo key `d876ff0e60bb430b8fabb145`.

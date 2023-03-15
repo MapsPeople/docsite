@@ -33,16 +33,21 @@ We can now add in the `directions()` function,
 
 ```swift
 func directions() {
-        let directions = MPDirectionsService()
-        let directionsQuery = MPDirectionsQuery(originPoint: origin, destination: destination)
+    let directions = MPDirectionsService()
+    let directionsQuery = MPDirectionsQuery(origin: origin, destination: destination)
 
-        directions.routing(with: directionsQuery) { (route, error) in
-          self.renderer.map = self.mapView
-          self.renderer.route = route
-          self.renderer.routeLegIndex = 0
-          self.renderer.animate(5)
+    Task {
+        do {
+            let route = try await directions.routingWith(query: directionsQuery)
+            self.renderer.map = self.mapView
+            self.renderer.route = route
+            self.renderer.routeLegIndex = 0
+            self.renderer.animate(duration: 5)
+        } catch {
+            print("Error getting directions: \(error)")
         }
-      }
+    }
+}
 ```
 
 ## Expected Result
