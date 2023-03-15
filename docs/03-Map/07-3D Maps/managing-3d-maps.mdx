@@ -1,0 +1,52 @@
+---
+title: Managing your 3D Maps
+hide_title: false
+hide_table_of_contents: true
+sidebar_position: 1
+slug: /managing-3d-maps
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## How to manage your 3D Maps
+
+Your 3D maps are managed and customised through the use of Display Rules. For a more extensive and detailed explanation on Display Rules, [please read this article covering the topic](/display-rules). The following information can also be found in the articles detailing Display Rules, but 3D-specific information will be covered in this article.
+
+### 3D Walls
+
+<img src="/img/cms/3d-walls.png" alt="Display Rules" width="504"/>
+
+The MapsIndoors CMS gives you the option of displaying your map in 3D. This is achieved by ensuring that any walls present in your solution are displayed as an extrusion, giving the usr the appearance of a 3D map. The appearance of the walls can be customised to match your desired visual identity.
+
+1. **Visibility** - Controls whether the 3D walls are visible on the map.
+    * The system will accept a Boolean here, so either `true` or `false`.
+1. **Zoom from** - Sets the minimum Zoom Level at which the 3D walls are visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Zoom to** - Sets the maximum Zoom Level at which the 3D walls are visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Wall color** - Controls the color of the 3D walls.
+    * In the CMS, you can select a color using the color picker displayed when clicking the color input field.
+    * If setting the color in-app, the value provided must be in 6-digit HEX code (eg. #3071D9).
+1. **Wall height** - Controls the height of the 3D walls, measured in meters.
+
+### 3D Room Extrusion
+
+<img src="/img/cms/3d-room-extrusion.png" alt="Display Rules" width="504"/>
+
+In addition to the ability to extrude all walls, you can additionally extrude specific rooms or areas, for example, if you wish to highlight a specific meeting room where an important meeting is taking place.
+
+1. **Visibility** - Controls whether the extrusion is visible on the map.
+    * The system will accept a Boolean here, so either `true` or `false`.
+1. **Zoom from** - Sets the minimum Zoom Level at which the extrusion is visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Zoom to** - Sets the maximum Zoom Level at which the extrusion is visible.
+    * The value should be a number between 1 and 22, with 1 being very far away, and 22 being very close (22 not available for all Solutions). In a general use case, most users will only need values between 15 and 22.
+    * If you are developing using the JavaScript SDK for Google Maps, the value must be an integer. If you are developing for Android or iOS, or using a different map provider, the value may be fractional.
+1. **Extrusion color** - Controls the color of the extrusion.
+    * In the CMS, you can select a color using the color picker displayed when clicking the color input field.
+    * If setting the color in-app, the value provided must be in 6-digit HEX code (eg. #3071D9).
+1. **Extrusion height** - Controls the height of the room extrusion, measured in meters.
