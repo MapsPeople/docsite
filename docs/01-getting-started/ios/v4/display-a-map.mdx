@@ -123,3 +123,116 @@ Finally, the [MPLocationService Class](https://app.mapsindoors.com/mapsindoors/r
 Feel free to change the query from "White House" to a known building in *your* MapsIndoors dataset.
 
 We have now added a search feature to the app, albeit a search feature which the user cannot interact with. Next, let us look into how we can let the user interact with the map through a search bar.
+### Complete code
+
+<Tabs groupId="getting-started-ios-v4-map">
+<TabItem value="swift-google" label="Swift - Google Maps" default>
+
+```swift
+import GoogleMaps  
+import MapsIndoors
+
+// In your `AppDelegate`
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    static let mApiKey = [YOUR_MAPSINDOORS_API_KEY]
+    static let gApiKey = ProcessInfo.processInfo.environment[YOUR_GOOGLE_API_KEY]
+
+    var window: UIWindow?
+    
+    var currentAuthorizationFlow: OIDExternalUserAgentSession?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        GMSServices.provideAPIKey(AppDelegate.gApiKey)
+        Task {
+            await MPMapsIndoors.shared.load(apiKey: AppDelegate.mApiKey)
+        }
+        return true
+    }
+    
+    // ...
+}
+
+// In your `ViewController`
+
+class ViewController: UIViewController, GMSMapViewDelegate {
+    var mapView: GMSMapView? = nil
+    var mapControl: MPMapControl? = nil
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let camera = GMSCameraPosition.camera(withLatitude: 57.057964, longitude: 9.9504112, zoom: 20)
+        mapView = GMSMapView.map(withFrame: .zero, camera: camera)
+        self.view = mapView
+
+        let location = CLLocationCoordinate2D(latitude: 57.057964, longitude: 9.9504112)
+        
+        Task {
+            let error = await MPMapsIndoors.shared.load(apiKey: [YOUR_MAPSINDOORS_API_KEY])
+            
+            if let mapControl = MPMapsIndoors.createMapControl(mapView: mapView!) {
+                let query = MPQuery()
+                let filter = MPFilter()
+                
+                query.query = "White House"
+                filter.take = 1
+                
+                let locations = await MPMapsIndoors.shared.locationsWith(query: query, filter: filter)
+                if let firstLocation = locations.first {
+                    mapControl.select(location: firstLocation, behavior: .default)
+                    mapControl.select(floorIndex: firstLocation.floorIndex.intValue)
+                }
+            }
+        }
+    }
+}
+
+```
+
+</TabItem>
+<TabItem value="swift-mapbox" label="Swift - Mapbox" default>
+
+```swift
+import Mapbox  
+import MapsIndoors
+
+// In your `ViewController`
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+    // Initialize the Mapbox map view
+    let mapInitOptions = MapInitOptions()
+    mapView = MapView(frame: view.bounds, mapInitOptions: mapInitOptions)
+    mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    view.addSubview(mapView!)
+
+    // Set the camera position
+    let location = CLLocationCoordinate2D(latitude: 57.057964, longitude: 9.9504112)
+    mapView?.mapboxMap.setCamera(to: CameraOptions(center: location, zoom: 20))
+
+    Task {
+        let error = await MPMapsIndoors.shared.load(apiKey: [YOUR_MAPSINDOORS_API_KEY])
+        
+        if let mapControl = MPMapsIndoors.createMapControl(mapConfig: MapConfig(map: mapView!)) {
+            self.mapControl = mapControl
+
+            let query = MPQuery()
+            let filter = MPFilter()
+
+            query.query = "White House"
+            filter.take = 1
+
+            let locations = await MPMapsIndoors.shared.locationsWith(query: query, filter: filter)
+            if let firstLocation = locations.first {
+                mapControl.select(location: firstLocation, behavior: .default)
+                mapControl.select(floorIndex: firstLocation.floorIndex.intValue)
+            }
+        }
+    }
+}
+
+```
+
+</TabItem>
+</Tabs>
