@@ -8,7 +8,7 @@ sidebar_position: 3
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Your environment is now fully configured, and you have the necessary Google Maps and MapsIndoors API keys. Next you will learn how to load a Google Maps map with MapsIndoors.
+Your environment is now fully configured, and you have the necessary API keys. Next you will learn how to load a map with MapsIndoors.
 
 ## Show a Map with MapsIndoors
 
@@ -52,7 +52,7 @@ Insert the MapsIndoors SDK script tag into `<head>`, followed by the Google Maps
 
 Remember to add your API keys to the links in your code. You can use the demo MapsIndoors API key showing "The White House": `d876ff0e60bb430b8fabb145`.
 
-Add an empty `<div>` element to `<body>` with the `id` attribute set to "map":
+Add an empty `<div>` element to `<body>` with the `id` attribute set to `"map"`:
 
 ```html
 <!-- index.html -->
@@ -239,7 +239,7 @@ const mapsIndoorsInstance = new mapsindoors.MapsIndoors({
 });
 ```
 
-What happens in this snippet is we create a `mapViewInstance` that pulls up a [`GoogleMapsView`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/mapsindoors.mapView.GoogleMapsView.html) with some [`mapViewOptions`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/mapsindoors.mapView.GoogleMapsView.html). The options define which element in the html-file to display the map in (in this case `<div id="map">`), where the map should center, what zoom level to display, and what the max zoom level is.
+What happens in this snippet is we create a `mapViewInstance` that pulls up a [`MapboxView`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/mapsindoors.mapView.MapboxView.html) with some [`mapViewOptions`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/mapsindoors.mapView.MapboxView.html). The options define which element in the html-file to display the map in (in this case `<div id="map">`), where the map should center, what zoom level to display, and what the max zoom level is.
 
 > Go here https://docs.mapbox.com/help/glossary/access-token/ for information about how to obtain a Mapbox access token.
 

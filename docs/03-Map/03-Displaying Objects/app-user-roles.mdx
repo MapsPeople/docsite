@@ -24,7 +24,13 @@ Click `Add App User Role` and enter the name of the newly created Role in all de
 Assigning or changing App User Roles to users is done in the app itself. The method depends on which platform you're developing for. Here are some examples:
 
 <Tabs groupId="live-data-practice">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 To fetch User Roles from the SDK, you call `MapsIndoors.getUserRoles()` to retrieve a collection of `MPUserRoles` tied to a loaded solution:
 
@@ -41,7 +47,7 @@ MapsIndoors.applyUserRoles(savedUserRoles);
 > For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/reference/android/v3/index.html).
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 You get the available Roles with help of the `MPSolutionProvider`:
 
@@ -63,7 +69,7 @@ User roles can also be set for a specific direction query using `DirectionsQuery
 > For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_solution_provider.html).
 
 </TabItem>
-<TabItem value="Web" label="web">
+<TabItem value="Web" label="Web v4">
 
 To get the available Roles in the Web SDK, you use `SolutionsService`:
 

@@ -10,7 +10,13 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs groupId="directions-service">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 <Tabs groupId="directions-service-platform">
 <TabItem value="java" label="Java" default>
@@ -222,7 +228,7 @@ fun setArrivalTime(date: Date?) {
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 The class `MPDirectionsService` is used to request routes from one point to another. The minimal required input is an `origin` and a `destination`. You need to build a query using the `MPDirectionsQuery` class.
 
@@ -304,7 +310,7 @@ directionsQuery.departure = Date.init()
 ```
 
 </TabItem>
-<TabItem value="web" label="Web">
+<TabItem value="web" label="Web v4">
 
 The class `DirectionsService` is used to request routes from one point to another. The minimal required input is an `origin` and a `destination`.
 

@@ -60,9 +60,15 @@ From MapsIndoors SDK version 3.32.0 and up, in order for CocoaPods to fetch the 
     target 'YOUR_APPLICATION_TARGET_NAME_HERE' do
       use_frameworks!
 
-      pod 'MapsIndoors', '~>{{ ios.sdkVersion }}'
+      pod 'MapsIndoors', '~>3.43'
     end
     ```
+
+:::caution
+
+In the line containing `pod 'MapsIndoors', '~>3.43'`, where it currently says `3.43`, be sure to replace this number with whatever the latest version of the iOS SDK is.
+
+:::
 
 3. Save the Podfile and open a terminal in the directory of the project.
 `cd \<path-to-project>`

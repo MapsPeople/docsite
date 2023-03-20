@@ -10,7 +10,13 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs groupId="searching-on-map">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 Use the `MapsIndoors.getLocationsAsync()` method to search for content in your MapsIndoors Solution.
 
@@ -57,7 +63,7 @@ MapsIndoors.getLocationsAsync(query, filter, (locs, err) -> {
 Please note that you are not guaranteed that the visible floor contains any search results, so that is why we change floor in the above example.
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 Use the `MPLocationService` class to search for content in your MapsIndoors Solution.
 

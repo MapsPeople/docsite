@@ -22,7 +22,13 @@ Custom Properties are created for each Location, defined using a `key` and a `va
 The method for reading and using these custom properties depends on which platform you're developing for. Here are some examples:
 
 <Tabs groupId="data-custom-properties">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 <img src="/img/data/custom-properties-cms-example.png" alt="Screenshot of where to find Custom Properties" width="450"/>
 
@@ -35,7 +41,7 @@ String email = (String) location.getProperty("email");
 When retrieving custom properties, they are always returned as a String.
 
 </TabItem>
-<TabItem value="ios" label="iOS" default>
+<TabItem value="ios" label="iOS v3" default>
 
 <img src="/img/data/custom-properties-cms-example.png" alt="Screenshot of where to find Custom Properties" width="450"/>
 
@@ -58,7 +64,7 @@ let type = data.type
 * `let type = data.type` retrieves the type of the Custom Property, and will in most known cases return `text`.
 
 </TabItem>
-<TabItem value="web" label="Web" default>
+<TabItem value="web" label="Web v4" default>
 
 <img src="/img/data/custom-properties-cms-example.png" alt="Screenshot of where to find Custom Properties" width="450"/>
 

@@ -23,7 +23,13 @@ This guide will focus on how to display the heatmap layer in a visually pleasing
 Once you have created your heatmaps with your map provider, you will need a way to get it to work with the layers that MapsIndoors already applies to your Mapbox map. By following the above guides, you should be able to simply overlay it on top of everything. But in order for it to be integrated more seamlessly in the MapsIndoors layers, you could also choose to insert between the tile layer and the layer containing the area polygons.
 
 <Tabs groupId="display-rules">
-<TabItem value="android" label="Android" default>
+<TabItem value="android" label="Android v4" default>
+
+:::info
+
+If you are looking for documentation on Android SDK v3, please [see here](https://docs-legacy.mapsindoors.com/content/legacy/android_v3/).
+
+:::
 
 > This will only work with Android SDK v4.0.1 and newer.
 
@@ -46,12 +52,12 @@ mapboxMap.getStyle { style ->
 `Layers.POI` is the Location marker layer of the MapsIndoors layers. This means the heatmap will be rendered on top of markers, but below the positioning dot ("blue dot") and route markers.
 
 </TabItem>
-<TabItem value="ios" label="iOS">
+<TabItem value="ios" label="iOS v3">
 
 > This feature is not currently available for iOS.
 
 </TabItem>
-<TabItem value="web" label="Web">
+<TabItem value="web" label="Web v4">
 
 In order to insert a heatmap between layers on the JS SDK, refer to the [Mapbox GL JS API Reference](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#addlayer). Then use the following code snippet but replace `map` with your Mapbox instance, and insert the relevant parameters from the API Reference:
 
