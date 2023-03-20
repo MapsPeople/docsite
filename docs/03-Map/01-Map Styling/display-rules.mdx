@@ -206,6 +206,24 @@ An example of in-app Display Rules using only "Polygon" Display Rules could look
 
 <img src="/img/cms/one_way_bearing_compass.png" alt="An illustration that demonstrates how to interpret bearing" width="300"/>
 
+An example of in-app Display Rules using only "2D Model" Display Rules could look like this:
+
+```json
+{
+    "displaySetting": {
+        "model2D": {
+            "visible": true,
+            "zoomFrom": 16.0,
+            "zoomTo": 22.0,
+            "model": null,
+            "widthMeters": 0,
+            "heightMeters": 0,
+            "bearing":0
+        }
+    }
+}
+```
+
 :::caution
 
 Due to temporary technical limitations, it is currently not possible to directly delete a 2D model from a Location via the Display Rules panel. Instead, use one of the two following workarounds:
@@ -235,6 +253,22 @@ The MapsIndoors CMS gives you the option of displaying your map in 3D. This is a
     * If setting the color in-app, the value provided must be in 6-digit HEX code (eg. #3071D9).
 1. **Wall height** - Controls the height of the 3D walls, measured in meters.
 
+An example of in-app Display Rules using only "3D Walls" Display Rules could look like this:
+
+```json
+{
+    "displaySetting": {
+        "walls": { 
+            "visible": true,
+            "color": "#707a89",
+            "height": 2.0,
+            "zoomFrom": 16.0,
+            "zoomTo": 22.0
+        },
+    }
+}
+```
+
 ### 3D Room Extrusion
 
 <img src="/img/cms/3d-room-extrusion.png" alt="Display Rules" width="504"/>
@@ -253,6 +287,22 @@ In addition to the ability to extrude all walls, you can additionally extrude sp
     * In the CMS, you can select a color using the color picker displayed when clicking the color input field.
     * If setting the color in-app, the value provided must be in 6-digit HEX code (eg. #3071D9).
 1. **Extrusion height** - Controls the height of the room extrusion, measured in meters.
+
+An example of in-app Display Rules using only "3D Extrusion" Display Rules could look like this:
+
+```json
+{
+    "displaySetting": {
+        "extrusion": { 
+            "visible": true,
+            "color": "#aeb9cb",
+            "height": 2.25,
+            "zoomFrom": 16.0,
+            "zoomTo": 22.0
+        },
+    }
+}
+```
 
 ### 3D models
 
@@ -280,37 +330,97 @@ In addition to the ability to extrude all walls, you can additionally extrude sp
 1. **Scale** - Control the scale of the model. Can be used to make the model larger or smaller on the map.
     * This value is a multiplier in relation to the original size of the uploaded model. The ability to deisgnate specific measurements will be added in a future update.
 
-## Conclusion
-
-Putting all this together, a sample set of Display Rules for a given Type could look like this:
+An example of in-app Display Rules using only "3D Model" Display Rules could look like this:
 
 ```json
 {
     "displaySetting": {
+        "model3D": { 
+            "visible": true,
+            "zoomFrom": 16.0,
+            "zoomTo": 22.0,
+            "model": null,
+            "rotationX": 0.0,
+            "rotationY": 0.0,
+            "rotationZ": 0.0
+        },
+    }
+}
+```
+
+:::caution
+
+Due to temporary technical limitations, it is currently not possible to directly delete a 3D model from a Location via the Display Rules panel. Instead, use one of the two following workarounds:
+
+1. Use the `Visibility` toggle on the Display Rules panel. This will leave the model displayed in the CMS, but your customers will not see it.
+
+1. Navigate to `Solution Details` -> `Solution Settings` -> `3D Model`. Here you should find a preview image, and underneath, a button that says `Remove`. This removes any default 3D model on the Main Display Rule, and the Display Rule hierarchy will then ensure nothing is displayed if you inherit the 3D model setting from the Main Display Rules ("Locked" locks from Main to Type to Location level).
+
+:::
+
+## Conclusion
+
+Putting all this together, a sample set of Display Rules for a given Type could look like this (the values shown here are identical to the default Main Display Rule):
+
+```json
+
+"displayRule": {
+    "visible": true,
+    "iconVisible": true,
+    "zoomFrom": 16.0,
+    "zoomTo": 22.0,
+    "icon": "https://app.mapsindoors.com/mapsindoors/cms/assets/icons/misc/default-marker.png?71488",
+    "iconScale": 1.0,
+    "iconSize": {
+        "width": 20.0,
+        "height": 20.0
+    },
+    "labelVisible": true,
+    "label": "{{name}}",
+    "labelZoomFrom": 16.0,
+    "labelZoomTo": 22.0,
+    "labelMaxWidth": 0, //0 means infinite eg lines will not be broken based on width
+    "polygon": {
+        "visible": false,
+        "zoomFrom": 18,
+        "zoomTo": 22,
+        "strokeWidth": 2.0,
+        "strokeColor": "#3071D9",
+        "strokeOpacity": 1.0,
+        "fillColor": "#3071D9",
+        "fillOpacity": 0.2
+    },
+    "walls": { 
         "visible": true,
-        "iconVisible": true,
+        "color": "#707a89",
+        "height": 2.0,
+        "zoomFrom": 16.0,
+        "zoomTo": 22.0
+    },
+    "extrusion": {
+        "visible": true,
+        "color": "#aeb9cb",
+        "height": 2.25,
+        "zoomFrom": 16.0,
+        "zoomTo": 22.0
+    },
+    "model3D": { 
+        "visible": true,
         "zoomFrom": 16.0,
         "zoomTo": 22.0,
-        "icon": "https://app.mapsindoors.com/mapsindoors/cms/assets/icons/misc/default-marker.png?71488",
-        "iconSize": {
-            "width": 20.0,
-            "height": 20.0
-        },
-        "labelVisible": true,
-        "label": "{{name}}",
-        "labelZoomFrom": 16.0,
-        "labelZoomTo": 22.0,
-        "labelMaxWidth": 0,
-        "polygon": {
-            "visible": false,
-            "zoomFrom": 18,
-            "zoomTo": 22,
-            "strokeWidth": 2.0,
-            "strokeColor": "#3071D9",
-            "strokeOpacity": 1.0,
-            "fillColor": "#3071D9",
-            "fillOpacity": 0.2
-        },
+        "model": null,
+        "rotationX": 0.0,
+        "rotationY": 0.0,
+        "rotationZ": 0.0
+    },
+    "model2D": {
+        "visible": true,
+        "zoomFrom": 16.0,
+        "zoomTo": 22.0,
+        "model": null,
+        "widthMeters": 0,
+        "heightMeters": 0,
+        "bearing":0
     }
 }
 ```
