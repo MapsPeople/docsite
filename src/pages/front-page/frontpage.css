@@ -12,6 +12,8 @@ body {
     'description divide learn'
     'description divide learn'
     'buttons divide learn'
+    'manage divide learn'
+    'manage-button divide learn'
   ;
   padding: 256px 128px 256px 128px;
 }
@@ -69,6 +71,14 @@ body {
 .left-button:active {
   /* transform:scale(1.02); */
   background-color: #003c3b;
+}
+
+.manage-data-container {
+  grid-area: manage;
+}
+
+.manage-data-buttons {
+  grid-area: manage-button;
 }
 
 .learn-more {
