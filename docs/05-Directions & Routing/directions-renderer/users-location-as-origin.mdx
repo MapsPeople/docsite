@@ -9,11 +9,10 @@ slug: /current-location-as-origin
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-<Tabs groupId="users-location-as-origin">
-<TabItem value="android" label="Android" default>
-
 Often you may want to get directions starting from a user's actual current position, instead of from another fixed Location. The following code snippet gives an example on how to implement this.
 
+<Tabs groupId="users-location-as-origin">
+<TabItem value="android" label="Android" default>
 To query for a route, create a `MPPoint` from the Latitude, longitude and the z-index of the user, and use that on the `DirectionsService.query` function, like this:
 
 ```kotlin
@@ -35,9 +34,6 @@ This results in directions queries originating from the user's current location.
 
 </TabItem>
 <TabItem value="ios" label="iOS">
-
-Often you may want to get directions starting from a user's actual current location, instead of from another fixed Location. The following code snippet gives an example on how to implement this.
-
 First, [initialize a `PositionProvider`](/blue-dot/), which can be used with `MPDirectionsQuery` to achieve the desired result.
 
 In order to use the `PositionProvider` to extract a `MPPoint`, you need to use `MapsIndoors.latestPositionResult.geometry`. This returns an `MPPoint`. which will serve as the origin point for the directions query. This `MPPoint` is then given to the method `MPDirectionsQuery initWithOriginPoint:destination:`.
@@ -58,8 +54,6 @@ This results in directions queries originating from the user's current location.
 
 </TabItem>
 <TabItem value="web" label="Web">
-
-Often you may want to get directions starting from a user's actual current position, instead of from another fixed Location. This involved using the `PositionControl` class to determine the user's current location, and using the routing API to generate a route to the desired Location. The following code snippet gives an example on how to implement this.
 
 ```javascript
 // Setting styling options to the route path.
