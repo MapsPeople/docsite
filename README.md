@@ -84,23 +84,24 @@ This guide will go through how to edit or add articles to <docs.mapsindoors.com>
 
 `hide_table_of_contents` may sometimes be set to `true` (and therefore hidden) if it seems too cluttered, and `sidebar_position` determines the order of articles in the sidebar on the left of the page.
 
-4. Navigate to your new page to check it out.
+4. Navigate to your new page to check it out. Refer to the steps above under the heading `Run the Site` if in doubt how to view your pages.
+
 5. If all looks well, use the CLI or a Git client to add, commit and push your new page:
 
         ```bash
         git status
         git add .
-        git commit -m "Added new guide to Teleportation"
-        git push -u origin feature/teleportation-guide
+        git commit -m "Added new guide on how to implement Search functionality in a customer app"
+        git push -u origin feature/migen-1234-search-functionality
         ```
 
-6. Create a Pull Request on Github, to merge your `feature/teleportation-guide` branch into `main`. Be sure to get someone to review your work!
+6. Create a Pull Request on Github, to merge your `feature/migen-1234-search-functionality` branch into `main`. Be sure to get someone to review your work!
 
-7. Once approved, merge your `feature/teleportation-guide` branch into `main`.
+7. Once approved, merge your `feature/migen-1234-search-functionality` branch into `main`.
 
 8. Wait 5-10 minutes for the back-end dark magic to do it's thing.
 
-9. Go to [docs.mapsindoors.com](https://docs.mapsindoors.com) to see your new page live!
+9. Go to [docs.mapsindoors.com](https://docs.mapsindoors.com) to see your new page live! If it doesn't show, try clearing your cache and reloading!
 
 ## Markdown
 
