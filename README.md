@@ -54,7 +54,7 @@ This might take a while, potentially up to 30 minutes (but usually only 1-2 minu
 npm run serve
 ```
 
-This will serve the site locally, similarly to `npm run start`. Now, all features that depend on a build will also be available on your site! But due to the additional time required, generally it is only neccesary to do this when testing specific features that require it.
+This will serve the site locally, similarly to `npm run start`, and the browser window will likely open automatically. If not, manually open <http://localhost:3000>. Now, all features that depend on a build will also be available on your site! But due to the additional time required, generally it is only neccesary to do this when testing specific features that require it.
 
 ### Create a new page
 
