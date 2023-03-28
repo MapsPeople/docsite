@@ -28,6 +28,7 @@ export default function frontPage() {
             <a href="/searching/"> <button className="learn-more-button">Searching</button> </a>
             <a href="/api/"> <button className="learn-more-button">Working with Data</button> </a>
             <a href="/glossary/"> <button className="learn-more-button">Other Guides</button> </a>
+            <a href="/web-map-template/"> <button className="learn-more-button">Map Templates</button> </a>
           </div>
         </div>
       </div>
