@@ -10,7 +10,7 @@ The documentation site is built with [Docusaurus](https://docusaurus.io/).
 
 Docusaurus automatically builds and deploys from the `main` branch in this repository. Only members of this organization can approve Pull Requests into the `main` branch.
 
-### Preview the site on your own machine
+### Preview the Site
 
 #### Prerequisites
 
@@ -19,16 +19,18 @@ This guide is written assuming that you have a rudimentary understanding of how 
 * Node JS version 16 or higher (as of 14th December 2022, check Docusaurus requirements to ensure up to date)
 * Git installed on your machine (latest version as of 28th March 2023 is 2.40.0, but almost any version should work)
 
-#### Clone repository and run Docusaurus
+#### Clone Repository
 
-1. In order to make modifications to the documentation site, you will first need to clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/), [Fork](https://git-fork.com/) or [GitHub Desktop](https://desktop.github.com/):
+In order to make modifications to the documentation site, you will first need to clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/), [Fork](https://git-fork.com/) or [GitHub Desktop](https://desktop.github.com/):
 
         ```bash
         git clone git@github.com:MapsPeople/docsite
         cd docsite
         ```
 
-1. Install dependencies for the project from the terminal in your code editor, such as [VS Code](https://code.visualstudio.com/):
+#### Run the Site
+
+1. In order to run the site, first you must install the dependencies for the project from the terminal in your code editor, such as [VS Code](https://code.visualstudio.com/):
 
         ```bash
         npm i
@@ -56,7 +58,7 @@ npm run serve
 
 This will serve the site locally, similarly to `npm run start`, and the browser window will likely open automatically. If not, manually open <http://localhost:3000>. Now, all features that depend on a build will also be available on your site! But due to the additional time required, generally it is only neccesary to do this when testing specific features that require it.
 
-### Create a new page
+### Edit the Site
 
 1. Create a new feature branch using the CLI or a Git client:
 
