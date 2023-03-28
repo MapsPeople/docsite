@@ -14,30 +14,47 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
 
 #### Prerequisites
 
+This guide is written assuming that you have a rudimentary understanding of how Git, Markdown and code editors in general work.
+
 * Node JS version 16 or higher (as of 14th December 2022, check Docusaurus requirements to ensure up to date)
+* Git installed on your machine (latest version as of 28th March 2023 is 2.40.0, but almost any version should work)
 
 #### Clone repository and run Docusaurus
 
-1. Clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/), [Fork](https://git-fork.com/) or [GitHub Desktop](https://desktop.github.com/):
+1. In order to make modifications to the documentation site, you will first need to clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/), [Fork](https://git-fork.com/) or [GitHub Desktop](https://desktop.github.com/):
 
         ```bash
         git clone git@github.com:MapsPeople/docsite
         cd docsite
         ```
 
-1. Install dependencies from the terminal in your code editor, such as [VS Code](https://code.visualstudio.com/).
+1. Install dependencies for the project from the terminal in your code editor, such as [VS Code](https://code.visualstudio.com/):
 
         ```bash
         npm i
         ```
 
-1. Run Docusaurus from your terminal
+1. Run Docusaurus from your terminal:
 
         ```bash
         npm run start
         ```
 
 1. Open <http://localhost:3000> (if it does not open automatically).
+
+Congratulations! The documentation site is now running locally on your machine! Sometimes, there may be certain features that require you to build the site, instead of simply serving it. An example of this could be testing the site-wide search, where the seach index only generates upon being build, like it would be when it is deployed to [docs.mapsindoors.com](docs.mapsindoors.com). To do this locally, run the following command in your terminal:
+
+```bash
+npm run build
+```
+
+This might take a while, potentially up to 30 minutes (but usually only 1-2 minutes). Once it is done, run the following command:
+
+```bash
+npm run serve
+```
+
+This will serve the site locally, similarly to `npm run start`. Now, all features that depend on a build will also be available on your site! But due to the additional time required, generally it is only neccesary to do this when testing specific features that require it.
 
 ### Create a new page
 
