@@ -60,14 +60,18 @@ This will serve the site locally, similarly to `npm run start`, and the browser 
 
 ### Edit the Site
 
-1. Create a new feature branch using the CLI or a Git client:
+This guide will go through how to edit or add articles to <docs.mapsindoors.com>. The example that will be used throughout will be the creation of a guide on how to add a search function to your application, with an issue name of MIGEN-1234.
 
-        ```bash
-        git checkout -b feature/teleportation-guide
-        ```
+1. Create a new branch using the CLI or a Git client:
+    * These are called "Feature Branches". Generally, the naming convention for these would be `feature/migen-1234-search-functionality`, where `migen-1234` would be replaced with the given issue number (in JIRA or similar software) the branch is dealing with. Some may also opt to use the prefixes `hotfix/`, in certain cases where deployment is urgent, or `bugfix/`, if the content is simply a fix instead of a full feature, instead of `feature/`. How you do this should in the end be agreed in your team.
 
-2. Copy an existing `.md`- or `mdx`-file from e.g. `./docs/search/` to `./docs/directions/teleportation/`. As long as it is inside `./docs/`, you can place your new file (or folder) anywhere!
-3. The [Front matter](https://jekyllrb.com/docs/step-by-step/03-front-matter/) at the top of the file has various things that can be included, but most files will look something like this:
+            ```bash
+            git checkout -b feature/migen-1234-search-functionality
+            ```
+
+2. Create a new `.md`- or `mdx`-file in the folder you want a new file in. The folder structure you see under `docs` is the same as is reflected in the <docs.mapsindoors.com> menu structure.
+    * Alternatively, copy an existing `.md`- or `mdx`-file from e.g. `./docs/03-Map/` to `./docs/04-Searching/`, if you are more comfortable with this. Just make sure to clear all the content, except the Front Matter (see following step). As long as it is inside `./docs/`, you can place your new file (or folder) anywhere!
+3. The Front Matter at the top of the file has various variables that can modify the behaviour of the article. It is not neccesary, but I would advise making use of the options it gives. An exhaustive list of the variables you can use can be found in the Docusaurus documentation here: <https://docusaurus.io/docs/2.3.1/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter>. Most files in this project will utilise at least the below variables in the Front Matter:
 
         ```yaml
         ---
@@ -188,3 +192,5 @@ import TabItem from '@theme/TabItem';
         </Tabs>
 
 ```
+
+1. If you're ever so slightly OCD like me, you can name your folders with a prefix, such as is done in `03-Map`. This will ensure that the folders appear in that order in your local folder structure, but will still adhere to the `sidebar_position` value in the site menu structure. This only works if the folder has a `index.mdx` file as well.
