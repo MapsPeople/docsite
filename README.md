@@ -18,7 +18,7 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
 
 #### Clone repository and run Docusaurus
 
-1. Clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/):
+1. Clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/), [Fork](https://git-fork.com/) or [GitHub Desktop](https://desktop.github.com/):
 
         ```bash
         git clone git@github.com:MapsPeople/docsite
@@ -131,7 +131,11 @@ import TabItem from '@theme/TabItem';
 
 #### Linting Markdown
 
-To ensure consistency throughout the Markdown-files, we use a linter. The best linter for VS Code is the extension with the telling name "[VS Code Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)".
+Using a linter when writing documentation in Markdown comes with several advantages. First and foremost, a linter ensures that your Markdown code adheres to a consistent style, which ultimately improves the readability and maintainability of your documentation. This is particularly important when collaborating with others, as it helps reduce misunderstandings and merge conflicts. Moreover, a linter can identify potential syntax errors and formatting issues, allowing you to address them proactively. By automating these checks, a linter reduces the chance of mistakes slipping into the final output and improves the overall quality of your documentation.
+
+On the other hand, there are some drawbacks to using a linter for Markdown. One significant con is that it may introduce an additional layer of complexity to your writing process, as you'll need to familiarize yourself with the linter's rules and configuration. This can be particularly challenging for users who are new to Markdown or for those working on a project with a custom style guide. Additionally, using a linter may add extra overhead to your workflow, as it can slow down your editing process by constantly checking for errors and warnings. Lastly, a linter might be too strict or opinionated, leading to frustration when it flags issues that are not relevant to your specific project or when its suggestions conflict with your personal preferences.
+
+For this project, we have so far opted to use "[VS Code Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)", an extension for VS Code, the rules for which are described below. However, in the end, the decision is up the team maintaining the documentation.
 
 These rules are turned off specifically:
 
@@ -140,24 +144,28 @@ These rules are turned off specifically:
 * [MD014 - Dollar signs used before commands without showing output](https://github.com/DavidAnson/markdownlint/blob/main/doc/md014.md)
 * [MD024 - No duplicate headers](https://github.com/DavidAnson/markdownlint/blob/main/doc/md024.md) - Depending on your how your Table of Contents is structured, you may want to turn this one on.
 * [MD026 - No trailing punctuation in headers](https://github.com/DavidAnson/markdownlint/blob/main/doc/md026.md)
+* [MD029 - Ordered list item prefix](https://github.com/DavidAnson/markdownlint/blob/main/doc/md029.md)
 * [MD033 - No inline HTML](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md#md033)
 * [MD034 - No Bare URL's](https://github.com/DavidAnson/markdownlint/blob/main/doc/md034.md)
 * [MD041 - First line heading](https://github.com/DavidAnson/markdownlint/blob/main/doc/md041.md)
+* [MD046 - Code Block Style](https://github.com/DavidAnson/markdownlint/blob/main/doc/md046.md)
 
-The full list of rules can be found [here](https://github.com/DavidAnson/markdownlint). While it shouldn't be neccesary, occaisionally strange errors may occur, and you will have to disable some rules in order to compile your code, and the formatting used doesn't have an alternative. Rules can be enabled/disabled in `.markdownlint.json`, like the following:
+The full list of rules can be found [here](https://github.com/DavidAnson/markdownlint). While it shouldn't be neccesary, occasionally strange errors may occur, and you will have to disable some rules in order to compile your code, and the formatting used doesn't have an alternative. Rules can be enabled/disabled in `.markdownlint.json`, like the following:
 
 ```json
 {
     "default": true,
+    "MD001": false,
     "MD013": false,
     "MD014": false,
     "MD024": {
         "siblings_only": true
     },
     "MD026": false,
+    "MD029": false,
     "MD033": false,
     "MD034": false,
     "MD041": false,
-    "MD001": false
+    "MD046": false
 }
 ```
