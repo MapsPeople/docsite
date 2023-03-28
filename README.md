@@ -20,22 +20,22 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
 
 1. Clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/):
 
-    ```bash
-    git clone git@github.com:MapsPeople/docsite
-    cd docsite
-    ```
+        ```bash
+        git clone git@github.com:MapsPeople/docsite
+        cd docsite
+        ```
 
 1. Install dependencies from the terminal in your code editor, such as [VS Code](https://code.visualstudio.com/).
 
-    ```bash
-    npm i
-    ```
+        ```bash
+        npm i
+        ```
 
 1. Run Docusaurus from your terminal
 
-    ```bash
-    npm run start
-    ```
+        ```bash
+        npm run start
+        ```
 
 1. Open <http://localhost:3000> (if it does not open automatically).
 
@@ -43,33 +43,33 @@ Docusaurus automatically builds and deploys from the `main` branch in this repos
 
 1. Create a new feature branch using the CLI or a Git client:
 
-    ```bash
-    git checkout -b feature/teleportation-guide
-    ```
+        ```bash
+        git checkout -b feature/teleportation-guide
+        ```
 
 2. Copy an existing `.md`- or `mdx`-file from e.g. `./docs/search/` to `./docs/directions/teleportation/`. As long as it is inside `./docs/`, you can place your new file (or folder) anywhere!
 3. The [Front matter](https://jekyllrb.com/docs/step-by-step/03-front-matter/) at the top of the file has various things that can be included, but most files will look something like this:
 
-    ```yaml
-    ---
-    title: Teleportation Guide
-    hide_title: false
-    hide_table_of_contents: true
-    sidebar_position: 2
-    ---
-    ```
+        ```yaml
+        ---
+        title: Teleportation Guide
+        hide_title: false
+        hide_table_of_contents: true
+        sidebar_position: 2
+        ---
+        ```
 
 `hide_table_of_contents` may sometimes be set to `true` (and therefore hidden) if it seems too cluttered, and `sidebar_position` determines the order of articles in the sidebar on the left of the page.
 
 4. Navigate to your new page to check it out.
 5. If all looks well, use the CLI or a Git client to add, commit and push your new page:
 
-    ```bash
-    git status
-    git add .
-    git commit -m "Added new guide to Teleportation"
-    git push -u origin feature/teleportation-guide
-    ```
+        ```bash
+        git status
+        git add .
+        git commit -m "Added new guide to Teleportation"
+        git push -u origin feature/teleportation-guide
+        ```
 
 6. Create a Pull Request on Github, to merge your `feature/teleportation-guide` branch into `main`. Be sure to get someone to review your work!
 
@@ -97,35 +97,37 @@ import TabItem from '@theme/TabItem';
 1. It is very important to include newline-characters between the tab and the content, else the engine cannot distinguish the difference.
 
 ```javascript
-<TabItem value="kotlin" label="Kotlin">
+        <TabItem value="kotlin" label="Kotlin">
 
-```kotlin
-class MapsActivity : FragmentActivity(), OnMapReadyCallback, OnRouteResultListener
-```
+        ```kotlin
+        class MapsActivity : FragmentActivity(), OnMapReadyCallback, OnRouteResultListener
+        ```
 
-</TabItem>
+        </TabItem>
 ```
 
 1. You cannot indent `TabItem`, both `Tab` and `TabItem` must be in the first column. This also applies to the 3 backticks indicating the start of a codeblock, it must start at the first column, else it will not render correctly.
 
 ```javascript
 
-<Tabs groupId="getting-started-android-directions">
-<TabItem value="java" label="Java" default>
+        <Tabs groupId="getting-started-android-directions">
+        <TabItem value="java" label="Java" default>
 
-```java
-private Point mUserLocation = new Point(38.897389429704695, -77.03740973527613,0);
+        ```java
+        private Point mUserLocation = new Point(38.897389429704695, -77.03740973527613,0);
+        ```
+
+        </TabItem>
+        <TabItem value="kotlin" label="Kotlin">
+
+        ```kotlin
+        private val mUserLocation: Point = Point(38.897389429704695, -77.03740973527613, 0.0)
+        ```
+
+        </TabItem>
+        </Tabs>
+
 ```
-
-</TabItem>
-<TabItem value="kotlin" label="Kotlin">
-
-```kotlin
-private val mUserLocation: Point = Point(38.897389429704695, -77.03740973527613, 0.0)
-```
-
-</TabItem>
-</Tabs>
 
 #### Linting Markdown
 
