@@ -6,7 +6,7 @@ This is the repository holding all documentation related to developing apps on t
 
 ## Getting Started
 
-The documentation site is built with [Docusaurus](https://docusaurus.io/).
+The documentation site is built with [Docusaurus](https://docusaurus.io/). While this README will cover the basics on how to install Docusaurus, and how to edit the site built with it, I strongly recommend reading Docusaurus' own documentation for more details.
 
 Docusaurus automatically builds and deploys from the `main` branch in this repository. Only members of this organization can approve Pull Requests into the `main` branch.
 
@@ -85,7 +85,7 @@ This guide will go through how to edit or add articles to <docs.mapsindoors.com>
 
 `hide_table_of_contents` may sometimes be set to `true` (and therefore hidden) if it seems too cluttered, and `sidebar_position` determines the order of articles in the sidebar on the left of the page.
 
-4. Navigate to your new page to check it out. 
+4. Navigate to your new page to check it out.
     * Refer to the steps above under the heading `Run the Site` if in doubt how to view your pages.
 
 5. If all looks well, use the CLI or a Git client to add, commit and push your new page:
@@ -97,12 +97,12 @@ This guide will go through how to edit or add articles to <docs.mapsindoors.com>
         git push -u origin feature/migen-1234-search-functionality
         ```
 
-6. Create a Pull Request on Github, to merge your `feature/migen-1234-search-functionality` branch into `main`. 
+6. Create a Pull Request on Github, to merge your `feature/migen-1234-search-functionality` branch into `main`.
     * Depending on project settings, you may need someone to review your Pull Request and approve it in order to have permissions to merge it into `main`. In general, it is also best practice to get a second pair of eyes on something you want to merge in.
 
 7. Once approved, merge your `feature/migen-1234-search-functionality` branch into `main`.
 
-8. Wait 5-10 minutes for the back-end dark magic to do it's thing.
+8. Wait 5-10 minutes for the back-end magic to do it's thing.
 
 9. Go to [docs.mapsindoors.com](https://docs.mapsindoors.com) to see your new page live! If it doesn't show, try clearing your cache and reloading!
 
