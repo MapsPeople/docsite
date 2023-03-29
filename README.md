@@ -157,7 +157,7 @@ import TabItem from '@theme/TabItem';
         ```
 
         </TabItem>
-        
+
 ```
 
 1. You cannot indent `TabItem`, both `Tab` and `TabItem` must be in the first column. This also applies to the 3 backticks indicating the start of a codeblock, it must start at the first column, else it will not render correctly.
