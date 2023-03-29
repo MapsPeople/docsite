@@ -71,6 +71,7 @@ This guide will go through how to edit or add articles to <docs.mapsindoors.com>
 
 2. Create a new `.md`- or `mdx`-file in the folder you want a new file in. The folder structure you see under `docs` is the same as is reflected in the <docs.mapsindoors.com> menu structure.
     * Alternatively, copy an existing `.md`- or `mdx`-file from e.g. `./docs/03-Map/` to `./docs/04-Searching/`, if you are more comfortable with this. Just make sure to clear all the content, except the Front Matter (see following step). As long as it is inside `./docs/`, you can place your new file (or folder) anywhere!
+
 3. The Front Matter at the top of the file has various variables that can modify the behaviour of the article. It is not neccesary, but I would advise making use of the options it gives. An exhaustive list of the variables you can use can be found in the Docusaurus documentation here: <https://docusaurus.io/docs/2.3.1/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter>. Most files in this project will utilise at least the below variables in the Front Matter:
 
         ```yaml
@@ -84,7 +85,8 @@ This guide will go through how to edit or add articles to <docs.mapsindoors.com>
 
 `hide_table_of_contents` may sometimes be set to `true` (and therefore hidden) if it seems too cluttered, and `sidebar_position` determines the order of articles in the sidebar on the left of the page.
 
-4. Navigate to your new page to check it out. Refer to the steps above under the heading `Run the Site` if in doubt how to view your pages.
+4. Navigate to your new page to check it out. 
+    * Refer to the steps above under the heading `Run the Site` if in doubt how to view your pages.
 
 5. If all looks well, use the CLI or a Git client to add, commit and push your new page:
 
@@ -95,7 +97,8 @@ This guide will go through how to edit or add articles to <docs.mapsindoors.com>
         git push -u origin feature/migen-1234-search-functionality
         ```
 
-6. Create a Pull Request on Github, to merge your `feature/migen-1234-search-functionality` branch into `main`. Be sure to get someone to review your work!
+6. Create a Pull Request on Github, to merge your `feature/migen-1234-search-functionality` branch into `main`. 
+    * Depending on project settings, you may need someone to review your Pull Request and approve it in order to have permissions to merge it into `main`. In general, it is also best practice to get a second pair of eyes on something you want to merge in.
 
 7. Once approved, merge your `feature/migen-1234-search-functionality` branch into `main`.
 
@@ -194,4 +197,4 @@ import TabItem from '@theme/TabItem';
 
 ```
 
-1. If you're ever so slightly OCD like me, you can name your folders with a prefix, such as is done in `03-Map`. This will ensure that the folders appear in that order in your local folder structure, but will still adhere to the `sidebar_position` value in the site menu structure. This only works if the folder has a `index.mdx` file as well.
+1. If you want your folders organised, you can name your folders with a prefix, such as is done in `03-Map`. This will ensure that the folders appear in that order in your local folder structure, but will still adhere to the `sidebar_position` value in the site menu structure. This only works if the folder has a `index.mdx` file as well.
