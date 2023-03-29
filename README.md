@@ -23,10 +23,8 @@ This guide is written assuming that you have a rudimentary understanding of how 
 
 In order to make modifications to the documentation site, you will first need to clone this repository to your machine, either using the Command Line Interface (CLI) as below, or using a Git client, for example [Sourcetree](https://www.sourcetreeapp.com/), [Fork](https://git-fork.com/) or [GitHub Desktop](https://desktop.github.com/):
 
-        ```bash
         git clone git@github.com:MapsPeople/docsite
         cd docsite
-        ```
 
 #### Run the Site
 
@@ -42,15 +40,11 @@ In order to make modifications to the documentation site, you will first need to
 
 Congratulations! The documentation site is now running locally on your machine! Sometimes, there may be certain features that require you to build the site, instead of simply serving it. An example of this could be testing the site-wide search, where the seach index only generates upon being build, like it would be when it is deployed to [docs.mapsindoors.com](docs.mapsindoors.com). To do this locally, run the following command in your terminal:
 
-```bash
-npm run build
-```
+        npm run build
 
 This might take a while, potentially up to 30 minutes (but usually only 1-2 minutes). Once it is done, run the following command:
 
-```bash
-npm run serve
-```
+        npm run serve
 
 This will serve the site locally, similarly to `npm run start`, and the browser window will likely open automatically. If not, manually open <http://localhost:3000>. Now, all features that depend on a build will also be available on your site! But due to the additional time required, generally it is only neccesary to do this when testing specific features that require it.
 
@@ -61,23 +55,19 @@ This guide will go through how to edit or add articles to <docs.mapsindoors.com>
 1. Create a new branch using the CLI or a Git client:
     * These are called "Feature Branches". Generally, the naming convention for these would be `feature/migen-1234-search-functionality`, where `migen-1234` would be replaced with the given issue number (in JIRA or similar software) the branch is dealing with. Some may also opt to use the prefixes `hotfix/`, in certain cases where deployment is urgent, or `bugfix/`, if the content is simply a fix instead of a full feature, instead of `feature/`. How you do this should in the end be agreed in your team.
 
-            ```bash
             git checkout -b feature/migen-1234-search-functionality
-            ```
 
 2. Create a new `.md`- or `mdx`-file in the folder you want a new file in. The folder structure you see under `docs` is the same as is reflected in the <docs.mapsindoors.com> menu structure.
     * Alternatively, copy an existing `.md`- or `mdx`-file from e.g. `./docs/03-Map/` to `./docs/04-Searching/`, if you are more comfortable with this. Just make sure to clear all the content, except the Front Matter (see following step). As long as it is inside `./docs/`, you can place your new file (or folder) anywhere!
 
 3. The Front Matter at the top of the file has various variables that can modify the behaviour of the article. It is not neccesary, but I would advise making use of the options it gives. An exhaustive list of the variables you can use can be found in the Docusaurus documentation here: <https://docusaurus.io/docs/2.3.1/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter>. Most files in this project will utilise at least the below variables in the Front Matter:
 
-        ```yaml
         ---
         title: Teleportation Guide
         hide_title: false
         hide_table_of_contents: true
         sidebar_position: 2
         ---
-        ```
 
 `hide_table_of_contents` may sometimes be set to `true` (and therefore hidden) if it seems too cluttered, and `sidebar_position` determines the order of articles in the sidebar on the left of the page.
 
@@ -86,12 +76,10 @@ This guide will go through how to edit or add articles to <docs.mapsindoors.com>
 
 5. If all looks well, use the CLI or a Git client to add, commit and push your new page:
 
-        ```bash
         git status
         git add .
         git commit -m "Added new guide on how to implement Search functionality in a customer app"
         git push -u origin feature/migen-1234-search-functionality
-        ```
 
 6. Create a Pull Request on Github, to merge your `feature/migen-1234-search-functionality` branch into `main`.
     * Depending on project settings, you may need someone to review your Pull Request and approve it in order to have permissions to merge it into `main`. In general, it is also best practice to get a second pair of eyes on something you want to merge in.
@@ -161,6 +149,7 @@ import TabItem from '@theme/TabItem';
 1. It is very important to include newline-characters between the tab and the content, else the engine cannot distinguish the difference.
 
 ```javascript
+
         <TabItem value="kotlin" label="Kotlin">
 
         ```kotlin
@@ -168,6 +157,7 @@ import TabItem from '@theme/TabItem';
         ```
 
         </TabItem>
+
 ```
 
 1. You cannot indent `TabItem`, both `Tab` and `TabItem` must be in the first column. This also applies to the 3 backticks indicating the start of a codeblock, it must start at the first column, else it will not render correctly.
