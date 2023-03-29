@@ -32,15 +32,11 @@ In order to make modifications to the documentation site, you will first need to
 
 1. In order to run the site, first you must install the dependencies for the project from the terminal in your code editor, such as [VS Code](https://code.visualstudio.com/):
 
-        ```bash
         npm i
-        ```
 
 1. Run Docusaurus from your terminal:
 
-        ```bash
         npm run start
-        ```
 
 1. Open <http://localhost:3000> (if it does not open automatically).
 
