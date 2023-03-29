@@ -6,7 +6,7 @@ This is the repository holding all documentation related to developing apps on t
 
 ## Getting Started
 
-The documentation site is built with [Docusaurus](https://docusaurus.io/). While this README will cover the basics on how to install Docusaurus, and how to edit the site built with it, I strongly recommend reading Docusaurus' own documentation for more details.
+The documentation site is built with [Docusaurus](https://docusaurus.io/docs). While this README will cover the basics on how to install Docusaurus, and how to edit the site built with it, I strongly recommend reading Docusaurus' own documentation for more details.
 
 Docusaurus automatically builds and deploys from the `main` branch in this repository. Only members of this organization can approve Pull Requests into the `main` branch.
 
