@@ -1,0 +1,52 @@
+---
+
+title: Web Map Template
+hide_title: false
+sidebar_position: 1
+slug: /web-map-template
+
+---
+
+# Web Map Template
+Get started quickly with a MapsIndoors powered [template web app](https://github.com/MapsPeople/web-ui).
+
+## Getting Started
+
+Using a terminal/shell in the project folder, run the following commands:
+
+* Clone the repository to your development environment:
+```bash
+git clone https://github.com/MapsPeople/web-ui.git
+```
+
+* Inside the project folder root, install all dependencies and build with Lerna:
+```bash
+npm install && npx lerna run build
+```
+
+* Move to the `packages/map-template` directory and run the app:
+```bash
+npm run start
+```
+
+### Add Google Maps API Keys or Mapbox Access Tokens
+
+Rename `.env.example`, to `.env` and add either of the keys (or both) to that file, and the maps will load properly.
+
+### Add MapsIndoors API Keys and Venue IDs
+In `App.js`, add your MapsIndoors API keys and venue IDs to the `MapsIndoorsMap` component:
+
+```jsx
+<MapsIndoorsMap
+    apiKey="mapspeople"
+    venue="Stigsborgvej"
+    mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+    gmApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+/>
+```
+
+<!--
+TODO: Add a link to a running version of the template app.
+## Live Demo
+Check out a running version [here](URL).
+-->
