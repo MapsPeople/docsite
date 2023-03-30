@@ -4,18 +4,18 @@ hide_title: false
 hide_table_of_contents: true
 sidebar_position: 0
 ---
-The iOS SDK for MapsIndoors has been upgraded from V3 to V4, which comes with improved interfaces and flexibility for developing your own map experience. The MapsIndoors SDK now additionally supports Mapbox, alongside some reworked and refactored features that simplify development and SDK behavior. This guide will cover changes to the SDK and how to use it to provide you with a guide on how to upgrade from V3 to V4. _If you have any questions concerning this document, or migrating to v4 in general, please contact MapsPeople technical support._
+The iOS SDK for MapsIndoors has received a major update to version 4.0.0, which comes with improved interfaces and flexibility for developing your own map experience. The MapsIndoors SDK now additionally supports Mapbox, alongside some reworked and refactored features that simplify development and SDK behavior. This guide will cover changes to the SDK and how to use it to provide you with a guide on how to upgrade from V3 to V4. _If you have any questions concerning this document, or migrating to v4 in general, please contact MapsPeople technical support._
 
 MapsIndoors SDK Map Engine Flavors[​](https://docsite.mapsindoors.com/getting-started/android/v4/#mapsindoors-sdk-map-engine-flavors)
 -------------------------------------------------------------------------------------------------------------------------------------
 
 With the release of V4, the MapsIndoors SDK is released as multiple separate libraries depending on the Map Provider - Google Maps or Mapbox. You now import the dependency to your project by…
 
-```java
+```swift
 PODFILE EXAMPLE FOR GOOGLE GOES HERE!
 ```
 
-```java
+```swift
 PODFILE EXAMPLE FOR MAPBOX GOES HERE!
 ```
 
@@ -30,13 +30,13 @@ MapsIndoors is a shared instance, which can be described as the data layer of th
 
 In V3 you would start the SDK by providing a MapsIndoors API key and a Google API key, in order to start loading a solution.
 
-```java
+```swift
 MPMapsIndoors.provideAPIKey("YOUR_MAPSINDOORS_API_KEY", googleAPIKey: "YOUR_GOOGLE_API_KEY")
 ```
 
 In order to wait until MapsIndoors had finished loading the solution, you would call `synchronizeContent` with a completion.
 
-```java
+```swift
 MPMapsIndoors.synchronizeContent { error in
   // The SDK has finished loading
 }
@@ -48,7 +48,7 @@ In V3 you had no real way to close the MapsIndoors SDK, releasing system resourc
 
 In v3, you would access MapsIndoors data via data providers or services, e.g:
 
-```java
+```swift
 let solution = try await MPSolutionProvider().solution()
                 
 let venues = try await MPVenueProvider().venues()
@@ -62,7 +62,7 @@ let locations2 = try await MPLocationService.sharedInstance().locations(using: M
 
 In V4, we have improved the interface to initiate the SDK for smaller and safer implementations. In V4 you start loading a solution with a MapsIndoors API by:
 
-```java
+```swift
 let error = await MPMapsIndoors.shared.load(apiKey: "YOUR_MAPSINDOORS_API_KEY")
 ```
 
@@ -70,7 +70,7 @@ Note that this is async/await and therefore requires an asynchronous context, an
 
 Additionally in V4, you can now close the SDK, releasing system resources when MapsIndoors is no longer actively needed for your application’s state.
 
-```java
+```swift
 MPMapsIndoors.shared.shutdown()
 ```
 
@@ -80,7 +80,7 @@ The Google API key is no longer set on MapsIndoors - but rather on `MPMapConfig`
 
 In V4, everything data should be accessed via `MPMapsIndoors.shared` instance
 
-```java
+```swift
 let solution = MPMapsIndoors.shared.solution
 
 let venues = await MPMapsIndoors.shared.venues()
@@ -97,7 +97,7 @@ MapControl instantiation and initialization are separate concepts. You create a 
 
 To create a `MPMapControl` instance in V3, it was really straight forward.
 
-```java
+```swift
 let mapControl = MPMapControl(map: googleMapView)
 ```
 
@@ -105,7 +105,7 @@ let mapControl = MPMapControl(map: googleMapView)
 
 In V4, in order to support multiple map engines, we have changed how you create a `MPMapControl` instance. You now have to call a factory function on `MapsIndoors`, and provide an `MPMapConfig`.
 
-```java
+```swift
 if let mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig) {
   // MapControl instance
 }
@@ -115,13 +115,13 @@ An `MPMapConfig` is a configurable wrapper around either a Google Maps or Mapbox
 
 Google:
 
-```java
+```swift
 let mapConfig = MPMapConfig.init(gmsMapView: googleMapsView, googleApiKey: "AIza....")
 ```
 
 Mapbox:
 
-```java
+```swift
 let mapConfig = MPMapConfig.init(mapBoxView: mapboxMapView, accessToken: "mapbox api key")
 ```
 
@@ -130,14 +130,14 @@ SolutionConfig & AppConfig[​](https://docsite.mapsindoors.com/getting-started/
 
 #### V3
 
-```java
+```swift
 MPMapControl.locationClusteringEnabled = false
 MPMapControl.locationHideOnIconOverlapEnabled = false
 ```
 
 #### V4
 
-```java
+```swift
 if let solutionConfig = MPMapsIndoors.shared.solution?.config {
     solutionConfig.enableClustering = false
     solutionConfig.collisionHandling = .removeLabelFirst
@@ -155,7 +155,7 @@ The following code snippets show how to edit the display rule of a MapsIndoors l
 
 ##### Editing a display rule
 
-```java
+```swift
 let location = try await MPLocationsProvider().location(withId: "myLocationId")
 if let displayRule = mapControl?.getEffectiveDisplayRule(for: location) {
     displayRule.showPolygon = true
@@ -167,7 +167,7 @@ if let displayRule = mapControl?.getEffectiveDisplayRule(for: location) {
 
 In order to modify a display rule, and later reset it (e.g. if you wanted to highlight the location temporarily), you would have to remember a copy of the display rule prior to modifying it. Then later, you can set the copied display rule onto the location.
 
-```java
+```swift
 var rememberedRule: MPLocationDisplayRule?
 
 // Modifying for highlight
@@ -188,7 +188,7 @@ if let originalDisplayRule = rememberedRule {
 
 You could access the built-in display rules either directly on your `MPMapControl` instance, or by name.
 
-```java
+```swift
 let selectionHighlight = mapControl?.locationHighlightDisplayRule
 let blueDotDisplayRule = mapControl?.getDisplayRule(forTypeNamed:"my-location")
 ```
@@ -197,9 +197,9 @@ let blueDotDisplayRule = mapControl?.getDisplayRule(forTypeNamed:"my-location")
 
 ##### Editing a display rule
 
-```java
+```swift
 if let location = MPMapsIndoors.shared.locationWith(locationId: "myLocationId") {
-    if let displayRule = MPMapsIndoors.shared.displayRuleFor(location: location) {
+    if let displayRule = MPMapsIndoors.shared.disPplayRuleFor(location: location) {
         displayRule.polygonVisible = true
         displayRule.polygonFillColor = .red
     }
@@ -208,7 +208,7 @@ if let location = MPMapsIndoors.shared.locationWith(locationId: "myLocationId") 
 
 ##### Resetting display rules
 
-```java
+```swift
 if let location = MPMapsIndoors.shared.locationWith(locationId: "myLocationId") {
     if let displayRule = MPMapsIndoors.shared.displayRuleFor(location: location) {
         displayRule.reset()
@@ -224,7 +224,7 @@ The SDK has some display rules dedicated for some SDK specific rendering, which 
 
 E.g. change the building outline stroke color and width
 
-```java
+```swift
 let buildingOutlineRule = MPMapsIndoors.shared.displayRuleFor(displayRuleType: .buildingOutline)
 buildingOutlineRule?.polygonStrokeColor = .blue
 buildingOutlineRule?.polygonStrokeWidth = 10.0
@@ -261,7 +261,7 @@ In V4, we have introduced `MPFilterBehavior` and `MPSelectionBehavior`. These ob
 
 E.g. say you want to select a location, but not move the camera to the location:
 
-```java
+```swift
 let selectionBehavior = MPSelectionBehavior.default
 selectionBehavior.moveCamera = false
 mapControl.select(location: location, behavior: selectionBehavior)
@@ -274,7 +274,7 @@ The "Go-To" Function[​](https://docsite.mapsindoors.com/getting-started/androi
 
 In v3, there was a convenience method to easily move the camera to a given `MPLocation`.
 
-```java
+```swift
 if let location = MPLocationsProvider().location(withId: "myLocationId") {
     mapControl?.go(to: location)
 }
@@ -284,19 +284,19 @@ if let location = MPLocationsProvider().location(withId: "myLocationId") {
 
 In v4 the `goTo(...)` convenience method has been expanded upon, so it can be used with anything adhering to the `MPEntity` protocol, which includes `MPLocation`, `MPBuilding`, `MPVenue`, and even your own data types, as long as they adhere to `MPEntity`.
 
-```java
+```swift
 if let location = MPMapsIndoors.shared.locationWith(locationId: "myLocationId") {
     mapControl.goTo(entity: location)
 }
 ```
 
-```java
+```swift
 if let venue = MPMapsIndoors.shared.venueWith(id: "venue id") {
     mapControl.goTo(entity: venue)
 }
 ```
 
-```java
+```swift
 if let building = MPMapsIndoors.shared.buildingWith(id: "building id") {
     mapControl.goTo(entity: building)
 }
@@ -311,7 +311,7 @@ You can filter content on the map - say you only wanted to show all meeting room
 
 In V3, you could set `searchResults` on your `MPMapControl` instance, to only show a list of locations.
 
-```java
+```swift
 let query = MPQuery()
 let filter = MPFilter()
 filter.types = ["MeetingRoom"]
@@ -325,7 +325,7 @@ MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (l
 
 In V4, you can use an `MPFilter` directly to apply a filter on your `MPMapControl` instance.
 
-```java
+```swift
 let filter = MPFilter()
 filter.types = ["MeetingRoom"]
 mapControl.setFilter(filter: filter, behavior: .default)
@@ -333,7 +333,7 @@ mapControl.setFilter(filter: filter, behavior: .default)
 
 You can also still simply use an array of `MPLocation` to set a filter on the map.
 
-```java
+```swift
 let filterBehavior = MPFilterBehavior.default
 filterBehavior.moveCamera = false
 filterBehavior.allowFloorChange = false
@@ -343,7 +343,7 @@ mapControl.setFilter(locations: myLocations, behavior: filterBehavior)
 
 To clear the map filter, and return to normal displaying, call `clearFilter()`
 
-```java
+```swift
 mapControl.clearFilter()
 ```
 
@@ -356,7 +356,7 @@ The interfaces for using position providers with MapsIndoors, was bloated in V3,
 
 In V3, the `MPPositionProvider` protocol required that you implemented your positioning integration in a particular way.
 
-```java
+```swift
 protocol MPPositionProvider {
     
     var preferAlwaysLocationPermission: Bool
@@ -394,7 +394,7 @@ protocol MPPositionProviderDelegate {
 
 Even the simplest possible provider would look like:
 
-```java
+```swift
 class MockPositionProvider : NSObject, MPPositionProvider {
     
     var delegate: MPPositionProviderDelegate?
@@ -454,7 +454,7 @@ class MockPositionProvider : NSObject, MPPositionProvider {
 
 For v4, we have simplified the position provider protocol for `MPPositionProvider` and `MPPositionProviderDelegate`, which now looks like:
 
-```java
+```swift
 public protocol MPPositionProvider {
     var delegate: MPPositionProviderDelegate? { get set }
     var latestPosition: MPPositionResult? { get }
@@ -469,7 +469,7 @@ public protocol MPPositionProviderDelegate {
 
 Here is a small example of a mock implementation:
 
-```java
+```swift
 class MockPositionProvider: MPPositionProvider {
     
     var delegate: MPPositionProviderDelegate?
@@ -489,7 +489,7 @@ class MockPositionProvider: MPPositionProvider {
 
 You attach it to the MapsIndoors SDK, by setting it on your `MPMapControl` instance (and enable `showUserPosition`)
 
-```java
+```swift
 let positionProvider = MockPositionProvider()
 mapControl.showUserPosition = true
 mapControl.positionProvider = positionProvider
