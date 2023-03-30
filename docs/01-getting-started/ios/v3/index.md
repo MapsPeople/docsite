@@ -1,5 +1,5 @@
 ---
-title: v3
+title: V3
 hide_title: false
 hide_table_of_contents: true
 sidebar_position: 1
