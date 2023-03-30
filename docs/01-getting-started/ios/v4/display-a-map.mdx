@@ -73,7 +73,7 @@ Furthermore, provide API Key for Google Maps within AppDelegate and within the V
         // Initialize the MPMapControl with the MPMapConfig.
         Task {
             // Load MapsIndoors with the MapsIndoors API key.
-            await MPMapsIndoors.shared.load(apiKey: AppDelegate.mApiKey)
+            try await MPMapsIndoors.shared.load(apiKey: AppDelegate.mApiKey)
             if let mapConfig = mapConfig {
                 mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig)
                 // further set up SDK.

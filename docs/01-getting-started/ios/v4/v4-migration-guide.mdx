@@ -12,8 +12,10 @@ The iOS SDK for MapsIndoors has been upgraded from v3 to v4, which comes with im
 With the release of v4 the MapsIndoors SDK is released as two separate libraries depending on the Map Provider - Google Maps or Mapbox.
 
 ```swift
+import MapsIndoorsGoogleMaps
 import GoogleMaps
 // or
+import MapsIndoorsMapbox
 import Mapbox
 ```
 
@@ -28,11 +30,13 @@ import Mapbox
           // ...
     }
 ```
-
+```swift
+    mpMapControl?.goTo(entity: location)
+```
 ### MapsIndoors Provide API Key
 
 ```swift
  Task {
-        await MPMapsIndoors.shared.load(apiKey:`YOUR_MAPSINDOORS_API_KEY`)
+        try await MPMapsIndoors.shared.load(apiKey:`YOUR_MAPSINDOORS_API_KEY`)
     }
 ```
