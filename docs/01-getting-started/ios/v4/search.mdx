@@ -83,28 +83,28 @@ func numberOfSections(in tableView: UITableView) -> Int {
 }
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell.init()
-    let location = self.searchResult?[indexPath.row]
+    let cell = UITableViewCell()
+    let location = searchResult?[indexPath.row]
     cell.textLabel?.text = location?.name ?? ""
     return cell
 }
 
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let location:MPLocation = searchResult![indexPath.row]
-    self.mapControl?.go(to: location)
+    guard let location = searchResult?[indexPath.row] else { return }
+    mpMapControl?.goTo(entity: location) // Use the retained mpMapControl object
     tableView.removeFromSuperview()
 }
 
-func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    self.view.addSubview(tableView)
-    let query = MPQuery.init()
-    let filter = MPFilter.init()
-    query.query = searchText
-    filter.take = 100
-    MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (locations, error) in
-            self.searchResult = locations
-            self.tableView.reloadData()
-    }
+ func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        view.addSubview(tableView)
+        let query = MPQuery()
+        let filter = MPFilter()
+        query.query = searchText
+        filter.take = 100
+        Task {
+            searchResult = await MPMapsIndoors.shared.locationsWith(query: query, filter: filter)
+            tableView.reloadData()
+        }
 }
 ```
 
