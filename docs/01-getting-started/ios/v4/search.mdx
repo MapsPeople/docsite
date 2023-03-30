@@ -6,7 +6,42 @@ sidebar_position: 4
 ---
 
 ## Search for a Location
+From here onwards, code for both Mapbox and Google Maps is similar.
 
+Take a look at the following code, as discussed before, this was selects a location named "Family Dining Room".
+```swift
+Task {
+        do {
+                // Load MapsIndoors with the MapsIndoors API key.
+                try await MPMapsIndoors.shared.load(apiKey: AppDelegate.mApiKey)
+                
+                if let mapConfig = mapConfig {
+                    if let mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig) {
+                        
+                        // Retain the mapControl object
+                        self.mpMapControl = mapControl
+                        
+                        let query = MPQuery()
+                        let filter = MPFilter()
+                        
+                        query.query = "Family Dining Room"
+                        filter.take = 1
+                        
+                        let locations = await MPMapsIndoors.shared.locationsWith(query: query, filter: filter)
+                        if let firstLocation = locations.first {
+                            mapControl.select(location: firstLocation, behavior: .default)
+                            mapControl.select(floorIndex: firstLocation.floorIndex.intValue)
+                            // set the origin as Family Dining room
+                            origin = firstLocation
+                        }
+                    }
+                }
+                
+            } catch {
+                print("Error loading MapsIndoors: \(error.localizedDescription)")
+        }
+}
+```
 Our goal now is to enable the user to interact with a search bar and move the map with respect to their search. Therefore, we need to implement a bit more functionality into our ViewController class, so feel free to update it as followed.
 
 ```swift

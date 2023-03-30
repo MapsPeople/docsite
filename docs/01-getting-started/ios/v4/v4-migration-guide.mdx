@@ -17,20 +17,22 @@ import GoogleMaps
 import Mapbox
 ```
 
-## MapsIndoors Provide API Key
+## Introduction of `asyn/await` pattern
 
-```swift
- Task {
-        await MPMapsIndoors.shared.load(apiKey:`YOUR_MAPSINDOORS_API_KEY`)
-    }
-```
-
-## Introduction of asyn/await pattern for MPDirectionsService
+### MapsIndoors Directions
 
 ```swift
     Task {
         do {
             let route = try await directions.routingWith(query: directionsQuery)
           // ...
+    }
+```
+
+### MapsIndoors Provide API Key
+
+```swift
+ Task {
+        await MPMapsIndoors.shared.load(apiKey:`YOUR_MAPSINDOORS_API_KEY`)
     }
 ```

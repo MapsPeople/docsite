@@ -12,41 +12,45 @@ In a lot of cases, the user might not want to display a specific region, but rat
 First things first, let us add in some new variables, namely the renderer and two points we wish to acquire directional data between (the origin and destination). Usually, the origin point would refer to the location of the user, however for the purposes of demonstration we will use a static origin point.
 
 ```swift
-var origin:MPPoint = MPPoint(lat: 38.897382, lon: -77.037447, zValue:0)
-var destination:MPPoint = MPPoint.init()
-private let renderer = MPDirectionsRenderer()
+var directionsRenderer: MPDirectionsRenderer?
+var origin: MPLocation?
 ```
 
 In order to update the destination variable we simply employ the same concept as we did when adding the search bar, namely we utilise the `func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)` function. In this case, we simply need to update our function to store the point of the selected location and call `directions()`, which is a function we will add in a bit that will handle the construction of the directions query and rendering.
 
 ```swift
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let location:MPLocation = searchResult![indexPath.row]
-        self.destination = location.getPoint()!
-        self.mapControl?.go(to: location)
+        guard let location = searchResult?[indexPath.row] else { return }
+        mpMapControl?.goTo(entity: location) // Use the retained mpMapControl object
         tableView.removeFromSuperview()
-        directions()
-    }
+        
+        // Call the directions(to:) function
+        directions(to: location)
+  }
 ```
 
 We can now add in the `directions()` function,
 
 ```swift
-func directions() {
-    let directions = MPDirectionsService()
-    let directionsQuery = MPDirectionsQuery(origin: origin, destination: destination)
-
-    Task {
-        do {
-            let route = try await directions.routingWith(query: directionsQuery)
-            self.renderer.map = self.mapView
-            self.renderer.route = route
-            self.renderer.routeLegIndex = 0
-            self.renderer.animate(duration: 5)
-        } catch {
-            print("Error getting directions: \(error)")
+func directions(to destination: MPLocation) {
+        guard let mapControl = mpMapControl else { return }
+        
+        if directionsRenderer == nil {
+            directionsRenderer = mapControl.newDirectionsRenderer()
         }
-    }
+        
+        let directionsQuery = MPDirectionsQuery(origin: origin!, destination: destination)
+        
+        Task {
+            do {
+                let route = try await MPMapsIndoors.shared.directionsService.routingWith(query: directionsQuery)
+                directionsRenderer?.route = route
+                directionsRenderer?.routeLegIndex = 0
+                directionsRenderer?.animate(duration: 5)
+            } catch {
+                print("Error getting directions: \(error.localizedDescription)")
+            }
+        }
 }
 ```
 
