@@ -6,9 +6,11 @@ sidebar_position: 4
 ---
 
 ## Search for a Location
+
 From here onwards, code for both Mapbox and Google Maps is similar.
 
 Take a look at the following code, as discussed before, this was selects a location named "Family Dining Room".
+
 ```swift
 Task {
         do {
@@ -42,6 +44,7 @@ Task {
         }
 }
 ```
+
 Our goal now is to enable the user to interact with a search bar and move the map with respect to their search. Therefore, we need to implement a bit more functionality into our ViewController class, so feel free to update it as followed.
 
 ```swift
@@ -95,7 +98,7 @@ func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.removeFromSuperview()
 }
 
- func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         view.addSubview(tableView)
         let query = MPQuery()
         let filter = MPFilter()

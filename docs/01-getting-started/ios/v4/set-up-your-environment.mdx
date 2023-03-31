@@ -20,18 +20,18 @@ Now that you have taken care of all the preliminary issues, we can start buildin
 
 We recommend using [Xcode](https://developer.apple.com/xcode/) for following along, for this guide we will be using Xcode 14.2. Note that an iOS mobile device is not required, as Xcode allows the use of a simulator.
 
-We start off by creating an Xcode project using the App template,
+We start off by creating an Xcode project using the App template:
 
 <img src="/img/getting-started/ios-xcode_template.png" alt="A screenshot of the Xcode template" width="600"/>
 
-For the project settings, you can call it anything you like, however ensure the following settings are set to follow along easier,
+For the project settings, you can call it anything you like, however ensure the following settings are set to follow along easier:
 
 * Interface: Storyboard
 * Language: Swift
 
 <img src="/img/getting-started/ios-xcode-project_options.png" alt="A screenshot of the Xcode Project Options" width="600"/>
 
-You should now have a project folder with the following files,
+You should now have a project folder with the following files:
 
 <img src="/img/getting-started/ios-xcode-project_folder.png" alt="A screenshot of the Xcode Project Folder" width="300"/>
 
@@ -49,7 +49,7 @@ MapsIndoors can either be installed using CocoaPods ([Getting Started with Cocoa
 From MapsIndoors SDK version 4.0.0 and up, in order for CocoaPods to fetch the SDK properly it is neccessary to install `git-lfs` ([Install Guide](https://git-lfs.github.com/)).
 
 1. Create an empty text file named `Podfile` in your project directory (same folder as your *.xcodeproj*).
-2. Add your dependecies to the Podfile as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name),
+2. Add your dependecies to the Podfile as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name):
 
     ```text
     source 'https://github.com/CocoaPods/Specs.git'
@@ -105,7 +105,7 @@ This "Getting Started" guide is created using a specific version of the SDK. Whe
 
 Open back up the project and navigate to the file `AppDelegate.swift`.
 
-1. Add the following import statements to the top of the file,  
+1. Add the following import statements to the top of the file:
 
     <Tabs>
     <TabItem value="googlemaps" label="GoogleMaps" default>
@@ -126,7 +126,7 @@ Open back up the project and navigate to the file `AppDelegate.swift`.
     </TabItem>
     </Tabs>
 
-2. Insert the following into the `application(_:didFinishLaunchingWithOptions:)` method. If you are using `Mapbox` then provide your API Key when you add your map to the view inside `viewDidLoad()` in your `ViewController.swift`
+2. Insert the following into the `application(_:didFinishLaunchingWithOptions:)` method. If you are using `Mapbox` then provide your API Key when you add your map to the view inside `viewDidLoad()` in your `ViewController.swift`:
 
     <Tabs>
     <TabItem value="googlemaps" label="GoogleMaps" default>
