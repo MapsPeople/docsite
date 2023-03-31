@@ -48,15 +48,10 @@ MapsIndoors can be installed using CocoaPods ([Getting Started with CocoaPods](h
 
 From MapsIndoors SDK version 4.0.0 and up, in order for CocoaPods to fetch the SDK properly it is neccessary to install `git-lfs` ([Install Guide](https://git-lfs.github.com/)).
 
-<<<<<<< Updated upstream
-1. Create an empty text file named `Podfile` in your project directory (same folder as your *.xcodeproj*).
-2. Add your dependecies to the Podfile as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name):
-=======
 1. Create a new `Podfile` in your project directory (same folder as your *.xcodeproj*) by running `pod init <XCODEPROJNAME>` in Terminal.
 2. Add your dependecies to the Podfile as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name),
->>>>>>> Stashed changes
 
-    ```text
+    ```ruby
     source 'https://github.com/CocoaPods/Specs.git'
 
     platform :ios, '15.0' # Replace 15.0 with you iOS Minimum Deployment Target
@@ -66,6 +61,9 @@ From MapsIndoors SDK version 4.0.0 and up, in order for CocoaPods to fetch the S
 
       pod 'MapsIndoors', '~>4.0'
       # and your Map Specific pod
+      # pod MapsIndoorsGoogleMaps
+      # or
+      # pod MapsIndoorsMapbox
     end
     ```
 
