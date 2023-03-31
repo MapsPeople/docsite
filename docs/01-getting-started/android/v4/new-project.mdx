@@ -51,6 +51,12 @@ Add or merge in the following to your app's build gradle file (usually called `b
 
 Make sure that the minimum Android SDK version is 21 (aka. "Android Lollipop", version 5.0) or above:
 
+:::tip desugaring
+
+Please note that mapsindoors uses java 8 language features, that requires desugaring if `minSdkVersion` is 24 or below. Read how to enable this in gradle here: [Use Java 8 language features and APIs](https://developer.android.com/studio/write/java8-support)
+
+:::
+
 ```java
 android {
     defaultConfig {
@@ -76,6 +82,9 @@ Add the following dependencies and the MapsIndoors maven repository:
 
 `Gson` and `okhttp` is used by MapsIndoors to function properly with network calls and deserializing.
 
+<Tabs groupId="getting-started-android-v4-new-project">
+<TabItem value="Google Maps" label="Google Maps" default>
+
 `play-services-maps` is used for Google Maps which MapsIndoors is build on top of on Android.
 
 ```java
@@ -83,7 +92,7 @@ dependencies {
     ...
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.mapspeople.mapsindoors:googlemapssdk:4.0.0-beta.9'
+    implementation 'com.mapspeople.mapsindoors:googlemapssdk:4.1.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 }
 repositories{
@@ -93,13 +102,36 @@ repositories{
 }
 ```
 
+</TabItem>
+<TabItem value="Mapbox" label="Mapbox">
+
+```java
+dependencies {
+    ...
+    implementation ('com.mapbox.maps:android:10.8.0'){
+        exclude group: 'group_name', module: 'module_name'
+    }
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.mapspeople.mapsindoors:mapboxsdk:4.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+}
+repositories{
+    maven {
+        url 'https://maven.mapsindoors.com/'
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
 Put those lines in your proguard-rules files:
 
 ```java
--keep interface com.mapsindoors.mapssdk.** { *; }
--keep class com.mapsindoors.mapssdk.errors.** { *; }
--keepclassmembers class com.mapsindoors.mapssdk.models.** { <fields>; }
--keep class com.mapsindoors.mapssdk.dbglog
+-keep interface com.mapsindoors.core.** { *; }
+-keep class com.mapsindoors.core.errors.** { *; }
+-keepclassmembers class com.mapsindoors.core.models.** { <fields>; }
+-keep class com.mapsindoors.core.MPDebugLog
 ```
 
 Sync your project with gradle.
