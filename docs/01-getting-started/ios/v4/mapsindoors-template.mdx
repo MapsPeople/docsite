@@ -29,6 +29,9 @@ First, you need to [setup at a new project in the Google Cloud Console](https://
 
 When the above 3 APIs and the relevant SDK are enabled, you can retrieve the API key from the [Credentials page](https://console.cloud.google.com/project/_/apiui/credential). On the Credentials page, click _Create credentials_ > _API key_.
 
+### Mapbox API Key
+* Follow the guide here [Getting Started](https://docs.mapbox.com/help/getting-started/) to retrieve API Key
+
 ### Get Your MapsIndoors API key
 
 If you are not a customer yet, you can use this demo MapsIndoors API key `{{sdk.tutorialAPIKey}}` to follow this guide, or you can [contact MapsPeople](https://resources.mapspeople.com/contact-us) to get your building drawings processed and hosted by us to receive a unique API key. For the purpose of this guide, both methods will work.
@@ -43,25 +46,21 @@ This app is designed to be displayed in Portrait Mode. While it will work in Lan
 
 This app provides an example of how to use the MapsIndoors SDK in SwiftUI.
 
-* Download or clone the pre-made project from GitHub: [https://github.com/MapsPeople/MapsIndoorsTemplate-iOS](https://github.com/MapsPeople/MapsIndoorsTemplate-iOS)
+* Download or clone the pre-made project from GitHub: [MapsIndoorsTemplate-iOS](https://github.com/MapsPeople/MapsIndoorsTemplate-iOS-v4)
 * From the terminal, in the path you cloned the repository to, run `pod install`
 * Open the file `xxxxx.xcworkspace` in Xcode, or your editor of choice
-* Make a copy of the `MapsIndoors-Info-Sample.plist` file and name it `MapsIndoors-Info.plist`
-* Add your MapsIndoors API key and Google Maps API key to the `MapsIndoors-Info.plist` file and run the project
+* Add your MapsIndoors API key and your Map Engine API key
 
 ### Using the Functionality in your Own App
 
 This project is specifically built so you can easily re-use this functionality in your own application, without further issue.
 
-* To reuse the code in your app, drag and drop the `Views` and `Services` folders, and all the `Assets` except for the `AppIcon` into your project
-* Create a copy of the `MapsIndoors-Info-Sample.plist` file and name it `MapsIndoors-Info.plist`
-* Add your MapsIndoors API key and Google Maps API key to the `MapsIndoors-Info.plist` file
-* Look at `ViewController.swift` for an example of how to initialize the MapsIndoors SDK and use the **MapsIndoors Template** implementation in an UIKit app. The `ViewController.swift` reads the API keys retrieved as described above from the file `MapsIndoors-Info.plist`
-* Update your podfile so it matches the podfile in the MapsIndoors **MapsIndoors Template**
+* This app serves as a starting point.
+* It was built with SwiftUI
+* You can extend this to fit your needs.
 
 :::danger Known iOS issues
 
-1. Developing on the new Arm-based Apple Silicon (M1) Macs requires building and running on a physical iOS device or using an iOS simulator running iOS 13.7, e.g. iPhone 11. This is a temporary limitation in Google Maps SDK for iOS, and as such also a limitation in MapsIndoors, due to the dependency to Google Maps.
 1. Due to [a bug in CocoaPods](https://github.com/CocoaPods/CocoaPods/issues/7155) it is necessary to include the `post_install` hook in your Podfile described in the [PodFile post_install](https://github.com/MapsIndoors/MapsIndoorsIOS/wiki/Podfile-post_install) wiki.
 
 :::
