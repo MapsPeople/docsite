@@ -16,12 +16,56 @@ Changelog for the MapsIndoors iOS SDK. This document structure is based on [Keep
 
 <!---
 ## [Unreleased]
-### Fixed
 ### Added
 ### Fixed
 ### Changed
 ### Removed
 -->
+
+## iOS Version Requirements
+
+MapsIndoors SDK v4 requires at least iOS 13 and Xcode 14.
+
+## [4.0.0] 2023-03-31
+
+Version 4 of the MapsIndoors SDK has changed significantly compared to version 3. There is a [migration guide](https://docs.mapsindoors.com/getting-started/ios/v4/v4-migration-guide) that describes the changes.
+
+### Added
+
+* Support for new map providers
+    * MapsIndoors can now be used with the Mapbox v10 SDK.
+* `goTo(entity:)`
+    * A new method for moving the camera to MapsIndoors locations, this new method goTo() can be used with any class that implements MPEntity, which includes but is not limited to MPLocation, MPFloor, and MPBuilding.
+* Solution Config
+    * The SDK now supports the Solution Config.
+    * This also introduces the new Main Display Rule, which is bundled into the solution config, along with collision handling and clustering.
+* New Cocoapods
+    * The main Cocoapod to use is either `MapsIndoorsGoogleMaps` or `MapsIndoorsMapbox` depending on the map engine to use.
+        * Both of these Cocoapods are dependent on the `MapsIndoors` and `MapsIndoorsCore` Cocoapods and will automatically include them.
+        * Most classes in `MapsIndoorsCore` are public but meant for communication between the core SDK and map platform specific code. These classes are not described in the reference docs. Refrain from using these classes unless you know what you are doing.
+
+### Changed
+
+* Initialisation of MapsIndoors
+    * The interface to initiate the SDK is improved for smaller and safer implementations.
+    * Initialise MapsIndoors with `MPMapsIndoors.shared.load(apiKey: "YOUR_MAPSINDOORS_API_KEY")`
+* Initialization of MapControl
+    * In order to support multiple map engines an `MPMapConfig` is needed.
+    * The `MPMapConfig` is then used to create a MapControl: `let mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig)`.
+* Display Rules
+    * Display Rules have been reworked completely.
+    * Display Rules are now reference based, thus any changes to a rule are instantaneous.
+    * Display Rules can be reset with `reset()`. This will return the display rule to the state it has in the CMS.
+* The iOS SDK Reference Docs have been modernised and are now available at https://app.mapsindoors.com/mapsindoors/reference/ios/v4-doc/documentation/mapsindoors/
+
+
+* Many interface changes. See migration guide for help in migrating from MapsIndoors SDK v3.
+* Minimum iOS version supported is iOS 13.
+* Required Xcode version is Xcode 14.
+
+</TabItem>
+
+<TabItem value="v3" label="iOS SDK v3">
 
 ## iOS Version Support
 
