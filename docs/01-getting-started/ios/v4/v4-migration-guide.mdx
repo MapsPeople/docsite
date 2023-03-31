@@ -140,7 +140,7 @@ let solutionConfig = MPMapsIndoors.shared.solution?.config
 solutionConfig?.collisionHandling = .removeLabelFirst
 solutionConfig?.enableClustering = false
 
-let appConfig = MPMapsIndoors.shared.appData()
+let appConfig = await MPMapsIndoors.shared.appData()
 ```
 
 AppConfig is for applications specific information, you may want to store in MapsIndoors data for use in your application. AppConfig can be edited in the CMS.
