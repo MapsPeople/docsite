@@ -86,7 +86,7 @@ func numberOfSections(in tableView: UITableView) -> Int {
 }
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell.init()
+    let cell = UITableViewCell()
     let location = self.searchResult?[indexPath.row]
     cell.textLabel?.text = location?.name ?? ""
     return cell
