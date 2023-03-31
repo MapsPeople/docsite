@@ -14,11 +14,12 @@ Now that we have the prerequisite API keys, and the project set up, we can start
 
 :::tip async
 
-1. Please note that data in MapsIndoors is loaded asynchronously. This results in behavior where data might not have finished loading if you call methods accessing it immediately after initializing MapsIndoors. Best practice is to set up `listeners` or `delegates` to inform of when data is ready. Please be aware of this when developing using the MapsIndoors SDK.
-2. Check out Git repo for a full example:[iOS v4 example](https://github.com/MapsPeople/MapsIndoors-iOS-Examples).
+
+1. Check out Git repo for a full example:[iOS v4 example](https://github.com/MapsPeople/MapsIndoors-iOS-Examples).
+2. Note: Later in the guide, `Map Engine` and `Map Provider` can refer to Google Maps and/or Mapbox.
 :::
 
-In order to accomplish this we will be utilising the [MPMapControl Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_map_control.html). Open the file, `ViewController.swift` and, once again, add in the following import statements to the top of the file,
+In order to accomplish this we will be utilising the [MPMapControl Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v4-doc/documentation/mapsindoors/mpmapcontrol). Open the file, `ViewController.swift` and, once again, add in the following import statements to the top of the file,
 
 ### Import MapsIndoors
 
@@ -121,7 +122,7 @@ Furthermore, provide API Key for Google Maps within AppDelegate and within the V
 </TabItem>
 </Tabs>
 
-The [MPMapControl Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_map_control.html) the is connective class between the Map Engine(either Google Maps or Mapbox) and the MapsIndoors. It allows the two services to collaborate by overlaying the MapsIndoors information over the Map Engine information.
+The [MPMapControl Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v4-doc/documentation/mapsindoors/mpmapcontrol) the is connective class between the Map Engine and the MapsIndoors. It allows the two services to collaborate by overlaying the MapsIndoors information over the Map Engine information.
 
 *Note: This also means logic is appended onto many Google Maps listeners, which means that using Google Maps listeners directly might break intended behavior of the MapsIndoors experience. We recommend checking our [reference docs](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/index.html), and see if you can add a specific `Listener` through the `MapControl`. If this is possible, it is highly recommend you do so.*
 
@@ -139,6 +140,6 @@ We initialise the mapControl for MapsIndoors with respect to the `mapView` gener
 
 Feel free to change the query from "White House" to a known building in *your* MapsIndoors dataset.
 
-Next, let us look into how we can add a search feature and interact with it. We will do this by  setting-up a Query and Filter based on the [MPQuery Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_query.html#a9da8ff62b6d17e45403b9005c73e811f) and [MPFilter Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_filter.html) classes respectively, these serve as our search specifications.
-
-And then, the [MPLocationService Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_location_service.html#a140844121a239dcf1709210e1723c312) which will enable us to search through the full collection of Locations based on our previously established query and filter, such that we can go to that location on the map. Moving the location is all handled by mapControl as it handles it for both the different Map Engine(Google Maps and Mapbox) and MapIndoors.
+Next, let us look into how we can add a search feature and interact with it.
+We set up a Query and Filter based on the [MPQuery Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v4-doc/documentation/mapsindoors/mpquery) class and [MPFilter Class](https://app.mapsindoors.com/mapsindoors/reference/ios/v4-doc/documentation/mapsindoors/mpfilter) class, respectively. These serve as our search specifications.
+Finally, we call the MPMapsIndoors.shared.locationsWith(query:query, filter:filter) method, which searches through the full collection of locations based on our previously established query and filter. We then select the desired location and floor index on the map using the mapControl instance. This handles the selection for both the selected Map Engine and MapsIndoors.
