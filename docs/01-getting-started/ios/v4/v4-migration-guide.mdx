@@ -128,8 +128,18 @@ let mapConfig = MPMapConfig.init(mapBoxView: mapboxMapView, accessToken: "mapbox
 SolutionConfig & AppConfig[​](https://docsite.mapsindoors.com/getting-started/android/v4/#solutionconfig--appconfig)
 -----------------------------------------------------------------------------------------------------------------------
 
-Migration details comming soon...
+AppConfig and SolutionConfig can now be accessed with:
 
+```swift
+let solutionConfig = MPMapsIndoors.shared.solution?.config
+solutionConfig?.collisionHandling = .removeLabelFirst
+solutionConfig?.enableClustering = false
+
+let appConfig = MPMapsIndoors.shared.appData()
+```
+
+AppConfig is for applications specific information, you may want to store in MapsIndoors data for use in your application. AppConfig can be edited in the CMS.
+SolutionConfig is for adjusting SDK behavior and settings, e.g. enable or disable clustering of POIs. SolutionConfig can also be edited in the CMS.
 
 Display Rules[​](https://docsite.mapsindoors.com/getting-started/android/v4/#display-rules)
 -------------------------------------------------------------------------------------------
@@ -209,7 +219,7 @@ Resetting a display rule will return it to its initial values. Any values you ca
 
 The SDK has some display rules dedicated for some SDK specific rendering, which cannot be edited in the CMS, e.g. building outline, selection highlight, blue dot. These rules are not bound to any unique location, so instead you can fetch them using `MPDisplayRuleType` enum.
 
-E.g. change the building outline stroke color and width
+E.g. change the building outline stroke color and width, optionally used to highlight the current building.
 
 ```swift
 let buildingOutlineRule = MPMapsIndoors.shared.displayRuleFor(displayRuleType: .buildingOutline)
@@ -217,10 +227,46 @@ buildingOutlineRule?.polygonStrokeColor = .blue
 buildingOutlineRule?.polygonStrokeWidth = 10.0
 ```
 
-DirectionsService & DirectionsRenderer[​](https://docsite.mapsindoors.com/getting-started/android/v4/#directionsservice--directionsrenderer) (MISSING WRAPPER)
+DirectionsService & DirectionsRenderer[​](https://docsite.mapsindoors.com/getting-started/android/v4/#directionsservice--directionsrenderer)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
+The jump from V3 to V4 also introduces small differences in route directions querying and rendering.
 
-Migration details comming soon...
+#### V3
+
+```swift
+var origin = MPPoint(lat: 38.897382, lon: -77.037447, zValue:0)
+var destination = MPPoint.init()
+private let renderer = MPDirectionsRenderer()
+
+let directions = MPDirectionsService()
+let directionsQuery = MPDirectionsQuery(originPoint: origin, destination: destination)
+
+directions.routing(with: directionsQuery) { (route, error) in
+    self.renderer.map = self.mapView
+    self.renderer.route = route
+    self.renderer.routeLegIndex = 0
+    self.renderer.animate(5)
+}
+```
+
+#### V4
+```swift
+let origin = MPPoint(latitude:57.059884140172585, longitude: 9.939936105948238, z: 0)
+let destination = MPPoint(latitude: 57.05718292988392, longitude: 9.930720035736968, z: 0)
+
+let directionsQuery = MPDirectionsQuery(originPoint: origin, destinationPoint: destination)
+
+let directionsService = MPMapsIndoors.shared.directionsService
+let route = try? await directionsService.routingWith(query: directionsQuery)
+
+let renderer = mapControl?.newDirectionsRenderer()
+renderer?.fitBounds = true
+renderer?.route = route
+renderer?.animate(duration: 5)
+```
+
+
+
 
 Map & Camera Behavior Configs[​](https://docsite.mapsindoors.com/getting-started/android/v4/#map--camera-behavior-configs)
 --------------------------------------------------------------------------------------------------------------------------
