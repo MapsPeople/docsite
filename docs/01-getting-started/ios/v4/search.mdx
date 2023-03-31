@@ -6,9 +6,11 @@ sidebar_position: 4
 ---
 
 ## Search for a Location
+
 From here onwards, code for both Mapbox and Google Maps is similar.
 
 Take a look at the following code, as discussed before, this was selects a location named "Family Dining Room".
+
 ```swift
 Task {
         do {
@@ -42,6 +44,7 @@ Task {
         }
 }
 ```
+
 Our goal now is to enable the user to interact with a search bar and move the map with respect to their search. Therefore, we need to implement a bit more functionality into our ViewController class, so feel free to update it as followed.
 
 ```swift
@@ -54,7 +57,7 @@ Let us start off by implementing the search bar. In this case, we add the follow
 
 ```swift
 var searchResult:[MPLocation]?
-lazy var destinationSearch:UISearchBar = UISearchBar.init(frame: CGRect.init(x: 0, y: 40, width: 0, height: 0))
+lazy var destinationSearch:UISearchBar = UISearchBar(frame: CGRect.init(x: 0, y: 40, width: 0, height: 0))
 var tableView = UITableView.init(frame: CGRect.init(x: 0, y: 90, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 ```
 
@@ -62,12 +65,12 @@ And let us also make sure the search bar delegated and correctly displayed in ou
 
 ```swift
 override func viewDidLoad(){
-destinationSearch.sizeToFit()
-self.destinationSearch.delegate = self
-self.view.addSubview(destinationSearch)
-tableView.dataSource = self
-tableView.delegate = self
-...
+    destinationSearch.sizeToFit()
+    self.destinationSearch.delegate = self
+    self.view.addSubview(destinationSearch)
+    tableView.dataSource = self
+    tableView.delegate = self
+    //...
 }
 ```
 
@@ -84,18 +87,18 @@ func numberOfSections(in tableView: UITableView) -> Int {
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = UITableViewCell()
-    let location = searchResult?[indexPath.row]
+    let location = self.searchResult?[indexPath.row]
     cell.textLabel?.text = location?.name ?? ""
     return cell
 }
 
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let location = searchResult?[indexPath.row] else { return }
-    mpMapControl?.goTo(entity: location) // Use the retained mpMapControl object
-    tableView.removeFromSuperview()
+        mpMapControl?.goTo(entity: location) // Use the retained mpMapControl object
+        tableView.removeFromSuperview()
 }
 
- func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         view.addSubview(tableView)
         let query = MPQuery()
         let filter = MPFilter()

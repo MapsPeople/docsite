@@ -503,7 +503,7 @@ The central class to carry out the subscription tasks is the LiveDataManager, bu
 Enabling Live Data through MPMapControl can be done as simple as calling MPMapControl.enableLiveData() with a Domain Type.
 
 ```swift
-self.mapControl = MPMapControl.init(map: self.map!)
+self.mapControl = MPMapControl(map: self.map!)
 
 self.mapControl.enableLiveData(domain: MPLiveDomainType.position) { liveUpdate in
     // Handle live data updates
