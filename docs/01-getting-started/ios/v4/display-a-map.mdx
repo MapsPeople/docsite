@@ -69,12 +69,12 @@ Furthermore, provide API Key for Google Maps within AppDelegate and within the V
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         // Initialize the MPMapConfig with the GMSMapView
-        mapConfig = MPMapConfig(gmsMapView: mapView, googleApiKey: AppDelegate.gApiKey!)
+        mapConfig = MPMapConfig(gmsMapView: mapView, googleApiKey: [YOUR_GOOGLE_API_KEY])
         
         // Initialize the MPMapControl with the MPMapConfig.
         Task {
             // Load MapsIndoors with the MapsIndoors API key.
-            try await MPMapsIndoors.shared.load(apiKey: AppDelegate.mApiKey)
+            try await MPMapsIndoors.shared.load(apiKey: [YOUR_MAPSINDOORS_API_KEY])
             if let mapConfig = mapConfig {
                 mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig)
                 // further set up SDK.

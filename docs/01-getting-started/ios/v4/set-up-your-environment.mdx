@@ -39,7 +39,7 @@ For the sake of simplicity we will only be operating on these pre-generated file
 
 ## Installing the MapsIndoors SDK
 
-MapsIndoors can either be installed using CocoaPods ([Getting Started with CocoaPods](https://guides.cocoapods.org/using/getting-started.html)) or through a manual installation.
+MapsIndoors can be installed using CocoaPods ([Getting Started with CocoaPods](https://guides.cocoapods.org/using/getting-started.html)).
 
 <Tabs>
 <TabItem value="cocoapods" label="Cocoapods" default>
@@ -48,8 +48,13 @@ MapsIndoors can either be installed using CocoaPods ([Getting Started with Cocoa
 
 From MapsIndoors SDK version 4.0.0 and up, in order for CocoaPods to fetch the SDK properly it is neccessary to install `git-lfs` ([Install Guide](https://git-lfs.github.com/)).
 
+<<<<<<< Updated upstream
 1. Create an empty text file named `Podfile` in your project directory (same folder as your *.xcodeproj*).
 2. Add your dependecies to the Podfile as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name):
+=======
+1. Create a new `Podfile` in your project directory (same folder as your *.xcodeproj*) by running `pod init <XCODEPROJNAME>` in Terminal.
+2. Add your dependecies to the Podfile as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name),
+>>>>>>> Stashed changes
 
     ```text
     source 'https://github.com/CocoaPods/Specs.git'
@@ -60,6 +65,7 @@ From MapsIndoors SDK version 4.0.0 and up, in order for CocoaPods to fetch the S
       use_frameworks!
 
       pod 'MapsIndoors', '~>4.0'
+      # and your Map Specific pod
     end
     ```
 
@@ -77,20 +83,6 @@ In the line containing `pod 'MapsIndoors', '~>4.0'`, where it currently says `4.
 5. Close Xcode.
 
 6. From this time onwards, use the *.xcworkspace* file to open the project from now on.
-
-</TabItem>
-<TabItem value="manual" label="Manually">
-
-### Install MapsIndoors Manually
-
-In order for MapsIndoors to be operational, the Google Maps SDK must also be installed since MapsIndoors rely on it:
-
-* [Google Maps iOS SDK](https://developers.google.com/maps/documentation/ios-sdk/overview): [manual install](https://developers.google.com/maps/documentation/ios-sdk/start#install-manually). You should use [Google Maps iOS version 7.4.0](https://dl.google.com/geosdk/12cdf90d54d85bfcc90d340148d86362ee3189ea24b4bd20ca891e9bd33ded21/GoogleMaps-7.4.0.tar.gz) since MapsIndoors >= 4.0.0 is linked against this version.
-
-When the Google Maps SDK dependency is installed, go through these steps to install MapsIndoors:
-
-* Download and unzip the latest [MapsIndoors.xcframework](https://github.com/MapsIndoors/MapsIndoorsIOS/releases/download/3.43.1/MapsIndoors.xcframework.zip).
-* Drag and drop the framework into your XCode project. In the dialog that pops up, choose “Copy items if needed” and make sure the framework is added to the correct target.
 
 </TabItem>
 </Tabs>
