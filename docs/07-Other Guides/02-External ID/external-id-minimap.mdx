@@ -1,0 +1,25 @@
+---
+title: Using External ID's to Create a "Minimap"
+hide_title: false
+hide_table_of_contents: true
+sidebar_position: 2
+slug: /external-id-minimap
+---
+
+The External ID feature of the MapsIndoors solution offers a seamless integration with workspace management solutions, enhancing user experience and improving resource allocation. By using this feature, users can view and interact with a mini-map that displays the location of a specific workspace within the office. This article will outline the benefits of using the External ID feature and provide a high-level overview of how to implement it in a workspace management solution.
+
+## Benefits of the External ID Feature
+
+The External ID feature simplifies the process of booking workspaces and provides a visual aid for employees. With the help of a mini-map, users can quickly identify the location of their desired workspace, saving time and effort when navigating the office. Additionally, the feature improves workspace utilization by providing relevant information about the space, such as its size, layout, and available resources. Overall, the External ID feature enhances the user experience and streamlines the workspace booking process.
+
+## Implementing the External ID Feature
+
+To implement the External ID feature, you will first need to create a mapping between your workspace management solution's internal IDs and the corresponding MapsIndoors location IDs. This can be achieved through the MapsIndoors Management API. Here's a simple example of how to create a mapping using a POST request:
+
+// code
+
+Once the mapping is established, you can embed the MapsIndoors JavaScript SDK into your workspace management solution's booking page. This will allow you to display a mini-map when users are booking a workspace. The following example demonstrates how to retrieve the MapsIndoors location based on the External ID and display it on the mini-map:
+
+//code
+
+Incorporating the External ID feature in a workspace management solution offers a more streamlined and visually engaging user experience. By establishing a mapping between internal IDs and MapsIndoors location IDs, and embedding the MapsIndoors JavaScript SDK, users can view and interact with a mini-map that displays the location of their desired workspace. This not only enhances the booking process but also helps improve workspace utilization and navigation within the office.
