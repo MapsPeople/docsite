@@ -28,9 +28,15 @@ MapsIndoors SDK v4 requires at least iOS 13 and Xcode 14.
 
 ## [4.0.3] 2023-04-21
 
+### Added
+
+- [MPMapControl.showInfoWindowOnClickedLocation](https://app.mapsindoors.com/mapsindoors/reference/ios/v4-doc/documentation/mapsindoors/mpmapcontrol/showinfowindowonclickedlocation) to control if info windows should be shown when a Location is selected
+
 ### Fixed
 
-- Icons not respecting zoom levels Display Rules, which caused them to appear/disappear
+- Icons are now respecting zoom levels in Display Rules
+- Labels are now respecting zoom levels in Display Rules inherited from the Location Type
+- MPMapControl.hideFloorSelector now actually hides the floor selector
 
 ## [4.0.2] 2023-04-13
 
