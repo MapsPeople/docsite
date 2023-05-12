@@ -16,8 +16,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'MapsPeople', // Usually your GitHub org/user name.
+  projectName: 'docsite', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -59,36 +59,74 @@ const config = {
         disableSwitch: true,
       },
       navbar: {
-        title: ' ',
+        title: 'MapsIndoors Docs',
         logo: {
           alt: 'MapsPeople Logo',
-          src: 'img/MapsPeople_RGB_Logotype_White.png',
+          src: 'img/logo.png',
         },
         items: [
           {
-            to: 'https://github.com/mapspeople',
-            label: 'GitHub',
+            type: 'dropdown',
+            label: 'Reference Docs',
+            position: 'right',
+            items: [
+              {
+                label: 'Android SDK',
+                href: '/reference-docs/android',
+              },
+              {
+                label: 'iOS SDK',
+                href: '/reference-docs/ios',
+              },
+              {
+                label: 'Web SDK',
+                href: '/reference-docs/web',
+              },
+            ],
+          },
+          {
+            type: 'dropdown',
+            label: 'Changelogs',
+            position: 'right',
+            items: [
+              {
+                label: 'Android SDK',
+                href: '/changelogs/android',
+              },
+              {
+                label: 'iOS SDK',
+                href: '/changelogs/ios',
+              },
+              {
+                label: 'Web SDK',
+                href: '/changelogs/web',
+              },
+              {
+                label: 'MI Components',
+                href: '/changelogs/components',
+              },
+            ],
+          },
+          {
+            href: 'https://mapspeople.com/support',
+            label: 'Support',
             position: 'right',
           },
           {
-            to: 'https://mapspeople.com/support',
-            label: 'Support Center',
-            position: 'right',
-          },
-          {
-            to: 'https://blog.mapspeople.com/tag/product',
-            label: 'Product Blog',
-            position: 'right',
-          },
-          {
-            to: 'https://cms.mapsindoors.com/',
+            href: 'https://cms.mapsindoors.com/',
             label: 'CMS Login',
             position: 'right',
           },
           {
-            to: 'https://docs-legacy.mapsindoors.com/content/legacy/',
-            label: 'Legacy Documentation',
+            href: 'https://docs-legacy.mapsindoors.com/content/legacy/',
+            label: 'Legacy Docs',
             position: 'right',
+          },
+          {
+            href: 'https://github.com/MapsPeople/',
+            'aria-label': 'GitHub',
+            position: 'right',
+            className: 'header-github-link',
           },
         ],
       },
@@ -96,50 +134,12 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Documentation',
-            items: [
-              {
-                label: 'Getting Started',
-                to: '/getting-started',
-              },
-              {
-                label: 'MapsIndoors CMS',
-                to: '/cms/',
-              },
-              {
-                label: 'Map',
-                to: '/display-rules/',
-              },
-              {
-                label: 'Directions',
-                to: '/directions-intro/',
-              },
-            ],
-          },
-          {
-            title: 'Documentation',
-            items: [
-              {
-                label: 'Searching',
-                to: '/searching/',
-              },
-              {
-                label: 'Working with Data',
-                to: '/booking/',
-              },
-              {
-                label: 'Other Guides',
-                to: '/glossary',
-              },
-              {
-                label: 'Changelogs',
-                to: '/changelogs/android/',
-              },
-            ],
-          },
-          {
             title: 'Product',
             items: [
+              {
+                label: 'Product Blog',
+                href: 'https://blog.mapspeople.com/tag/product'
+              },
               {
                 label: 'Product Overview',
                 href: '/product/',
