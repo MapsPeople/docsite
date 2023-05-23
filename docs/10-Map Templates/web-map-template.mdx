@@ -15,6 +15,7 @@ Get started quickly with a MapsIndoors powered [template web app](https://github
 Using a terminal/shell in the project folder, run the following commands:
 
 * Clone the repository to your development environment:
+* You can use both the `SSH` or `HTPPS` to clone the repository, depending on which one you are more familiar with.
 ```bash
 git clone https://github.com/MapsPeople/web-ui.git
 ```
@@ -32,18 +33,6 @@ npm run start
 ### Add Google Maps API Keys or Mapbox Access Tokens
 
 Rename `.env.example`, to `.env` and add either of the keys (or both) to that file, and the maps will load properly.
-
-### Add MapsIndoors API Keys and Venue IDs
-In `App.jsx`, add your MapsIndoors API keys and venue IDs to the `MapsIndoorsMap` component:
-
-```jsx
-<MapsIndoorsMap
-    apiKey="mapspeople"
-    venue="Stigsborgvej"
-    mapboxAccessToken={process.env.VITE_MAPBOX_ACCESS_TOKEN}
-    gmApiKey={process.env.VITE_GOOGLE_MAPS_API_KEY}
-/>
-```
 
 Now open the app served on [http://localhost:3000/](http://localhost:3000/).
 
