@@ -61,13 +61,13 @@ From MapsIndoors SDK version 3.32.0 and up, in order for CocoaPods to fetch the 
     target 'YOUR_APPLICATION_TARGET_NAME_HERE' do
       use_frameworks!
 
-      pod 'MapsIndoors', '~>3.43'
+      pod 'MapsIndoors', '~>3.50'
     end
     ```
 
 :::caution
 
-In the line containing `pod 'MapsIndoors', '~>3.43'`, where it currently says `3.43`, be sure to replace this number with whatever the latest version of the iOS SDK is.
+In the line containing `pod 'MapsIndoors', '~>3.50'`, where it currently says `3.50`, be sure to replace this number with whatever the latest version of the iOS SDK is.
 
 :::
 
@@ -91,8 +91,10 @@ In order for MapsIndoors to be operational, the Google Maps SDK must also be ins
 
 When the Google Maps SDK dependency is installed, go through these steps to install MapsIndoors:
 
-* Download and unzip the latest [MapsIndoors.xcframework](https://github.com/MapsIndoors/MapsIndoorsIOS/releases/download/3.43.1/MapsIndoors.xcframework.zip).
-* Drag and drop the framework into your XCode project. In the dialog that pops up, choose “Copy items if needed” and make sure the framework is added to the correct target.
+* Download and unzip the latest v3 [MapsIndoors.xcframework](https://github.com/MapsIndoors/MapsIndoorsIOS/releases/download/3.50.1/MapsIndoors.xcframework.zip).
+* Drag and drop the XCFramework into your XCode project. In the dialog that pops up, choose “Copy items if needed” and make sure the XCFramework is added to the correct target.
+* In Xcode, go to "Build Phases" for your target and remove the three Google Maps XCFrameworks from the "Link Binary With Libraries" section.
+    * This is to avoid double linking of the Google Maps SDK which will result in an app crash early after running your app.
 
 </TabItem>
 </Tabs>
@@ -117,9 +119,9 @@ Open back up the project and navigate to the file `AppDelegate.swift`.
 2. Insert the following into the `application(_:didFinishLaunchingWithOptions:)` method,
 
 ```swift
-GMSServices.provideAPIKey(      "YOUR_GOOGLE_API_KEY")  
-MapsIndoors.provideAPIKey(      "YOUR_MAPSINDOORS_API_KEY",  
-            googleAPIKey:       "YOUR_GOOGLE_API_KEY")
+GMSServices.provideAPIKey("YOUR_GOOGLE_API_KEY")  
+MapsIndoors.provideAPIKey("YOUR_MAPSINDOORS_API_KEY",  
+            googleAPIKey:"YOUR_GOOGLE_API_KEY")
 ````
 
 Finally, remember to replace `YOUR_GOOGLE_API_KEY` with your Google API key and `YOUR_MAPSINDOORS_API_KEY` with your MapsIndoors API demo key `d876ff0e60bb430b8fabb145`.
