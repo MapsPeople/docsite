@@ -15,19 +15,19 @@ Get started quickly with a MapsIndoors powered [template web app](https://github
 Using a terminal/shell in the project folder, run the following commands:
 
 * Clone the repository to your development environment:
-* You can use both the `SSH` or `HTPPS` to clone the repository, depending on which one you are more familiar with.
+* You can use both the `SSH` or `HTTPS` to clone the repository, depending on which one you are more familiar with.
 ```bash
 git clone https://github.com/MapsPeople/web-ui.git
 ```
 
 * Inside the project folder root, install all dependencies and build with Lerna:
 ```bash
-npm install && npx lerna run build
+cd web-ui && npm install && npx lerna run build
 ```
 
 * Move to the `packages/map-template` directory and run the app:
 ```bash
-npm run start
+cd packages/map-template && npm run start
 ```
 Now open the app served on [http://localhost:3000/](http://localhost:3000/).
 
