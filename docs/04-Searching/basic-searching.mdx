@@ -9,6 +9,35 @@ slug: /searching
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+Searching through your MapsIndoors data is an integral part of a great user experience with your maps. Users can look for places to go, or filter what is shown on the map.
+
+Searches work on all MapsIndoors geodata. It is up to you to create a search experience that fits your use case. To aid you in this, there are a range of filters you can apply to the search queries to get the best results. E.g. you can filter by Categories, search only a specific part of the map or search near a Location.
+
+All three return a list of Locations from your Solution matching the parameters they are given. The results are ranked upon the 3 following factors:
+
+* If a "near" parameter is set, how close is the origin point to the result?
+* How well does the search input text match the text of the result (using the "Levenshtein distance" algorithm)?
+* Which kind of geodata is the result (e.g. Buildings are ranked over POIs)?
+
+This means that the first item in the search result list will be the one matching the 3 factors best and so forth.
+
+See the full list of parameters:
+
+| Parameter  | Description                                                                                                                                 | Class    |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| take       | Max number of Locations to get                                                                                                              | MPFilter |
+| Skip       | Skip the first number of entries                                                                                                            | MPFilter |
+| categories | A list of Categories to limit the search to                                                                                                 | MPFilter |
+| Parents    | A list of Building or Venue IDs to limit the search to                                                                                      | MPFilter |
+| Types      | A list of Types to limit the search to                                                                                                      | MPFilter |
+| Bounds     | Limits the result of Locations to a bounding area                                                                                           | MPFilter |
+| Floor      | Limits the result of Locations to be on a specific Floor                                                                                    | MPFilter |
+| Near       | Sorts the list of Locations on which Location is nearest the point given                                                                    | MPQuery  |
+| Depth      | The Depth property makes it possible to get "x" amount of descendants to the given parent. The default for this is 1 (eg. Building > Floor) | MPFilter |
+
+
+### Example of Creating a Search Query
+
 <Tabs groupId="searching-basic">
 <TabItem value="android" label="Android v4" default>
 
@@ -20,26 +49,6 @@ If you are looking for documentation on Android SDK v3, please [see here](https:
 
 <Tabs groupId="searching-basic-platform">
 <TabItem value="java" label="Java" default>
-
-Searching through your MapsIndoors data is an integral part of a great user experience with your maps. Users can look for places to go, or filter what is shown on the map.
-
-Searches work on all MapsIndoors geodata. It is up to you to create a search experience that fits your use case. To aid you in this, there are a range of filters you can apply to the search queries to get the best results. E.g. you can filter by Categories, search only a specific part of the map or search near a Location.
-
-See the full list of parameters:
-
-| Parameter  | Description                                                                                                                               | Class    |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| take       | Max number of Locations to get                                                                                                            | MPFilter |
-| Skip       | Skip the first number of entries                                                                                                          | MPFilter |
-| categories | A list of Categories to limit the search to                                                                                               | MPFilter |
-| Parents    | A list of Building or Venue IDs to limit the search to                                                                                     | MPFilter |
-| Types      | A list of Types to limit the search to                                                                       | MPFilter |
-| Bounds     | Limits the result of Locations to a bounding area                                                                                         | MPFilter |
-| Geometry   | Limits the result of Locations to be within a given geometry                                                                              | MPFilter |
-| Near       | Sorts the list of Locations on which Location is nearest the point given                                                                  | MPQuery  |
-| Depth      | The Depth property makes it possible to get "x" amount of descendants to the given parent. The default for this is 1 (eg. Building > Floor) | MPFilter |
-
-## Example of Creating a Search Query
 
 ```java
 void findRestroom() {
@@ -64,63 +73,8 @@ void findRestroom() {
 }
 ```
 
-All three return a list of Locations from your Solution matching the parameters they are given. The results are ranked upon the 3 following factors:
-
-* If a "near" parameter is set, how close is the origin point to the result?
-* How well does the search input text match the text of the result (using the "Levenshtein distance" algorithm)?
-* Which kind of geodata is the result (e.g. Buildings are ranked over POIs)?
-
-This means that the first item in the search result list will be the one matching the 3 factors best and so forth.
-
-## Display Search Results on the Map
-
-When displaying the search results it is helpful to filter the map to only show matching Locations. Matching Buildings and Venues will still be shown on the map, as they give context to the user, even if they aren't selectable on the map.
-
-## Example of Filtering the Map to Display Searched Locations on the Map
-
-
-```java
-MapsIndoors.getLocationsAsync(mpQuery, mpFilter, (locations, error) -> {
-    if (locations != null && !locations.isEmpty()) {
-        //Query with the locations from the query result. Use default camera behavior
-        mMapControl.setFilter(locations, MPFilterBehavior.DEFAULT);
-    }
-});
-```
-
-## Clearing the Map of Your Filter
-
-After displaying the search results on your map you can then clear the filter so that all Locations show up on the map again.
-
-## Example of Clearing Your Map Filter to Show All Locations Again
-
-```java
-mMapControl.clearFilter();
-```
-
 </TabItem>
-<TabItem value="kotlin" label="Kotlin" default>
-
-Searching through your MapsIndoors data is an integral part of a great user experience with your maps. Users can look for places to go, or filter what is shown on the map.
-
-Searches work on all MapsIndoors geodata. It is up to you to create a search experience that fits your use case. To aid you in this, there are a range of filters you can apply to the search queries to get the best results. E.g. you can filter by Categories, search only a specific part of the map or search near a Location.
-
-See the full list of parameters:
-
-
-| Parameter  | Description                                                                                                                               | Class    |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| take       | Max number of Locations to get                                                                                                            | MPFilter |
-| Skip       | Skip the first number of entries                                                                                                          | MPFilter |
-| categories | A list of Categories to limit the search to                                                                                               | MPFilter |
-| Parents    | A list of Building or Venue IDs to limit the search to                                                                                     | MPFilter |
-| Types      | A list of Types to limit the search to                                                                       | MPFilter |
-| Bounds     | Limits the result of Locations to a bounding area                                                                                         | MPFilter |
-| Geometry   | Limits the result of Locations to be within a given geometry                                                                              | MPFilter |
-| Near       | Sorts the list of Locations on which Location is nearest the point given                                                                  | MPQuery  |
-| Depth      | The Depth property makes it possible to get "x" amount of descendants to the given parent. The default for this is 1 (eg. Building > Floor) | MPFilter |
-
-## Example of Creating a Search Query
+<TabItem value="kotlin" label="Kotlin">
 
 ```kotlin
 fun findRestroom() {
@@ -142,64 +96,27 @@ fun findRestroom() {
 }
 ```
 
-All three return a list of Locations from your Solution matching the parameters they are given. The results are ranked upon the 3 following factors:
-
-* If a "near" parameter is set, how close is the origin point to the result?
-* How well does the search input text match the text of the result (using the "Levenshtein distance" algorithm)?
-* Which kind of geodata is the result (e.g. Buildings are ranked over POIs)?
-
-This means that the first item in the search result list will be the one matching the 3 factors best and so forth.
-
-## Display Search Results on the Map
-
-When displaying the search results it is helpful to filter the map to only show matching Locations. Matching Buildings and Venues will still be shown on the map, as they give context to the user, even if they aren't selectable on the map.
-
-## Example of Filtering the Map to Display Searched Locations on the Map
-
-
-```kotlin
-MapsIndoors.getLocationsAsync(mpQuery, mpFilter, (locations, error) -> {
-    //Query with the locations from the query result. Use default camera behavior
-    mMapControl.setFilter(locations, MPFilterBehavior.DEFAULT)
-});
-```
-
-## Clearing the Map of Your Filter
-
-After displaying the search results on your map you can then clear the filter so that all Locations show up on the map again.
-
-## Example of Clearing Your Map Filter to Show All Locations Again
-
-```kotlin
-mMapControl.clearFilter()
-```
-
 </TabItem>
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v4" label="iOS v4">
 
-Searching through your MapsIndoors data is an integral part of a great user experience with your maps. Users can look for places to go, or filter what is shown on the map.
+```swift
+let filter = MPFilter()
+let query = MPQuery()
+query.query = "Office"
+query.near = MPPoint(lat: 57.057964, lon: 9.9504112)
+query.take = 1
 
-Searches work on all MapsIndoors geodata. It is up to you to create a search experience that fits your use case. To aid you in this, there are a range of filters you can apply to the search queries to get the best results. E.g. you can filter by Categories, search only a specific part of the map or search near a Location.
+let locations = await MPMapsIndoors.shared.locationsWith(query, filter: filter)
+if let location = locations?.first {
+    // Do something with the first location in the result list
+}
+```
 
-See the full list of parameters:
-
-
-| Parameter  | Description                                                                                                                               | Class    |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| take       | Max number of Locations to get                                                                                                            | MPFilter |
-| Skip       | Skip the first number of entries                                                                                                          | MPFilter |
-| categories | A list of Categories to limit the search to                                                                                               | MPFilter |
-| Parents    | A list of Building or Venue IDs to limit the search to                                                                                     | MPFilter |
-| Types      | A list of Types to limit the search to                                                                                                    | MPFilter |
-| Bounds     | Limits the result of Locations to a bounding area                                                                                         | MPFilter |
-| Floor      | Limits the result of Locations to be on a specific Floor                                                                                  | MPFilter |
-| Near       | Sorts the list of Locations on which Location is nearest the point given                                                                  | MPQuery  |
-| Depth      | The Depth property makes it possible to get "x" amount of descendants to the given parent. The default for this is 1 (eg. Building > Floor) | MPFilter |
-
-## Example of Creating a Search Query
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
 
 ```swift
 let filter = MPFilter.init()
@@ -215,65 +132,10 @@ MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (l
 }
 ```
 
-All three return a list of Locations from your Solution matching the parameters they are given. The results are ranked upon the 3 following factors:
-
-* If a "near" parameter is set, how close is the origin point to the result?
-* How well does the search input text match the text of the result (using the "Levenshtein distance" algorithm)?
-* Which kind of geodata is the result (e.g. Buildings are ranked over POIs)?
-
-This means that the first item in the search result list will be the one matching the 3 factors best and so forth.
-
-## Display Search Results on the Map
-
-When displaying the search results it is helpful to filter the map to only show matching Locations. Matching Buildings and Venues will still be shown on the map, as they give context to the user, even if they aren't selectable on the map.
-
-## Filter the Map to Display Searched Locations on the Map
-
-```swift
-let filter = MPFilter.init()
-let query = MPQuery.init()
-query.query = "Office"
-query.near = MPPoint.init(lat: 57.057964, lon: 9.9504112)
-query.take = 1
-
-MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (locations, error) in
-    myMapControl.searchResult = locations
-}
-```
-
-## Clear the Map of Your Filter
-
-After displaying the search results on your map you can then clear the filter so that all Locations show up on the map again.
-
-## Example of Clearing Your Map Filter to Show All Locations Again
-
-```swift
-myMapControl.clearMap()
-```
-
 </TabItem>
 <TabItem value="web" label="Web v4">
 
-Searching through your MapsIndoors data is an integral part of a great user experience with your maps. Users can look for places to go, or filter what is shown on the map.
-
-Searches work on all MapsIndoors geodata. It is up to you to create a search experience that fits your use case. To aid you in this, there are a range of filters you can apply to the search queries to get the best results. E.g. you can filter by Categories, search only a specific part of the map or search near a Location.
-
 See the full list of parameters in the [reference guide](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/mapsindoors.services.LocationsService.html#.getLocations), or below:
-
-
-| Parameter  | Description                                                                                                                               | Class    |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| take       | Max number of Locations to get                                                                                                            | MPFilter |
-| Skip       | Skip the first number of entries                                                                                                          | MPFilter |
-| categories | A list of Categories to limit the search to                                                                                               | MPFilter |
-| Parents    | A list of Building or Venue IDs to limit the search to                                                                                     | MPFilter |
-| Types      | A list of Types to limit the search to                                                                                                    | MPFilter |
-| Bounds     | Limits the result of Locations to a bounding area                                                                                         | MPFilter |
-| Floor      | Limits the result of Locations to be on a specific Floor                                                                                  | MPFilter |
-| Near       | Sorts the list of Locations on which Location is nearest the point given                                                                  | MPQuery  |
-| Depth      | The Depth property makes it possible to get "x" amount of descendants to the given parent. The default for this is 1 (eg. Building > Floor) | MPFilter |
-
-## Example of Creating a Search Query
 
 ```js
 const searchParameters = {
@@ -287,20 +149,75 @@ mapsindoors.services.LocationsService.getLocations(searchParameters).then(locati
 });
 ```
 
-All three return a list of Locations from your Solution matching the parameters they are given. The results are ranked upon the 3 following factors:
+</TabItem>
+</Tabs>
 
-* If a "near" parameter is set, how close is the origin point to the result?
-* How well does the search input text match the text of the result (using the "Levenshtein distance" algorithm)?
-* Which kind of geodata is the result (e.g. Buildings are ranked over POIs)?
-
-This means that the first item in the search result list will be the one matching the 3 factors best and so forth.
 ## Display Search Results on the Map
 
 When displaying the search results it is helpful to filter the map to only show matching Locations. Matching Buildings and Venues will still be shown on the map, as they give context to the user, even if they aren't selectable on the map.
 
-## Filter the Map to Display Searched Locations on the Map
+### Example of Filtering the Map to Display Searched Locations on the Map
 
-```js/7
+<Tabs groupId="searching-filter">
+<TabItem value="android" label="Android v4" default>
+<Tabs groupId="searching-filter-platform">
+<TabItem value="java" label="Java" default>
+
+```java
+MapsIndoors.getLocationsAsync(mpQuery, mpFilter, (locations, error) -> {
+    if (locations != null && !locations.isEmpty()) {
+        //Query with the locations from the query result. Use default camera behavior
+        mMapControl.setFilter(locations, MPFilterBehavior.DEFAULT);
+    }
+});
+```
+
+</TabItem>
+<TabItem value="kotlin" label="Kotlin">
+
+```kotlin
+MapsIndoors.getLocationsAsync(mpQuery, mpFilter, (locations, error) -> {
+    //Query with the locations from the query result. Use default camera behavior
+    mMapControl.setFilter(locations, MPFilterBehavior.DEFAULT)
+});
+```
+
+</TabItem>
+</Tabs>
+</TabItem>
+<TabItem value="ios-v4" label="iOS v4">
+
+```swift
+let filter = MPFilter()
+let query = MPQuery()
+query.query = "Office"
+query.near = MPPoint(lat: 57.057964, lon: 9.9504112)
+query.take = 1
+
+MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (locations, error) in
+    myMapControl.searchResult = locations
+}
+```
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
+
+```swift
+let filter = MPFilter()
+let query = MPQuery()
+query.query = "Office"
+query.near = MPPoint(lat: 57.057964, lon: 9.9504112)
+query.take = 1
+
+MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (locations, error) in
+    myMapControl.searchResult = locations
+}
+```
+
+</TabItem>
+<TabItem value="web" label="Web v4">
+
+```javascript
 const searchParameters = {
   q: 'Office',
   near: { lat: 38.897579747054046, lng: -77.03658652944773 }, // // Blue Room, The White House
@@ -312,11 +229,49 @@ mapsindoors.services.LocationsService.getLocations(searchParameters).then(locati
 });
 ```
 
-## Clearing the Map of your filter
+</TabItem>
+</Tabs>
+
+## Clearing the Map of Your Filter
 
 After displaying the search results on your map you can then clear the filter so that all Locations show up on the map again.
 
-## Example of Clearing Your Map Filter to Show All Locations Again
+### Example of Clearing Your Map Filter to Show All Locations Again
+
+<Tabs groupId="searching-clear">
+<TabItem value="android" label="Android v4" default>
+<Tabs groupId="searching-clear-platform">
+<TabItem value="java" label="Java" default>
+
+```java
+mMapControl.clearFilter();
+```
+
+</TabItem>
+<TabItem value="kotlin" label="Kotlin">
+
+```kotlin
+mMapControl.clearFilter()
+```
+
+</TabItem>
+</Tabs>
+</TabItem>
+<TabItem value="ios-v4" label="iOS v4">
+
+```swift
+myMapControl.clearMap()
+```
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
+
+```swift
+myMapControl.clearMap()
+```
+
+</TabItem>
+<TabItem value="web" label="Web v4">
 
 ```js
 mapsIndoorsInstance.filter(null);
@@ -398,6 +353,5 @@ The purpose of the `filterMap` function is to create a list of `location id`s us
 The second parameter tells MapsIndoors not to change the viewport of the map.
 
 For more information, see `MapsIndoors.filter` in the [reference documentation](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/MapsIndoors.html#filter).
-
 </TabItem>
 </Tabs>
