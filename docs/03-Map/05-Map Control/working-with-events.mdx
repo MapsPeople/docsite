@@ -10,6 +10,60 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs groupId="map-working-with-events">
+<TabItem value="ios-v4" label="iOS v4" default>
+
+User interactions on the map, whether it is a Google Map or a Mapbox Map, are communicated from MapsIndoors via the [`MPMapControlDelegate`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate).
+The delegate can also inform about changes to the current floor, the selected location, building and venue.
+
+You can set the `delegate` of `MPMapControl` to a class you create to listen to some or all events from the MapControl.
+
+```swift
+myMapControl.delegate = self
+```
+
+### Building Changed Event
+
+The [`didChange(selectedBuilding:)`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate/didchange(selectedbuilding:)) event will be fired when the map is moved around and a new Building comes in focus.
+
+This is also related to the Floor Selector, which will update its view to show the Floors of the current Building.
+
+```swift
+class ViewController: UIViewController, MPMapControlDelegate {
+    func didChange(selectedBuilding: MPBuilding?) -> Bool {
+        print("Building changed: \(selectedBuilding.name)")
+    }
+}
+```
+
+### Floor Changed Event
+
+The [`didChange(floorIndex:)`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate/didchange(floorindex:)) event will be fired when the Floor is changed; either by clicking the Floor Selector or by calling e.g. `select(floorIndex:)` on the MapsIndoors instance.
+
+The event handler is called with the Floor Index of the current Floor.
+
+```swift
+class ViewController: UIViewController, MPMapControlDelegate {
+    func didChange(floorIndex: Int) -> Bool {
+        print("Floor index changed: \(floorIndex)")
+    }
+}
+```
+
+### Tap/Click Event
+
+The [`didTapIcon(location:)`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate/didtapicon(location:)) event will fire when the user taps on a Location on the map.
+
+The event handler is called with a [MPLocation](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mplocation) object representing the Location clicked.
+
+```swift
+class ViewController: UIViewController, MPMapControlDelegate {
+    func didTapIcon(location: MPLocation) -> Bool {
+        print("Location tapped: \(location.name)")
+    }
+}
+```
+
+</TabItem>
 <TabItem value="ios-v3" label="iOS v3">
 
 ## Getting Marker from Location
