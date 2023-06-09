@@ -128,10 +128,10 @@ The body of the request must end up containing a query string like this:
 `grant_type=password&client_id=client&username=<your username>&password=<your password>`
 
 An example on how to login using curl (replace username and password):
+
 ```bash
 curl -H "Content-Type: application/x-www-form-urlencoded" -X POST https://auth.mapsindoors.com/connect/token -d "grant_type=password&client_id=client&username=example@example.com&password=youpassword"
 ```
-
 
 #### When You Are Authenticated
 
@@ -160,4 +160,3 @@ Here is an example on how to use the auth token for a Mapsindoors API call. This
 ```bash
 curl -H "Content-Type: application/json" -H "Accept: */*" -H "Authorization: Bearer eyJhbG... " -X DELETE https://integration.mapsindoors.com/550c26a864617400a40f0000/api/geodata -d "[\"123456789012345678901234\"]
 ```
-
