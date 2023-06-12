@@ -2,7 +2,7 @@
 title: Working with Events
 hide_title: false
 hide_table_of_contents: true
-sidebar_position: 3
+sidebar_position: 2
 slug: /working-with-events
 ---
 
@@ -10,8 +10,100 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs groupId="map-working-with-events">
-<TabItem value="ios" label="iOS v3" default>
+<TabItem value="ios-v4" label="iOS v4" default>
 
+User interactions on the map, whether it is a Google Map or a Mapbox Map, are communicated from MapsIndoors via the [`MPMapControlDelegate`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate).
+The delegate will also inform about changes to the current floor, the selected location, building and venue, as well as camera related events.
+
+Visit the reference docs for [`MPMapControlDelegate`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate) to see all available events. Generally, if you return `true` from the delegate methods it means that you do no want the default MapsIndoors behaviour to happen. This makes it possible for you to change the behaviour to your exact needs. If you return `false`, MapsIndoors will provide a default behaviour for the event.
+
+## Examples
+
+You can set the `delegate` of `MPMapControl` to a class you create to listen to some or all events from the MapControl.
+
+```swift
+myMapControl.delegate = self
+```
+
+### Building Changed Event
+
+The [`didChange(selectedBuilding:)`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate/didchange(selectedbuilding:)) event will be fired when the map is moved around and a new Building comes in focus.
+
+This is also related to the Floor Selector, which will update its view to show the Floors of the current Building.
+
+```swift
+class ViewController: UIViewController, MPMapControlDelegate {
+    func didChange(selectedBuilding: MPBuilding?) -> Bool {
+        print("Building changed: \(selectedBuilding.name)")
+        return false
+    }
+}
+```
+
+### Floor Changed Event
+
+The [`didChange(floorIndex:)`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate/didchange(floorindex:)) event will be fired when the Floor is changed; either by clicking the Floor Selector or by calling e.g. `select(floorIndex:)` on the MapsIndoors instance.
+
+The event handler is called with the Floor Index of the current Floor.
+
+```swift
+class ViewController: UIViewController, MPMapControlDelegate {
+    func didChange(floorIndex: Int) -> Bool {
+        print("Floor index changed: \(floorIndex)")
+        return false
+    }
+}
+```
+
+### Tap/Click Event
+
+The [`didTapIcon(location:)`](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mpmapcontroldelegate/didtapicon(location:)) event will fire when the user taps on a Location on the map.
+
+The event handler is called with a [MPLocation](https://app.mapsindoors.com/mapsindoors/reference/ios/4.1.3/documentation/mapsindoors/mplocation) object representing the Location clicked.
+
+```swift
+class ViewController: UIViewController, MPMapControlDelegate {
+    func didTapIcon(location: MPLocation) -> Bool {
+        print("Location tapped: \(location.name)")
+        return false
+    }
+}
+```
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
+
+## Getting Marker from Location
+
+If a `MPLocation` has been displayed on a map, the marker can be retrieved using `location.marker`. On the opposite, get a `MPLocation` from a `GMSMarker` using `getLocation(marker: GMSMarker)` on `MPMapControl`:
+
+```swift
+myMapControl.getLocation(marker : GMSMarker!)
+```
+
+## Handling Marker Selections
+
+Detecting the user tapping a marker or an infowindow is part of the Google Maps SDK for iOS. Assign `myGMSMapView.delegate` and implementing the methods: `mapView.didTapMarker(marker: GMSMarker)` and `mapView.didTapInfoWindowOfMarker(marker: GMSMarker)`
+
+```swift
+func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+    let location = mapControl?.getLocation(marker)
+    if location != nil {
+        myTextLabel.text = location!.name
+    }
+    return false
+}
+
+func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) -> Bool {
+    let location = mapControl?.getLocation(marker)
+    if location != nil {
+        myTextLabel.text = location!.name
+    }
+    return false
+}
+```
+
+## MapControl Delegate
 The MapControl delegate can inform you when the various data from the MapsIndoors services are loaded through it's `MPMapControlDelegate` so you should set the delegate, in most of the cases with the current UIViewController:
 
 ```swift
