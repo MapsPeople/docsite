@@ -62,7 +62,6 @@ illustrative purposes. It is essential to appropriately integrate and customize 
             delegate?.onFloorIndexChanged(floorIndex!)
         }
 
-
         @objc func oneFloorDown(sender: UIButton!) {
             var mpFloorIndex: NSNumber = 10.00
             floorIndex = NSNumber(value: floorIndex!.doubleValue - mpFloorIndex.doubleValue)
@@ -84,7 +83,7 @@ mapControl?.floorSelector = customFLoorSelector
 
 :::tip Tip
 
-When configuring the floor selector class `MyFloorSelector()`, it is necessary to align the x and y coordinates according to your specific requirements.
+When configuring the floor selector class `MyFloorSelector`, it is necessary to align the x and y coordinates according to your specific requirements.
 Utilizing constraints to ensure compatibility across various devices is highly recommended.
 
 :::
