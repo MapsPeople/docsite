@@ -17,17 +17,7 @@ In Swagger, each `GET` method is pre-loaded with all mandatory fields needed to 
 
 > **NOTE:** ⚠️ Only HTTPS is supported. There is a rate limit of 10 requests per second per Solution.
 
-## Getting started using swagger
-
-The Integration API can be access using our [swagger](https://cms.mapsindoors.com/doc) frontend. The first thing you want to do is to log in. This is done by pressing Authorize:
-
-![Swagger Authorize]({{ site.url }}/assets/api/v1/SwaggerLogin.png)
-
-After this a confirmation window will be shown. Everything is already prefilled here, so just press Authorize and you will be lead to the mapsindoos Authorize service. Use your email and your password here to login.
-
-![Swagger Authorize]({{ site.url }}/assets/api/v1/SwaggerLogin2.png)
-
-Once logged in you can start using the Integration API.
+You can access the Integration API in various ways, for more on accessing it see [the API Login section](api-login)
 
 ## Example Use Cases
 
