@@ -51,7 +51,7 @@ MapsIndoors can either be installed using CocoaPods ([Getting Started with Cocoa
 From MapsIndoors SDK version 3.32.0 and up, in order for CocoaPods to fetch the SDK properly it is neccessary to install `git-lfs` ([Install Guide](https://git-lfs.github.com/)).
 
 1. Create an empty text file named `Podfile` in your project directory (same folder as your *.xcodeproj*).
-2. Add your dependecies to the Podfile as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name),
+2. Add your dependecies to the `Podfile` as followed (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your project name),
 
     ```text
     source 'https://github.com/CocoaPods/Specs.git'
@@ -64,6 +64,7 @@ From MapsIndoors SDK version 3.32.0 and up, in order for CocoaPods to fetch the 
       pod 'MapsIndoors', '~>3.50'
     end
     ```
+1. Add the `post_install` [for Google Maps](https://github.com/MapsPeople/MapsIndoors-SDK-iOS/wiki/Podfile-post_install-v4) to the end of the `Podfile`.
 
 :::caution
 
@@ -71,30 +72,28 @@ In the line containing `pod 'MapsIndoors', '~>3.50'`, where it currently says `3
 
 :::
 
-3. Save the Podfile and open a terminal in the directory of the project.
-`cd \<path-to-project>`
-
-4. Run `pod install` in the terminal.
-
-5. Close Xcode.
-
-6. From this time onwards, use the *.xcworkspace* file to open the project from now on.
+4. Save the `Podfile` and close Xcode.
+1. Open a terminal in the directory of the project. `cd \<path-to-project>`
+1. Run `pod install` in the terminal.
+1. From this time onwards, use the *.xcworkspace* file to open the project.
 
 </TabItem>
 <TabItem value="manual" label="Manually">
 
 ### Install MapsIndoors Manually
 
-In order for MapsIndoors to be operational, the Google Maps SDK must also be installed since MapsIndoors rely on it:
-
-* [Google Maps iOS SDK](https://developers.google.com/maps/documentation/ios-sdk/overview): [manual install](https://developers.google.com/maps/documentation/ios-sdk/start#install-manually). You should use [Google Maps iOS version 4.2.0](https://dl.google.com/dl/cpdc/870a9df85dbcbadc/GoogleMaps-4.2.0.tar.gz) since MapsIndoors >= 3.30.0 is linked against this version.
-
-When the Google Maps SDK dependency is installed, go through these steps to install MapsIndoors:
-
-* Download and unzip the latest v3 [MapsIndoors.xcframework](https://github.com/MapsIndoors/MapsIndoorsIOS/releases/download/3.50.1/MapsIndoors.xcframework.zip).
-* Drag and drop the XCFramework into your XCode project. In the dialog that pops up, choose “Copy items if needed” and make sure the XCFramework is added to the correct target.
-* In Xcode, go to "Build Phases" for your target and remove the three Google Maps XCFrameworks from the "Link Binary With Libraries" section.
-    * This is to avoid double linking of the Google Maps SDK which will result in an app crash early after running your app.
+* Download the [Google Maps iOS SDK 4.2.0](https://dl.google.com/dl/cpdc/870a9df85dbcbadc/GoogleMaps-4.2.0.tar.gz)
+* Copy the following frameworks to the folder of your app project (in Finder, **not** in Xcode)
+    * GoogleMaps-4.2.0/Base/Frameworks/GoogleMapsBase.framework
+    * GoogleMaps-4.2.0/Maps/Frameworks/GoogleMaps.framework
+    * GoogleMaps-4.2.0/Maps/Frameworks/GoogleMapsCore.framework
+* Drag the `GoogleMaps.bundle` from the `GoogleMaps.framework/Resources` folder into the top level directory of your Xcode project. When prompted, ensure __Copy items into destination group's folder__ is __*not*__ selected.
+* Download and unzip the latest [v3 MapsIndoors.xcframework](https://github.com/MapsIndoors/MapsIndoorsIOS/releases/download/3.50.1/MapsIndoors.xcframework.zip)
+* Drag and drop the MapsInbdoors XCFramework into your XCode project. In the dialog that pops up, choose “Copy items if needed” and make sure the XCFramework is added to the correct target
+* In Xcode, go to "General" and expand "Frameworks, Libraries, and Embedded Content" and make sure the MapsIndoors.xcframework is marked as "Embed & Sign"
+* In Xcode, go to "Build Settings" for your target and make sure the following entries are present in the `FRAMEWORK_SEARCH_PATHS`
+    * `$(inherited)`
+    * `$(PROJECT_DIR)/**`
 
 </TabItem>
 </Tabs>

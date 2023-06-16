@@ -47,7 +47,7 @@ MapsIndoors can be installed using CocoaPods ([Getting Started with CocoaPods](h
 ### Installing MapsIndoors Using CocoaPods
 
 1. Create a new `Podfile` in your project directory (same folder as your *.xcodeproj*) by running `pod init <XCODEPROJECTNAME>` in Terminal.
-2. Add your dependecies to the Podfile as follows (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your actual target name),
+1. Add your dependecies to the `Podfile` as follows (replace `YOUR_APPLICATION_TARGET_NAME_HERE` with your actual target name),
 
     ```ruby
     source 'https://github.com/CocoaPods/Specs.git'
@@ -57,13 +57,14 @@ MapsIndoors can be installed using CocoaPods ([Getting Started with CocoaPods](h
     target 'YOUR_APPLICATION_TARGET_NAME_HERE' do
       use_frameworks!
 
-      pod 'MapsIndoors', '~>4.0'
+      pod 'MapsIndoors', '~>4.1'
       # and your Map Specific pod
       # pod MapsIndoorsGoogleMaps
       # or
       # pod MapsIndoorsMapbox
     end
     ```
+1. Add the `post_install` [for Google Maps](https://github.com/MapsPeople/MapsIndoors-SDK-iOS/wiki/Podfile-post_install-v4) or [for Mapbox Maps](https://github.com/MapsPeople/MapsIndoors-SDK-iOS/wiki/Podfile-post_install-Mapbox-v4) to the end of the `Podfile`.
 
 :::caution
 
@@ -71,14 +72,10 @@ In the line containing `pod 'MapsIndoors', '~>4.0'`, where it currently says `4.
 
 :::
 
-3. Save the Podfile and open a terminal in the directory of the project.
-`cd \<path-to-project>`
-
-4. Close Xcode.
-
-5. Run `pod install` in the terminal.
-
-6. From this time onwards, use the *.xcworkspace* file to open the project from now on.
+4. Save the `Podfile` and close Xcode.
+1. Open a terminal in the directory of the project. `cd <path-to-project>`
+1. Run `pod install` in the terminal.
+1. From this time onwards, use the *.xcworkspace* file to open the project.
 
 </TabItem>
 
@@ -86,18 +83,19 @@ In the line containing `pod 'MapsIndoors', '~>4.0'`, where it currently says `4.
 
 ### Install MapsIndoors for Google Maps Manually
 
-In order for MapsIndoors to be operational, the Google Maps SDK must also be installed since MapsIndoors rely on it:
-
-* [Google Maps iOS SDK](https://developers.google.com/maps/documentation/ios-sdk/overview): [manual install](https://developers.google.com/maps/documentation/ios-sdk/start#install-manually).
-    * You must use [Google Maps iOS version 7.4.0](https://dl.google.com/geosdk/12cdf90d54d85bfcc90d340148d86362ee3189ea24b4bd20ca891e9bd33ded21/GoogleMaps-7.4.0.tar.gz) since MapsIndoors v4 is linked against this version.
-
-When the Google Maps SDK dependency is installed, go through these steps to install MapsIndoors:
-
-* Download and unzip the latest [MapsIndoors SDK XCFrameworks](https://github.com/MapsPeople/MapsIndoors-SDK-iOS/releases) from the Releases page.
-    * You will need the MapsIndoors, MapsIndoorsCore and MapsIndoorsGoogleMaps XCFrameworks
-* Drag and drop the XCFrameworks into your Xcode project. In the dialog that pops up, choose "Copy items if needed" and make sure the XCFrameworks are added to the correct target.
-* In Xcode, go to "Build Phases" for your target and remove the three Google Maps XCFrameworks from the "Link Binary With Libraries" section.
-    * This is to avoid double linking of the Google Maps SDK which will result in an app crash early after running your app.
+* Download the [Google Maps iOS SDK 7.4.0](https://dl.google.com/geosdk/12cdf90d54d85bfcc90d340148d86362ee3189ea24b4bd20ca891e9bd33ded21/GoogleMaps-7.4.0.tar.gz)
+* Copy the following frameworks to the folder of your app project (in Finder, **not** in Xcode)
+  * GoogleMaps-7.4.0/Base/Frameworks/GoogleMapsBase.xcframework
+  * GoogleMaps-7.4.0/Maps/Frameworks/GoogleMaps.xcframework
+  * GoogleMaps-7.4.0/Maps/Frameworks/GoogleMapsCore.xcframework
+* Drag the `GoogleMaps.bundle` from the `GoogleMaps.framework/Resources` folder into the top level directory of your Xcode project. When prompted, ensure __Copy items into destination group's folder__ is __*not*__ selected.
+* Download and unzip the latest [MapsIndoors SDK XCFrameworks](https://github.com/MapsPeople/MapsIndoors-SDK-iOS/releases) from the Releases page
+  * You will need the MapsIndoors, MapsIndoorsCore and MapsIndoorsGoogleMaps XCFrameworks
+* Drag and drop the MapsIndoors XCFrameworks into your XCode project. In the dialog that pops up, choose “Copy items if needed” and make sure the XCFrameworks are added to the correct target
+* In Xcode, go to "General" for your target and expand "Frameworks, Libraries, and Embedded Content" and make sure the three MapsIndoors XCFrameworks are marked as "Embed & Sign"
+* In Xcode, go to "Build Settings" for your target and make sure the following entries are present in the `FRAMEWORK_SEARCH_PATHS`
+  * `$(inherited)`
+  * `$(PROJECT_DIR)/**`
 
 </TabItem>
 
