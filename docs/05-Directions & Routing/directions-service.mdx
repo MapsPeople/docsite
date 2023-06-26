@@ -316,25 +316,49 @@ The class `MPDirectionsService` is used to request routes from one point to anot
 
 This example shows how to setup and execute a query for a Route:
 
+  ```swift
+  Task {
+    try await MPMapsIndoors.shared.load(apiKey: MapEngine.APIKey!)
+            
+    mapControl = MPMapsIndoors.createMapControl(mapConfig: MapEngine.selectedMapConfig!)
+            
+            
+    // Setting up a simple MPPoint-to-MPPoint rendere
+    let origin = MPPoint(latitude:57.059884140172585, longitude: 9.939936105948238, z: 0)
+    let destination = MPPoint(latitude: 57.05718292988392, longitude: 9.930720035736968, z: 0)
+
+    let directionsQuery = MPDirectionsQuery(originPoint: origin, destinationPoint: destination)
+
+    let directionsService = MPMapsIndoors.shared.directionsService
+    let route = try? await directionsService.routingWith(query: directionsQuery)
+
+    let renderer = mapControl?.newDirectionsRenderer()
+    renderer?.fitBounds = true
+    renderer?.route = route
+    renderer?.animate(duration: 5)
+            
+  }
+  ```
+
+## Custom properties via renderer
+The route can be customized via the `directionsRenderer`. A example could be the color of the rendered path and the background color of the renderet
+line. This can be sat like this:
+
 ```swift
-let directions = MPDirectionsService.init()
-let origin = MPPoint.init(lat: 57.057917, lon: 9.950361, zValue:0)!
-let destination = MPPoint.init(lat: 57.058038, lon: 9.950509, zValue:0)!
-let directionsQuery = MPDirectionsQuery.init(originPoint: origin, destination: destination)
-
-directions.routing(with: directionsQuery) { (route, error) in
-
-}
+let renderer = mapControl?.newDirectionsRenderer()
+renderer?.pathColor = .green
+renderer?.backgroundColor = .black
 ```
+It is also 
 
 ## Change Transportation Mode
 
-In MapsIndoors, the transportation mode is referred to as **travel mode**. There are four travel modes, **walking**, **bicycling**, **driving** and **transit** (public transportation). The travel modes generally applies for outdoor navigation. Indoor navigation calculations are based on **walking** travel mode.
+In MapsIndoors, the transportation mode is referred to as **travel mode**. There are five travel modes, **walking**, **bicycling**, **driving**, **transit** (public transportation) and **unknown**. The travel modes generally applies for outdoor navigation. Indoor navigation calculations are based on **walking** travel mode.
 
 Set **travel mode** on your request using the `travelMode` property on `MPDirectionsQuery`:
 
 ```swift
-let directionsQuery = MPDirectionsQuery.init(originPoint: origin!, destination: destination!)
+let directionsQuery = MPDirectionsQuery(originPoint: origin, destinationPoint: destination)
 directionsQuery.travelMode = .driving
 ```
 
@@ -347,8 +371,8 @@ The travel modes generally applies for outdoor navigation. Indoor navigation cal
 For a wheelchair user or a user with physical disabilities it may be relevant to request a Route that avoids stairs and steps. Avoid certain **way types** on the route using the `avoidWayTypes` property.
 
 ```swift
-let directionsQuery = MPDirectionsQuery.init(originPoint: origin, destination: destination)
-directionsQuery.avoidWayTypes = ["stairs"]
+let directionsQuery = MPDirectionsQuery(originPoint: origin, destinationPoint: destination)
+directionsQuery.avoidWayTypes = [.stairs]
 ```
 
 ### App User Role Restrictions
@@ -363,24 +387,13 @@ MPSolutionProvider.init().getUserRoles { (userRoles, error) in
 }
 ```
 
-User Roles can be set on a global level using `MapsIndoors.userRoles`.
+User Roles can be set on a global level using `MapsIndoors.shared.userRoles`.
 
 ```swift
-MapsIndoors.userRoles = [myUserRole]
+MPMapsIndoors.shared.userRoles = [myUserRole]
 ```
-
-This will affect all following Directions requests as well as search queries with `MPLocationService`. User Roles can also be set for a single Directions request.
-
-```swift
-let directionsQuery = MPDirectionsQuery.init(originPoint: origin, destination: destination)
-directionsQuery.userRoles = [myUserRole]
-
-directionsService.routing(with: directionsQuery) { (route, error) in
-
-}
-```
-
-User Role restrictions set for a specific Directions Query will take precedence over User Roles set on a global level.
+Setting the user roles globally will effect all services that uses userroles. The `MPDirectionsQuery` will also use the
+user roles. 
 
 ## Transit Departure and Arrival Time
 
