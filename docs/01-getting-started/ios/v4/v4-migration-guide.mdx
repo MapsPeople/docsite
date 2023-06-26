@@ -522,7 +522,7 @@ Creating custom Location Sources.
 
 ### V3
 
-To create MPLocationUpdate objects, you would simply call the `init`:
+To create MPLocationUpdate instances, you would simply call the `init`:
 
 ```swift
 MPLocationUpdate.init(id: ["LOCATION ID"], from: ["LOCATION OBJECT"])
@@ -554,6 +554,6 @@ And for registering the sources, after initializing the SDK, you call the `regis
         Inside `viewDidLoad`, after initialising the SDK, register the sources
         ***/
         MPMapsIndoors.shared.register([
-            PeopleLocationSource(type: "Robot")
+            MyCustomSource(type: "Robot")
             ])
 ```
