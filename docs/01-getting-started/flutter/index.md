@@ -9,8 +9,6 @@ In this tutorial, you will build your own app from the ground up, gaining experi
 
 Parts of this guide rely on having access to a MapsIndoors Solution which supports Live Data Integration. If you do not have access to this through your own Solution, we recommend using our demo API key to access one: `d876ff0e60bb430b8fabb145`.
 
-> During this tutorial, you can choose between initializing the JavaScript SDK and its classes manually, or implementing the [MapsIndoors Web Components](https://www.npmjs.com/package/@mapsindoors/components) which internally handles much of SDK initializations. All steps in the tutorial will be explained for both paths.
-
 ### Take-Away Skills
 
 * Display an interactive map with MapsIndoors
