@@ -538,7 +538,7 @@ MapsIndoors.register([
 
 ### V4
 
-The concept is still very similar to that of on v3. In that you create custom Location Sources except to create `MPLocationUpdate`.
+The concept for registering custom location sources is very similar to that of v3. In that you create your own custom Location Sources, however the way to create create `MPLocationUpdate` is slightly different.
 
 ```swift
 MPMapsIndoors.createLocationUpdateFactory().updateWithId(id: ["LOCATION ID"], from: ["LOCATION OBJECT"])
