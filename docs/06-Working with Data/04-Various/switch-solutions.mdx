@@ -147,7 +147,7 @@ fun initMapControl(view: View) {
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v3" label="iOS v3">
 
 When you load your initial Solution, it's beneficial to initialise MapsIndoors properly, to ensure it's easy to switch Solutions later if needed.
 
@@ -176,6 +176,9 @@ func setupMapIndoors(mapsIndoorsAPIKey: String, googleMapsAPIKey: String) {
 }
 ```
 
+</TabItem>
+<TabItem value="ios-v4" label="iOS v4">
+#IOS-TODO
 </TabItem>
 </Tabs>
 
@@ -250,7 +253,28 @@ initMapControl(mMapBoxMap, mMapView)
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v3" label="iOS v3">
+
+To switch Solutions, you first need to ensure that all your existing instances are closed down safely. Once this is done, you can use `setupMapIndoors` to restart with your new desired API key.
+
+We recommend creating your own function to call in the future for this purpose, like the example here with `switchSolution()`:
+
+```swift
+func switchSolution() {
+    // Close existing services in use as they are solution specific
+    MapsIndoors.positionProvider?.stopPositioning(nil)
+    MapsIndoors.positionProvider = nil
+    MPLiveDataManager.sharedInstance().unsubscribeAll()
+
+    // Setup MapsIndoors anew
+    map = nil
+    mapControl = nil
+    setupMapIndoors(mapsIndoorsAPIKey: "YOUR_SECONDARY_API_KEY", googleMapsAPIKey: "YOUR_GOOGLE_API_KEY")
+}
+```
+
+</TabItem>
+<TabItem value="ios-v4" label="iOS v4">
 
 To switch Solutions, you first need to ensure that all your existing instances are closed down safely. Once this is done, you can use `setupMapIndoors` to restart with your new desired API key.
 
