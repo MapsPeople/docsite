@@ -100,11 +100,20 @@ fun findRestroom() {
 </Tabs>
 
 </TabItem>
-
-
 <TabItem value="ios-v4" label="iOS v4">
 
-#IOS-TODO
+```swift
+let filter = MPFilter()
+let query = MPQuery()
+query.query = "Office"
+query.near = MPPoint(lat: 57.057964, lon: 9.9504112)
+query.take = 1
+
+let locations = await MPMapsIndoors.shared.locationsWith(query: query, filter: filter)
+if let location = locations?.first {
+    // Do something with the first location in the result list
+}
+```
 
 </TabItem>
 <TabItem value="ios-v3" label="iOS v3">
@@ -174,7 +183,37 @@ MapsIndoors.getLocationsAsync(mpQuery, mpFilter, (locations, error) -> {
 ```
 
 </TabItem>
-  
+</Tabs>
+</TabItem>
+<TabItem value="ios-v4" label="iOS v4">
+
+```swift
+let filter = MPFilter()
+let query = MPQuery()
+query.query = "Office"
+query.near = MPPoint(lat: 57.057964, lon: 9.9504112)
+query.take = 1
+
+let locations = await MPMapsIndoors.shared.locationsWith(query: query, filter: filter)
+myMapControl.setFilter(locations: locations, behavior: .default)
+```
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
+
+```swift
+let filter = MPFilter()
+let query = MPQuery()
+query.query = "Office"
+query.near = MPPoint(lat: 57.057964, lon: 9.9504112)
+query.take = 1
+
+MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (locations, error) in
+    myMapControl.searchResult = locations
+}
+```
+
+</TabItem>
 <TabItem value="web" label="Web v4">
 
 ```javascript
