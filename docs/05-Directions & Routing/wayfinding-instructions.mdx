@@ -864,7 +864,7 @@ func renderRouteInstructions(_ route:MPRoute, for segment:MPRouteSegmentPath) {
 
 ## Helper Methods
 
-We will need some helper methods. First create a method that can get us the previous step for later comparison.
+We will need some helper methods to make this example work. The helper methods will be added to our `RouteSegmentView` class. First create a method that can get us the previous step for later comparison.
 
 ```swift
 fileprivate func getPreviousStep(_ stepIndex: Int, _ legIndex: Int, _ route: MPRoute) -> MPRouteStep? {
@@ -1079,7 +1079,7 @@ class RouteSegmentsController : UIViewController {
 
 ## The Route Segments Controller Data Source
 
-Create an extension of `RouteSegmentsController` that implements `UICollectionViewDataSource` protocol.
+Create an extension of `RouteSegmentsController` that implements `UITableViewDataSource` protocol.
 
 ```swift
 extension RouteSegmentsController : UITableViewDataSource {
@@ -1139,7 +1139,7 @@ extension RouteSegmentsController : UITableViewDelegate {
 
 ## Create a Controller That Renders a Map and Utilizes Interaction Between a Route Rendered on the Map and the Selected Instructions
 
-Start by creating a controller class `AdvancedDirectionsController` that inherits from `UIViewController`
+Start by creating a controller class `AdvancedDirectionsController` that inherits from `UIViewController`, `MPMapControlDelegate` and `MPDirectionsRendererDelegate`.
 
 ```swift
 class AdvancedDirectionsController: UIViewController, MPMapControlDelegate, MPDirectionsRendererDelegate {
@@ -1166,6 +1166,9 @@ Setup directions related member variables for `AdvancedDirectionsController`:
 * A `heightConstraintForRouteView` property that can control the visibility of the route view
 * A `directionsVisible` bool that can control the visibility of the route view by affecting the height of the route view
 * A `searchButton` that will open a search controller to choose your destination
+* A `directions` which is a MPMapsIndoors direction service. This will be initialized later. 
+* A `destinationLocation` property
+* A `originLocation` witch will be as our origin location.
 
 ```swift
 var routeVC: RouteSegmentsController! = nil
@@ -1189,7 +1192,7 @@ var destinationLocation:MPLocation? {
 var originLocation:MPLocation?
 ```
 
-Create a `setupMap` method that sets up the Google map and MapsIndoors Map Control object. To configure a `mapConfig` see [Getting Started](/getting-started/ios/v4/display-a-map/)
+Create a `setupMap` method that sets up the UIView map and MapsIndoors Map Control object. To configure a `mapConfig` see [Getting Started](/getting-started/ios/v4/display-a-map/)
 
 ```swift
 fileprivate func setupMap() async {
@@ -1199,8 +1202,6 @@ fileprivate func setupMap() async {
     } catch {
         print("failed to load MapsIndoors")
     }
-    let location = CLLocationCoordinate2D(latitude: 57.057964, longitude: 9.9504112)
-    MapEngine.selectedMapProvider?.setCamera(coordinates: location, zoom: 20)
     self.map = #INSERT_SELECTED_MAP
     view.addSubview(self.map!)
     }
