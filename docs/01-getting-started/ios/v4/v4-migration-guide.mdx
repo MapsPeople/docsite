@@ -516,3 +516,44 @@ mapControl.positionProvider = positionProvider
 
 positionProvider.simulate()
 ```
+## Location Data Sources
+
+Creating custom Location Sources.
+
+### V3
+
+To create MPLocationUpdate instances, you would simply call the `init`:
+
+```swift
+MPLocationUpdate.init(id: ["LOCATION ID"], from: ["LOCATION OBJECT"])
+```
+
+Then inside `viewDidLoad` you register your custom sources:
+
+```swift
+MapsIndoors.register([
+    MyCustomSource.init(type: "Robot")
+])
+```
+
+### V4
+
+The concept for registering custom location sources is very similar to that of v3. In that you create your own custom Location Sources, however the way to create create `MPLocationUpdate` is slightly different.
+
+```swift
+MPMapsIndoors.createLocationUpdateFactory().updateWithId(id: ["LOCATION ID"], from: ["LOCATION OBJECT"])
+```
+
+And for registering the sources, after initializing the SDK, you call the `register` method:
+
+```swift
+ Task {
+        try await MPMapsIndoors.shared.load(apiKey: ["API KEY"])
+        mapControl = MPMapsIndoors.createMapControl(mapConfig: ["MAP CONFIG"])
+        /***
+        Inside `viewDidLoad`, after initialising the SDK, register the sources
+        ***/
+        MPMapsIndoors.shared.register([
+            MyCustomSource(type: "Robot")
+            ])
+```
