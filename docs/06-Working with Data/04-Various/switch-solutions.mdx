@@ -178,34 +178,7 @@ func setupMapIndoors(mapsIndoorsAPIKey: String, googleMapsAPIKey: String) {
 
 </TabItem>
 <TabItem value="ios-v4" label="iOS v4">
-
-When you load your initial Solution, it's beneficial to initialise MapsIndoors properly, to ensure it's easy to switch Solutions later if needed.
-
-:::info
-
-You don't have to initialise `positionProvider` or `enableLiveData`. This is only needed if you use third-party Positioning such as Cisco DNA Spaces or MapsIndoors' Live Data function.
-
-:::
-
-```swift
-func setupMapIndoors(mapsIndoorsAPIKey: String, googleMapsAPIKey: String) {
-    map = GMSMapView(frame: CGRect.zero)
-    view = map
-    mapControl = MPMapControl(map: map!)
-
-    MapsIndoors.provideAPIKey(mapsIndoorsAPIKey, googleAPIKey: googleMapsAPIKey)
-    MapsIndoors.synchronizeContent { error in
-        // Orient your map to where you need data to be shown. This can e.g. be done by pointing the camera to a specific location or getting the default venue through MapsIndoors and panning the camera there
-        self.map?.camera = .camera(withLatitude: 57.057964, longitude: 9.9504112, zoom: 20)
-
-        // Setup needed services
-        MapsIndoors.positionProvider = MyPositionProvider()
-        MapsIndoors.positionProvider?.startPositioning(nil)
-        self.mapControl?.enableLiveData(MPLiveDomainType.occupancy, handler: self)
-    }
-}
-```
-
+#IOS-TODO
 </TabItem>
 </Tabs>
 

@@ -65,26 +65,7 @@ let type = data.type
 
 </TabItem>
 <TabItem value="ios-v4" label="iOS v4" default>
-
-<img src="/img/data/custom-properties-cms-example.png" alt="Screenshot of where to find Custom Properties" width="450"/>
-
-Using the above screenshot as an example basis you fetch the entire custom property using the following code:
-
-```swift
-let data = location.getField(forKey: "email")
-```
-
-To retrieve individual segments of the property, you can use:
-
-```swift
-let text = data.text
-let value = data.value
-let type = data.type
-```
-
-* `let text = data.text` retrieves the content of the `key` field, and in the given example, would return `email`.
-* `let value = data.value` retrieves the content of the `value` field, and in the given example, would return `123@email.com`.
-* `let type = data.type` retrieves the type of the Custom Property, and will in most known cases return `text`.
+#IOS-TODO
 
 </TabItem>
 <TabItem value="web" label="Web v4" default>
