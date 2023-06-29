@@ -318,25 +318,24 @@ This example shows how to setup and execute a query for a Route:
 
   ```swift
   Task {
-    try await MPMapsIndoors.shared.load(apiKey: MapEngine.APIKey!)
+    try await MPMapsIndoors.shared.load(apiKey: #INSERT_API_KEY)
             
-    mapControl = MPMapsIndoors.createMapControl(mapConfig: MapEngine.selectedMapConfig!)
+    mapControl = MPMapsIndoors.createMapControl(mapConfig: #INSERT_YOUR_MAPCONFIG)
             
-            
-    // Setting up a simple MPPoint-to-MPPoint rendere
     let origin = MPPoint(latitude:57.059884140172585, longitude: 9.939936105948238, z: 0)
+
     let destination = MPPoint(latitude: 57.05718292988392, longitude: 9.930720035736968, z: 0)
 
     let directionsQuery = MPDirectionsQuery(originPoint: origin, destinationPoint: destination)
 
     let directionsService = MPMapsIndoors.shared.directionsService
+
     let route = try? await directionsService.routingWith(query: directionsQuery)
 
     let renderer = mapControl?.newDirectionsRenderer()
     renderer?.fitBounds = true
     renderer?.route = route
     renderer?.animate(duration: 5)
-            
   }
   ```
 
@@ -400,7 +399,7 @@ user roles.
 Set a **departure date** or an **arrival date** on the route using the `departure` or `arrival` property. This is relevant when using the Transit travel mode. It will only make sense to set one of these properties at a time.
 
 ```swift
-let directionsQuery = MPDirectionsQuery.init(originPoint: origin, destination: destination)
+let directionsQuery = MPDirectionsQuery(origin: origin, destination: destination)
 directionsQuery.departure = Date.init()
 ```
 
