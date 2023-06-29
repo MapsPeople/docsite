@@ -230,11 +230,11 @@ Setup member variables for `MySearchController`:
 * A table view
 ```swift
 let locationService = MPLocationService.sharedInstance()
-let query = MPQuery.init()
+let query = MPQuery()
 var locations:[MPLocation] = []
 var delegate:MySearchControllerDelegate? = nil
-let tableView = UITableView.init()
-let searchBar = UISearchBar.init()
+let tableView = UITableView()
+let searchBar = UISearchBar()
 ```
 In `viewDidLoad`, wire up your view controller to the table view and search bar.
 ```swift
@@ -248,8 +248,8 @@ tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifie
 ```
 Arrange the search bar and the table view in a stack view.
 ```swift
-let topFiller = UIView.init()
-let stackView = UIStackView.init(arrangedSubviews: [topFiller, searchBar, tableView])
+let topFiller = UIView()
+let stackView = UIStackView(arrangedSubviews: [topFiller, searchBar, tableView])
 stackView.axis = .vertical
 view = stackView
 let kw = UIApplication.shared.keyWindow

@@ -14,6 +14,53 @@ Changelog for MapsIndoors SDK for JavaScript. This document structure is based o
 <Tabs>
 <TabItem value="v4" label="Web SDK V4" default>
 
+## [4.22.0] - 2023-06-14
+
+### Added
+
+- The MapsIndoors class will now emit a `mouseenter` event when the cursor of a pointing device is moved so it is within the bounds of a Location.
+- The MapsIndoors class will now emit a `mouseleave` event when the cursor of a pointing device is moved so it leaves the bounds of a Location.
+
+## [4.21.6] - 2023-05-31
+
+### Fixed
+
+- Rare timing issue causing the Mapbox map to crash.
+
+## [4.21.5] - 2023-04-25
+
+### Fixed
+
+- A leftover console message was removed.  
+  
+## [4.21.4] - 2023-02-22
+
+### Changed
+
+
+- The light setup for 3D models for a more accurate color representation.
+
+### Fixed
+
+- The issue that caused the 3D models to blink when panning the map.
+
+## [4.21.3] - 2023-02-22
+
+### Added
+
+- Support for Solution Config
+- Support for Settings 3D
+
+### Changed
+
+- Updated the MapsPeople logo
+
+### Fixed
+
+- Fixed a bug occurring when using deallocate with the map
+- Aligned 3D rotation across platforms
+- Fixed timing issue for 2D and 3D layers on Mapbox.
+
 ## [4.21.2] - 2023-02-22
 
 ### Fixed

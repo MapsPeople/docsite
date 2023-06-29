@@ -23,6 +23,49 @@ Changelog for the MapsIndoors Android SDK. This document structure is based on [
 ### Security     in case of vulnerabilities.
 -->
 
+## [4.1.7] 2023-06-23
+
+### Fixed
+- Fixed timing issues with display rules and applying UserRoles
+- Fixed issue where a rendered route would be obscured
+
+## [4.1.6] 2023-06-02
+
+### Fixed
+- Fixed compilation issues, due to a build configuration
+
+## [4.1.5] 2023-06-01
+
+### Fixed
+- Fixed crashes happening when loading new solutions while a load is ongoing
+
+## [4.1.4] 2023-05-25
+
+### Changed
+- Updated Mapbox version to 10.13.0
+
+### Fixed
+- Fixed issue where MapsIndoors could crash when other markers were present on the map
+- Reduced memory usage of 2D models
+- Fixed issue where changing solution on the same map would not work
+
+## [4.1.3] 2023-05-16
+
+### Fixed
+- Fixed occasional crashes when destroying MapsIndoors
+- Fixed occasional crash when selecting location after load
+
+## [4.1.2] 2023-05-11
+
+### Fixed
+- Fixed map padding not being applied to camera movement when using Mapbox
+- Fixed delay when selecting a location until its info window appeared on Mapbox
+- Fixed `selectLocation` not moving the camera when the location was outside the viewport
+- Fixed crash that could occur when Mapbox can not generate a route
+- Fixed issue where large areas were not being shown on Google Maps
+- Fixed issue where SDK would crash if solution data is unavailable remotely, but the local cache data stored
+- Fixed issue where location display rules would receive a unidentifiable name/id
+
 ## [4.1.1] 2023-03-09
 
 ### Changed
