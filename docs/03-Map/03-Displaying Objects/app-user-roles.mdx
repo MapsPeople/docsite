@@ -70,26 +70,7 @@ User roles can also be set for a specific direction query using `DirectionsQuery
 
 </TabItem>
 <TabItem value="ios-v4" label="iOS v4">
-
-You get the available Roles with help of the `MPSolutionProvider`:
-
-```swift
-let myUserRole: MPUserRole
-MPSolutionProvider().getUserRoles { (userRoles, error) in
-    myUserRole = userRoles.first
-}
-```
-
-User Roles can be set on a global level using `MapsIndoors.userRoles`.
-
-```swift
-MapsIndoors.userRoles = [myUserRole]
-```
-
-User roles can also be set for a specific direction query using `DirectionsQuery.userRoles` instead of `MapsIndoors.userRoles`, for example if you want to find directions that are more accesible to individuals with disabilities.
-
-> For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_solution_provider.html).
-
+#IOS-TODO
 </TabItem>
 <TabItem value="Web" label="Web v4">
 
