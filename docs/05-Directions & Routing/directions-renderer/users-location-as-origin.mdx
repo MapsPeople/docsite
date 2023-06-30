@@ -40,19 +40,22 @@ Further details on how user positioning works, and how to display it, can be fou
 This results in directions queries originating from the user's current location.
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v4" label="iOS v4">
 
 First, [initialize a `PositionProvider`](/blue-dot/), which can be used with `MPDirectionsQuery` to achieve the desired result.
 
-In order to use the `PositionProvider` to extract a `MPPoint`, you need to use `MapsIndoors.latestPositionResult.geometry`. This returns an `MPPoint`. which will serve as the origin point for the directions query. This `MPPoint` is then given to the method `MPDirectionsQuery initWithOriginPoint:destination:`.
+In order to use the `PositionProvider` to extract a `MPPoint`, you need to use `mapControl?.positionProvider?.latestPosition?.coordinate`. This will allow you to make a MPPoint, using the coordinates from the `positionProvider`.
+
 
 ```swift
-let userPosition = MapsIndoors.positionProvider?.latestPositionResult?.geometry
-let destination = MPPoint.init(lat: 57.058038, lon: 9.950509, zValue:0)!
-if let origin = userPosition {
-    let directionsQuery = MPDirectionsQuery.init(originPoint: origin, destination: destination)
-    directions.routing(with: directionsQuery) { (route, error) in
-    }
+if let userPosition = mapControl?.positionProvider?.latestPosition?.coordinate {
+    let userPositionToMPPoint = MPPoint(latitude: userPosition.latitude, longitude: userPosition.longitude)
+    let destination = MPPoint(latitude: 57.05803, longitude: 9.950509, z: 0.00)
+    let directionsQuery = MPDirectionsQuery(originPoint: userPositionToMPPoint, destinationPoint: destination)
+    let directionsService = MPMapsIndoors.shared.directionsService
+    let route = try? await directionsService.routingWith(query: directionsQuery)
+    let rendere = mapControl?.newDirectionsRenderer()
+    rendere?.route = route
 }
 ```
 
