@@ -41,8 +41,7 @@ String email = (String) location.getProperty("email");
 When retrieving custom properties, they are always returned as a String.
 
 </TabItem>
-<TabItem value="ios-v3" label="iOS v3" default>
-
+<TabItem value="ios-v4" label="iOS v4">
 
 ```swift
 let data = location.property(key: "email")
@@ -80,18 +79,7 @@ let type = data.type
 * `let type = data.type` retrieves the type of the Custom Property, and will in most known cases return `text`.
 
 </TabItem>
-
-<TabItem value="ios-v4" label="iOS v4" default>
-#IOS-TODO
-
-</TabItem>
-<TabItem value="web" label="Web v4" default>
-
-<img src="/img/data/custom-properties-cms-example.png" alt="Screenshot of where to find Custom Properties" width="450"/>
-
-Using the above screenshot as an example basis you fetch the entire custom property using the following code:
 <TabItem value="web" label="Web v4">
-
 
 ```js
 let data = location.getFieldForKey('email')

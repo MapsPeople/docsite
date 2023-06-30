@@ -77,6 +77,29 @@ Information about how to handle [listening for Live Data Updates](/live-data-int
 
 </TabItem>
 <TabItem value="ios-v4" label="iOS v4">
-#IOS-TODO (DONE IN ANOTHER MR)
+
+> This tutorial also assumes that you have set up the system and integration that you wish to use to monitor your assets. This tutorial only demonstrates how to display this in MapsIndoors, as accounting for all variations of integrations would be unfeasible. All concepts described in this tutorial can be read about in more detail at [Live Data Introduction for iOS](/live-data-intro/) and [Live Data Tutorial for iOS](/live-data-in-practice/).
+
+Enabling Live Data through `mapControl` is an easy way to get Live Data running in your app. For this use case, `MPLiveDomainType.position` and `MPLiveDomainType.availability` should be enabled, as you need to know the position of the wheelchair, and whether or not it is in use - there are several other `MPLiveDomainType` variables that exist, as can be found [here](https://app.mapsindoors.com/mapsindoors/reference/ios/4.2.1/documentation/mapsindoors/mplivedomaintype), but they are not needed for this specific use-case. However, they could be needed for yours!
+
+```swift
+Task {
+    try await MPMapsIndoors.shared.load(apiKey: #INSERT_API_KEY)
+
+    mapControl = MPMapsIndoors.createMapControl(mapConfig: #INSERT_CREATED_MAPCONFIG)
+    let q = MPQuery()
+    let f = MPFilter()
+    let locations = await MPMapsIndoors.shared.locationsWith(query: q, filter: f)
+    if let loc = locations.first {
+        mapControl?.goTo(entity: loc)
+    }
+    mapControl?.enableLiveData(domain: MPLiveDomainType.availability, listener: nil)
+    mapControl?.enableLiveData(domain: PLiveDomainType.position, listener: nil)
+}
+```
+
+`mapControl` has a default way of rendering the Live Data Location called by this method. If you wish to render the Live Data in another way, you can add handlers for this, as described in [this section](/live-data-intro/#rendering-live-data-locations).
+
+Information about how to handle [listening for Live Data Updates](/live-data-intro/#listening-for-live-updates) could also be extremely relevant for a use-case such as the one described in this tutorial, since a user might need to receive the latest information possible on where available wheelchairs are located.
 </TabItem>
 </Tabs>
