@@ -66,12 +66,16 @@ Enabling Live Data through `mapControl` is an easy way to get Live Data running 
 
 ```swift
 Task {
-    try await MPMapsIndoors.shared.load(apiKey: #INSERT_API_KEY)
+    try await MPMapsIndoors.shared.load(apiKey: "YOUR API KEY"Y)
 
-    mapControl = MPMapsIndoors.createMapControl(mapConfig: #INSERT_CREATED_MAPCONFIG)
-    let q = MPQuery()
-    let f = MPFilter()
-    let locations = await MPMapsIndoors.shared.locationsWith(query: q, filter: f)
+    var googleMap: GMSMapView? = nil
+
+    self.googleMap = GMSMapView(frame: CGRect.zero)
+
+    let mapConfig = MPMapConfig(gmsMapView: googleMap!, googleApiKey: "YOUR API KEY")
+
+    mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig)
+    let locations = await MPMapsIndoors.shared.locationsWith(query: nil, filter: nil)
     if let loc = locations.first {
         mapControl?.goTo(entity: loc)
     }
