@@ -292,20 +292,22 @@ It is also possible to check a location statically using `MPLocation.isBookable`
 
 ### Performing a Booking of a Location for iOS
 
-It is possible execute a booking creation request using the `MPBookingService.perform()` method which takes a booking object as input. If the booking is successfully performed, the booking will return in the block with an assigned `bookingId`.
+It is possible execute a booking creation request using the `MPMapsIndoors.shared.bookingService.performBooking(MPBooking)` method which takes a booking object as input. If the booking is successfully performed, the booking will return in the block with an assigned `bookingId`.
+
 
 ```swift
-let bookingService = MPBookingService.sharedInstance()
-var myBooking = MPBooking.init()
-
-myBooking.location = myRoomLocation
-myBooking.title = "Meeting"
-myBooking.participantIds = ["myemail@email.com"]
-myBooking.startTime = Date.init()
-myBooking.endTime = myBooking.startTime!.addingTimeInterval(60*60)
-
-bookingService.perform(myBooking) { (booking, error) in
-    myBooking = booking
+do {
+    let booking = MPBooking.init()
+    booking.location = bookableLocation
+    booking.title = "Meeting"
+    booking.startTime = Date.init()
+    booking.participantIds = ["myemail@email.com"]
+    booking.endTime = booking.startTime!.addingTimeInterval(60*60)
+    try await MPMapsIndoors.shared.bookingService.performBooking(booking) 
+} catch {
+    let alert = UIAlertController(title: "Ooops!", message: "\(error)", preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    self.present(alert, animated: true)
 }
 ```
 
@@ -317,6 +319,25 @@ In the above example a Booking object is created and several properties are assi
 - Start and end time
 
 Depending on the Booking provider, the participants will receive invites for an event created by this Booking request.
+
+
+### Cancelling a Booking of a Location for iOS
+
+It is possible to cancel a created Booking using the `MPBookingService.cancel()` method which takes an existing Booking object as input.
+
+```swift
+do {
+    if (try await MPMapsIndoors.shared.bookingService.cancelBooking(booking)) != nil {
+        let alert = UIAlertController(title: "Booking was cancelled!", message: "Booking was successfully cancelled!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+} catch {
+    let alert = UIAlertController(title: "Ooops!", message: "\(error)", preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    present(alert, animated: true)
+}
+```
 
 </TabItem>
 
