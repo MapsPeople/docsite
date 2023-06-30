@@ -252,9 +252,7 @@ Inside `viewDidLoad()`, also request a building and go to this building on the m
 
 ```swift
  Task {
-        let q = MPQuery()
-        let f = MPFilter()
-        let locations = await MPMapsIndoors.shared.locationsWith(query: q, filter: f)
+        let locations = await MPMapsIndoors.shared.locationsWith(query: nil, filter: nil)
         if let loc = locations.first {
             mapControl?.goTo(entity: loc)
         }
