@@ -80,7 +80,7 @@ Information about how to handle [listening for Live Data Updates](/live-data-int
 
 > This tutorial also assumes that you have set up the system and integration that you wish to use to monitor your assets. This tutorial only demonstrates how to display this in MapsIndoors, as accounting for all variations of integrations would be unfeasible. All concepts described in this tutorial can be read about in more detail at [Live Data Introduction for iOS](/live-data-intro/) and [Live Data Tutorial for iOS](/live-data-in-practice/).
 
-Enabling Live Data through `mapControl` is an easy way to get Live Data running in your app. For this use case, `MPLiveDomainType.position` and `MPLiveDomainType.availability` should be enabled, as you need to know the position of the wheelchair, and whether or not it is in use - there are several other `MPLiveDomainType` variables that exist, as can be found [here](https://app.mapsindoors.com/mapsindoors/reference/ios/v3/interface_m_p_live_domain_type.html), but they are not needed for this specific use-case. However, they could be needed for yours!
+Enabling Live Data through `mapControl` is an easy way to get Live Data running in your app. For this use case, `MPLiveDomainType.position` and `MPLiveDomainType.availability` should be enabled, as you need to know the position of the wheelchair, and whether or not it is in use - there are several other `MPLiveDomainType` variables that exist, as can be found [here](https://app.mapsindoors.com/mapsindoors/reference/ios/4.2.1/documentation/mapsindoors/mplivedomaintype), but they are not needed for this specific use-case. However, they could be needed for yours!
 
 ```swift
 Task {
