@@ -31,12 +31,12 @@ Generic Custom Properties are ment for tagging data with key/value data that is 
   
 If a Key exists as both a Generic Custom Property and Language specific Custom Property then MapsIndoors lets the most specific element decide the value. This means that if a Key is defined as both a Generic Custom Property and a Language specific Custom Property and both have a value then the Language specific Custom Property value will be supplied to the SDKs as it is considered to be the most specific. This table shows the possible interactions between Generic Custom Property and a Language specific Custom Property. For example scenario 1 shows what happens if a Key is defined as a Generic Custom Property and given the value A while a Language specific Custom Property with the same Key is either not defined or given an empty value.
 
-| Scenario | Language Specific | Generic | SDK Value |
-|----------|:-----------------:|:-------:|:---------:|
-| 1        |         A         |         |     A     |
-| 2        |                   |    B    |     B     |
-| 3        |         A         |    B    |     B     |
-| 4        |                   |         |           |
+| Scenario | Generic | Language Specific | SDK Value |
+|----------|:-------:|:-----------------:|:---------:|
+| 1        |    A    |                   |     A     |
+| 2        |         |         B         |     B     |
+| 3        |    A    |         B         |     B     |
+| 4        |         |                   |           |
 
   
 
