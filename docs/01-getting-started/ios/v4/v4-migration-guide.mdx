@@ -18,6 +18,7 @@ or
 ```ruby
 pod 'MapsIndoorsMapbox', '~> 4.0.0'
 ```
+(Remember to check the [changelog](https://docs.mapsindoors.com/changelogs/ios) for the latest version)
 
 ## MapsIndoors Initialization & Usage
 
@@ -266,6 +267,33 @@ renderer?.route = route
 renderer?.animate(duration: 5)
 ```
 
+## App User Roles
+
+App user roles as a feature remains the same, however the interface for getting available user roles and applying user roles has changed.
+
+In V3 you would use a `MPSolutionProvider` instance to query a list of all available user roles for the loaded MapsIndoors solution.
+Apply user roles was done by assigning to the `userRoles` property on `MapsIndoors`.
+### V3
+
+```swift
+MPSolutionProvider().getUserRoles { (userRoles, error) in
+    if let janitorRole = userRoles.first(where: { role in role.userRoleName == "janitor" }) {
+        MapsIndoors.userRoles = [janitorRole]
+    }
+}
+```
+
+In V4 the interface has been moved to the shared `MPMapsIndoors` instance, where the list of available user roles for a given solution can be found.
+Applying user roles is similar to V3, just assign to the `userRoles` property on the shared instance of `MPMapsIndoors`.
+
+### V4
+```swift
+let allRoles = MPMapsIndoors.shared.availableUserRoles
+            
+if let janitorRole = allRoles.first(where: { userRole in userRole.userRoleName == "janitor" }) {
+    MPMapsIndoors.shared.userRoles = [janitorRole]
+}
+```
 
 
 
