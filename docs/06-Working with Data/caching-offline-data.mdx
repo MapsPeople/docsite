@@ -411,4 +411,130 @@ dataSetManager.cancelSynchronization()
 ```
 
 </TabItem>
+<TabItem value="ios-v4" label="iOS v4">
+
+## Cacheable Data
+
+MapsIndoors has three levels of caching:
+
+1. `.basic`: All descriptions, geometries and metadata about POIs, rooms, areas, buildings and venues.
+2. `.detailed`: The same as **Basic Data**, plus images referenced by the data.
+3. `.full`: The same as **Detailed Data**, plus Map Tiles. All necessary content is downloaded for a data set to work offline.
+
+Full Dataset caching requires that Map Tiles are prepared specifically for this purpose.  Contact MapsPeople in order to arrange this.
+
+## Automatic Caching
+
+Out of the box, MapsIndoors automatically caches all basic data for the **active** dataset on the device, whereas images and Map Tiles are cached only as they are used.
+
+This means all MapsIndoors-specific data is cached automatically, but images are only cached after they have been needed for map display. Likewise, Map Tiles are only cached when needed for map display, so all parts of the map that has been shown are cached.  Areas and Zoom Levels that have not been shown as part of user interaction are not cached.
+
+## Tweaking Caching Behaviour
+
+Applications have a few ways to change the default caching behaviour:
+
+The synchronization process can be started manually:
+
+```swift
+do {
+    try await MPMapsIndoors.shared.synchronize()
+} catch {
+    print("Error synchronizing MapsIndoors")
+}
+```
+
+The level of caching can be changed:
+
+```swift
+let dataSetManager = MPMapsIndoors.shared.datasetCacheManager
+let dataSet = dataSetManager.dataSetForCurrentMapsIndoorsAPIKey()
+dataSetManager.setCachingScope(.full, cacheItem: dataSet!.cacheItem)
+```
+
+## Caching of Multiple Datasets
+
+The most common use of MapsIndoors involves only one dataset, but for large deployments, data may be partitioned into multiple datasets.
+
+Offline caching of multiple simultaneous datasets is fully supported, and is mostly limited by the available storage space on device.
+
+**NOTE**: Only one dataset is active at any point in time.
+
+Management of multiple datasets is done via  `MPDataSetCacheManager`, which allows querying, adding, modifying and removing datasets.
+
+### Listing Managed Datasets
+
+All datasets currently managed are accessible via the `MPMapsIndoors.shared.datasetCacheManager.managedDataSets` collection:
+
+```swift
+for ds in MPMapsIndoors.shared.datasetCacheManager.managedDataSets {
+    print("\(ds.name): size \(ds.cacheItem.syncSize)")
+}
+```
+
+This can be used to build a management user interface, and information about individual datasets can be accessed from the `MPDataSetCache` and `MPDataSetCacheItem` classes.
+
+### Adding Datasets for Offline Caching
+
+Datasets are scheduled for caching using one of the  `MPMapsIndoors.shared.datasetCacheManager.addDataSet()` variants:
+
+```swift
+MPMapsIndoors.shared.datasetCacheManager.addDataSet("API Key")
+MPMapsIndoors.shared.datasetCacheManager.addDataSet("API Key", cachingScope: .basic)
+```
+
+The current MapsIndoors API key is automatically added as a managed dataset with `.basic`.
+
+### Removing Datasets
+
+Datasets are removed from caching using `MPMapsIndoors.shared.datasetCacheManager.removeDataSet()`:
+
+```swift
+MPMapsIndoors.shared.datasetCacheManager.removeDataSet(MPDataSetCache)
+```
+
+**NOTE:** The currently active dataset is not removed.
+
+### Changing Caching Parameters
+
+To change the extent of caching, for example in a management menu:
+
+```swift
+let dataSetManager = MPMapsIndoors.shared.datasetCacheManager
+let dataSet = dataSetManager.dataSetForCurrentMapsIndoorsAPIKey()
+dataSetManager.setCachingScope(.detailed, cacheItem: dataSet!.cacheItem)
+```
+
+### Determining the Caching Size of a Dataset
+
+The estimated and cached size of a dataset is available via:
+
+```swift
+dataSet?.cacheItem.cachedSize
+dataSet?.cacheItem.syncSize
+```
+
+To refesh or get the size of a synced dataset:
+
+```swift
+dataSetManager.fetchSyncSizesFor(dataSetCaches: [dataSet], delegate: self)
+```
+
+This is an asynchronous process, and a `MPDataSetCacheManagerSizeDelegate` is needed for getting information about progress and results.
+
+### Synchronizing Data with MPDataSetCacheManager
+
+The `MPDataSetCacheManager`allows for finegrained control which datasets are synchronized, and allows for cancellation:
+
+```swift
+// Sync allmanaged datasets:
+dataSetManager.synchronizeContent()
+
+// Synchronize specific datasets:
+dataSetManager.synchronizeCacheItems([dataSet.cacheItem, ...])
+
+// Cancellation:
+dataSetManager.cancelSynchronization()
+```
+
+</TabItem>
 </Tabs>
