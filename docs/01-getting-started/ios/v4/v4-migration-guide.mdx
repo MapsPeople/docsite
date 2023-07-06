@@ -1,15 +1,15 @@
 ---
-title: Migrating from V3 to V4
+title: Migrating from v3 to v4
 hide_title: false
 hide_table_of_contents: false
 toc_max_heading_level: 2
 sidebar_position: 0
 ---
-The iOS SDK for MapsIndoors has received a major update to version 4.0.0, which comes with improved interfaces and flexibility for developing your own map experience. The MapsIndoors SDK now additionally supports Mapbox, alongside some reworked and refactored features that simplify development and SDK behavior. This guide will cover changes to the SDK and how to use it to provide you with a guide on how to upgrade from V3 to V4. _If you have any questions concerning this document, or migrating to v4 in general, please contact MapsPeople technical support._
+The iOS SDK for MapsIndoors has received a major update to version 4.0.0, which comes with improved interfaces and flexibility for developing your own map experience. The MapsIndoors SDK now additionally supports Mapbox, alongside some reworked and refactored features that simplify development and SDK behavior. This guide will cover changes to the SDK and how to use it to provide you with a guide on how to upgrade from v3 to v4. _If you have any questions concerning this document, or migrating to v4 in general, please contact MapsPeople technical support._
 
 ## MapsIndoors SDK Map Engine Flavors
 
-With the release of V4, the MapsIndoors SDK is released as multiple separate libraries depending on the Map Provider - Google Maps or Mapbox. You now import the SDK flavor of your choosing with either:
+With the release of v4, the MapsIndoors SDK is released as multiple separate libraries depending on the Map Provider - Google Maps or Mapbox. You now import the SDK flavor of your choosing with either:
 
 ```ruby
 pod 'MapsIndoorsGoogleMaps', '~> 4.0.0'
@@ -18,16 +18,17 @@ or
 ```ruby
 pod 'MapsIndoorsMapbox', '~> 4.0.0'
 ```
+(Remember to check the [changelog](https://docs.mapsindoors.com/changelogs/ios) for the latest version)
 
 ## MapsIndoors Initialization & Usage
 
-MapsIndoors is a shared instance, which can be described as the data layer of the SDK. Below you will find an example that demonstrates how initialization has been simplified between V3 and V4.
+MapsIndoors is a shared instance, which can be described as the data layer of the SDK. Below you will find an example that demonstrates how initialization has been simplified between v3 and v4.
 
 ### Initialization
 
-#### V3
+#### v3
 
-In V3 you would start the SDK by providing a MapsIndoors API key and a Google API key, in order to start loading a solution.
+In v3 you would start the SDK by providing a MapsIndoors API key and a Google API key, in order to start loading a solution.
 
 ```swift
 MPMapsIndoors.provideAPIKey("YOUR_MAPSINDOORS_API_KEY", googleAPIKey: "YOUR_GOOGLE_API_KEY")
@@ -41,7 +42,7 @@ MPMapsIndoors.synchronizeContent { error in
 }
 ```
 
-In V3 you had no real way to close the MapsIndoors SDK, releasing system resources when no map is shown.
+In v3 you had no real way to close the MapsIndoors SDK, releasing system resources when no map is shown.
 
 ##### MapsIndoors Data
 
@@ -57,9 +58,9 @@ let locations1 = try await MPLocationsProvider().locations()
 let locations2 = try await MPLocationService.sharedInstance().locations(using: MPQuery(), filter: MPFilter())
 ```
 
-#### V4
+#### v4
 
-In V4, we have improved the interface to initiate the SDK for smaller and safer implementations. In V4 you start loading a solution with a MapsIndoors API by:
+In v4, we have improved the interface to initiate the SDK for smaller and safer implementations. In v4 you start loading a solution with a MapsIndoors API by:
 
 ```swift
 do {
@@ -72,7 +73,7 @@ do {
 
 Note that this is async/await and therefore requires an asynchronous context, and potentially throws an error if there were problems during loading MapsIndoors data. You can therefore be sure on the next line, that the SDK has either successfully loaded, or failed.
 
-Additionally in V4, you can now close the SDK, releasing system resources when MapsIndoors is no longer actively needed for your application’s state.
+Additionally in v4, you can now close the SDK, releasing system resources when MapsIndoors is no longer actively needed for your application’s state.
 
 ```swift
 MPMapsIndoors.shared.shutdown()
@@ -82,7 +83,7 @@ The Google API key is no longer set on MapsIndoors - but rather on `MPMapConfig`
 
 ##### MapsIndoors Data
 
-In V4, everything data should be accessed via `MPMapsIndoors.shared` instance
+In v4, everything data should be accessed via `MPMapsIndoors.shared` instance
 
 ```swift
 let solution = MPMapsIndoors.shared.solution
@@ -96,17 +97,17 @@ let locations1 = await MPMapsIndoors.shared.locationsWith(query: MPQuery(), filt
 
 MapControl instantiation and initialization are separate concepts. You create a new instance of `MPMapControl` and configure it with a map and view.
 
-### V3
+### v3
 
-To create a `MPMapControl` instance in V3, it was really straight forward.
+To create a `MPMapControl` instance in v3, it was really straight forward.
 
 ```swift
 let mapControl = MPMapControl(map: googleMapView)
 ```
 
-### V4
+### v4
 
-In V4, in order to support multiple map engines, we have changed how you create a `MPMapControl` instance. You now have to call a factory function on `MapsIndoors`, and provide an `MPMapConfig`.
+In v4, in order to support multiple map engines, we have changed how you create a `MPMapControl` instance. You now have to call a factory function on `MapsIndoors`, and provide an `MPMapConfig`.
 
 ```swift
 if let mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig) {
@@ -149,7 +150,7 @@ Display rules have changed significantly between v3 and v4. The concept remains 
 
 The following code snippets show how to edit the display rule of a MapsIndoors location, and to undo the change.
 
-### V3
+### v3
 
 #### Editing a display rule
 
@@ -191,7 +192,7 @@ let selectionHighlight = mapControl?.locationHighlightDisplayRule
 let blueDotDisplayRule = mapControl?.getDisplayRule(forTypeNamed:"my-location")
 ```
 
-### V4
+### v4
 
 #### Editing a display rule
 
@@ -230,9 +231,9 @@ buildingOutlineRule?.polygonStrokeWidth = 10.0
 
 ## DirectionsService & DirectionsRenderer
 
-The jump from V3 to V4 also introduces small differences in route directions querying and rendering.
+The jump from v3 to v4 also introduces small differences in route directions querying and rendering.
 
-### V3
+### v3
 
 ```swift
 var origin = MPPoint(lat: 38.897382, lon: -77.037447, zValue:0)
@@ -250,7 +251,7 @@ directions.routing(with: directionsQuery) { (route, error) in
 }
 ```
 
-### V4
+### v4
 ```swift
 let origin = MPPoint(latitude:57.059884140172585, longitude: 9.939936105948238, z: 0)
 let destination = MPPoint(latitude: 57.05718292988392, longitude: 9.930720035736968, z: 0)
@@ -266,12 +267,39 @@ renderer?.route = route
 renderer?.animate(duration: 5)
 ```
 
+## App User Roles
+
+App user roles as a feature remains the same, however the interface for getting available user roles and applying user roles has changed.
+
+In v3 you would use a `MPSolutionProvider` instance to query a list of all available user roles for the loaded MapsIndoors solution.
+Applying user roles was done by assigning to the `userRoles` property on `MapsIndoors`.
+### v3
+
+```swift
+MPSolutionProvider().getUserRoles { (userRoles, error) in
+    if let janitorRole = userRoles.first(where: { role in role.userRoleName == "janitor" }) {
+        MapsIndoors.userRoles = [janitorRole]
+    }
+}
+```
+
+In v4 the interface has been moved to the shared `MPMapsIndoors` instance, where the list of available user roles for a given solution can be found.
+Applying user roles is similar to v3, just assign to the `userRoles` property on the shared instance of `MPMapsIndoors`.
+
+### v4
+```swift
+let allRoles = MPMapsIndoors.shared.availableUserRoles
+            
+if let janitorRole = allRoles.first(where: { userRole in userRole.userRoleName == "janitor" }) {
+    MPMapsIndoors.shared.userRoles = [janitorRole]
+}
+```
 
 
 
 ## Map & Camera Behavior Configs
 
-In V4, we have introduced `MPFilterBehavior` and `MPSelectionBehavior`. These object contains behavioral configuration to describe how and if the camera should behave. The following can be configured:
+In v4, we have introduced `MPFilterBehavior` and `MPSelectionBehavior`. These object contains behavioral configuration to describe how and if the camera should behave. The following can be configured:
 
 *   `var moveCamera: Bool { get set }`
     
@@ -292,7 +320,7 @@ mapControl.select(location: location, behavior: selectionBehavior)
 
 ## The "Go-To" Function
 
-### V3
+### v3
 
 In v3, there was a convenience method to easily move the camera to a given `MPLocation`.
 
@@ -302,7 +330,7 @@ if let location = MPLocationsProvider().location(withId: "myLocationId") {
 }
 ```
 
-### V4
+### v4
 
 In v4 the `goTo(...)` convenience method has been expanded upon, so it can be used with anything adhering to the `MPEntity` protocol, which includes `MPLocation`, `MPBuilding`, `MPVenue`, and even your own data types, as long as they adhere to `MPEntity`.
 
@@ -328,9 +356,9 @@ if let building = MPMapsIndoors.shared.buildingWith(id: "building id") {
 
 You can filter content on the map - say you only wanted to show all meeting rooms on the map.
 
-### V3
+### v3
 
-In V3, you could set `searchResults` on your `MPMapControl` instance, to only show a list of locations.
+In v3, you could set `searchResults` on your `MPMapControl` instance, to only show a list of locations.
 
 ```swift
 let query = MPQuery()
@@ -342,9 +370,9 @@ MPLocationService.sharedInstance().getLocationsUsing(query, filter: filter) { (l
 }
 ```
 
-### V4
+### v4
 
-In V4, you can use an `MPFilter` directly to apply a filter on your `MPMapControl` instance.
+In v4, you can use an `MPFilter` directly to apply a filter on your `MPMapControl` instance.
 
 ```swift
 let filter = MPFilter()
@@ -370,11 +398,11 @@ mapControl.clearFilter()
 
 ## Positioning Providers
 
-The interfaces for using position providers with MapsIndoors, was bloated in V3, so you would have to implement a lot more behavior than was strictly necessary. In V4 we have trimmed down the interface, to ease integrations with positioning systems.
+The interfaces for using position providers with MapsIndoors, was bloated in v3, so you would have to implement a lot more behavior than was strictly necessary. In v4 we have trimmed down the interface, to ease integrations with positioning systems.
 
-### V3
+### v3
 
-In V3, the `MPPositionProvider` protocol required that you implemented your positioning integration in a particular way.
+In v3, the `MPPositionProvider` protocol required that you implemented your positioning integration in a particular way.
 
 ```swift
 protocol MPPositionProvider {
@@ -470,7 +498,7 @@ class MockPositionProvider : NSObject, MPPositionProvider {
 }
 ```
 
-### V4
+### v4
 
 For v4, we have simplified the position provider protocol for `MPPositionProvider` and `MPPositionProviderDelegate`, which now looks like:
 
@@ -520,7 +548,7 @@ positionProvider.simulate()
 
 Creating custom Location Sources.
 
-### V3
+### v3
 
 To create MPLocationUpdate instances, you would simply call the `init`:
 
@@ -536,7 +564,7 @@ MapsIndoors.register([
 ])
 ```
 
-### V4
+### v4
 
 The concept for registering custom location sources is very similar to that of v3. In that you create your own custom Location Sources, however the way to create create `MPLocationUpdate` is slightly different.
 
