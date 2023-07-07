@@ -398,7 +398,7 @@ func refresh() async {
 }
 ```
 
-In `numberOfSections(in tableView:)` add:
+In `numberOfSections(in:)` add:
 
 ```swift
 override func numberOfSections(in tableView: UITableView) -> Int {
@@ -406,7 +406,7 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 }
 ```
 
-In `tableView(:numberOfRowsInSection section:)`, return the size of `bookableLocations`.
+In `tableView(_:numberOfRowsInSection:) `, return the size of `bookableLocations`.
 
 ```swift
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -418,7 +418,7 @@ override func tableView(_ tableView: UITableView, numberOfRowsInSection section:
 }
 ```
 
-In `tableView(:cellForRowAt indexPath:)`, create a `UITableViewCell` with the current Locations name as the text for the label.
+In `tableView(_:cellForRowAt:)`, create a `UITableViewCell` with the current Locations name as the text for the label.
 
 ```swift
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -433,7 +433,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 }
 ```
 
-In `tableView(:didSelectRowAt indexPath:)`, get the relevant `MPLocation` for the `indexPath`. Initialise a `BookingsController` which we will implement next. Assign the selected Location to a `bookableLocation` property on `BookingsController` and push the controller to the navigation stack.
+In `tableView(_:didSelectRowAt:)`, get the relevant `MPLocation` for the `indexPath`. Initialise a `BookingsController` which we will implement next. Assign the selected Location to a `bookableLocation` property on `BookingsController` and push the controller to the navigation stack.
 
 ```swift
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -495,7 +495,7 @@ Task {
 }
 ```
 
-In `numberOfSections(in tableView:)`, return 1 since we only need one section.
+In `numberOfSections(in:)`, return 1 since we only need one section.
 
 ```swift
 override func numberOfSections(in tableView: UITableView) -> Int {
@@ -503,7 +503,7 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 }
 ```
 
-In `tableView(:numberOfRowsInSection section:)`, return the size of `bookings`.
+In `tableView(_:numberOfRowsInSection:)`, return the size of `bookings`.
 
 ```swift
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -511,7 +511,7 @@ override func tableView(_ tableView: UITableView, numberOfRowsInSection section:
 }
 ```
 
-In `tableView(:cellForRowAt indexPath:)`, create a `UITableViewCell` with the current Booking title as the text for the label.
+In `tableView(_:cellForRowAt:)`, create a `UITableViewCell` with the current Booking title as the text for the label.
 
 ```swift
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -522,7 +522,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 }
 ```
 
-In `tableView(:didSelectRowAt indexPath:)`, get the relevant `MPBooking` for the `indexPath` and call `editBooking()` with that Booking.
+In `tableView(_:didSelectRowAt:)`, get the relevant `MPBooking` for the `indexPath` and call `editBooking()` with that Booking.
 
 ```swift
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -640,7 +640,7 @@ Create another Objective-C exposed method `cancel()` which will be use by our `U
     }
 ```
 
-In `numberOfSections(in tableView:)`, return 1 since we only need one section.
+In `numberOfSections(in:)`, return 1 since we only need one section.
 
 ```swift
 override func numberOfSections(in tableView: UITableView) -> Int {
@@ -648,7 +648,7 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 }
 ```
 
-In `tableView(:numberOfRowsInSection section:)`, return the value of `BookingRow.count.rawValue`.
+In `tableView(_:numberOfRowsInSection:)`, return the value of `BookingRow.count.rawValue`.
 
 ```swift
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -683,7 +683,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 }
 ```
 
-In `tableView(:cellForRowAt indexPath:)`, create a switch control structure again by initialising a `BookingRow` enum value from `indexPath.row`. Based on the cases, either initialise and present `FieldEditController` or `DatePickerController` which we will implement next.
+In `tableView(_:cellForRowAt:)`, create a switch control structure again by initialising a `BookingRow` enum value from `indexPath.row`. Based on the cases, either initialise and present `FieldEditController` or `DatePickerController` which we will implement next.
 
 ```swift
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -971,7 +971,7 @@ override func viewWillAppear(_ animated: Bool) {
 }
 ```
 
-In `numberOfSections(in tableView:)`, return 1 since we only need one section.
+In `numberOfSections(in:)`, return 1 since we only need one section.
 
 ```swift
 override func numberOfSections(in tableView: UITableView) -> Int {
@@ -979,7 +979,7 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 }
 ```
 
-In `tableView(:numberOfRowsInSection section:)`, return the size of `bookableLocations`.
+In `tableView(_:numberOfRowsInSection:) `, return the size of `bookableLocations`.
 
 ```swift
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -987,7 +987,7 @@ override func tableView(_ tableView: UITableView, numberOfRowsInSection section:
 }
 ```
 
-In `tableView(:cellForRowAt indexPath:)`, create a `UITableViewCell` with the current Locations name as the text for the label.
+In `tableView(_:cellForRowAt:)`, create a `UITableViewCell` with the current Locations name as the text for the label.
 
 ```swift
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -998,7 +998,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 }
 ```
 
-In `tableView(:didSelectRowAt indexPath:)`, get the relevant `MPLocation` for the `indexPath`. Initialise a `BookingsController` which we will implement next. Assign the selected Location to a `bookableLocation` property on `BookingsController` and push the controller to the navigation stack.
+In `tableView(_:didSelectRowAt:)`, get the relevant `MPLocation` for the `indexPath`. Initialise a `BookingsController` which we will implement next. Assign the selected Location to a `bookableLocation` property on `BookingsController` and push the controller to the navigation stack.
 
 ```swift
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -1057,7 +1057,7 @@ MPBookingService.sharedInstance().getBookingsUsing(bookingsQuery) { (bookings, e
 }
 ```
 
-In `numberOfSections(in tableView:)`, return 1 since we only need one section.
+In `numberOfSections(in:)`, return 1 since we only need one section.
 
 ```swift
 override func numberOfSections(in tableView: UITableView) -> Int {
@@ -1065,7 +1065,7 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 }
 ```
 
-In `tableView(:numberOfRowsInSection section:)`, return the size of `bookings`.
+In `tableView(_:numberOfRowsInSection:)`, return the size of `bookings`.
 
 ```swift
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -1073,7 +1073,7 @@ override func tableView(_ tableView: UITableView, numberOfRowsInSection section:
 }
 ```
 
-In `tableView(:cellForRowAt indexPath:)`, create a `UITableViewCell` with the current Booking title as the text for the label.
+In `tableView(_:cellForRowAt:)`, create a `UITableViewCell` with the current Booking title as the text for the label.
 
 ```swift
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -1084,7 +1084,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 }
 ```
 
-In `tableView(:didSelectRowAt indexPath:)`, get the relevant `MPBooking` for the `indexPath` and call `editBooking()` with that Booking.
+In `tableView(_:didSelectRowAt:)`, get the relevant `MPBooking` for the `indexPath` and call `editBooking()` with that Booking.
 
 ```swift
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -1211,7 +1211,7 @@ Create another Objective-C exposed method `cancel()` which will be use by our `U
 }
 ```
 
-In `numberOfSections(in tableView:)`, return 1 since we only need one section.
+In `numberOfSections(in:)`, return 1 since we only need one section.
 
 ```swift
 override func numberOfSections(in tableView: UITableView) -> Int {
@@ -1219,7 +1219,7 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 }
 ```
 
-In `tableView(:numberOfRowsInSection section:)`, return the value of `BookingRow.count.rawValue`.
+In `tableView(_:numberOfRowsInSection:)`, return the value of `BookingRow.count.rawValue`.
 
 ```swift
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -1254,7 +1254,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 }
 ```
 
-In `tableView(:cellForRowAt indexPath:)`, create a switch control structure again by initialising a `BookingRow` enum value from `indexPath.row`. Based on the cases, either initialise and present `FieldEditController` or `DatePickerController` which we will implement next.
+In `tableView(_:cellForRowAt:)`, create a switch control structure again by initialising a `BookingRow` enum value from `indexPath.row`. Based on the cases, either initialise and present `FieldEditController` or `DatePickerController` which we will implement next.
 
 ```swift
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
