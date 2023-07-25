@@ -1,0 +1,101 @@
+---
+title: Project Setup
+hide_title: false
+hide_table_of_contents: true
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+This guide is made based off a basic application already made, to keep most of the code specific to the MapsIndoors SDK. So that we don't need to spend too much time modifying or implementing UI elements.
+If confident, you can start off by creating your own project, and just taking the context of the different steps of the getting started guide. A short setup of a React native application with MapsIndoors is described below.
+## Set Up Your Environment
+
+Read here how to set up your **[React Native development environment](https://reactnative.dev/docs/environment-setup)**
+
+## Basic Example
+
+You can find the basic example to start from here: [INSERT GITHUB LINK HERE](IAMABASICIMPLGITHUBLINK)
+Follow the included README on how to get the project up and running.
+
+## Setup MapsIndoors
+
+To run MapsIndoors you need to insert a google API key inside your project.
+
+<Tabs groupId="getting-started-react-native-project-setup">
+<TabItem value="Android" label="Android" default>
+
+Inside the project navigate to `android/app/src/main/res/values/google_maps_api.xml` and replace the `INSERT_KEY_HERE` with your google API key
+
+</TabItem>
+<TabItem value="iOS" label="iOS">
+
+Inside the project navigate to `ios/GettingStartedProject/AppDelegate.mm` and replace the `/*Your Google API key here*/` inside `provideAPIKey` with your Google API key
+
+</TabItem>
+</Tabs>
+
+## RN setup
+
+### Project creation
+
+Create a new React Native project by running the following command
+
+```bash
+npx react-native@latest init GettingStartedProject
+```
+
+### Dependencies
+
+Start by installing the bindings for your preferred map provider. There is currently only support for using one of these packages at a time.
+```bash
+npm install @mapsindoors/react-native-maps-indoors-google-maps
+# npm install @mapsindoors/react-native-maps-indoors-mapbox
+```
+
+
+The getting started project makes use of the following publicly available UI components. We recommend using them while following the getting started guide.
+
+```bash
+# Bottomsheet
+npm install @gorholm/bottom-sheet@^4
+
+# Navigation
+npm install @react-navigation/native @react-navigation/native-stack
+npm install react-native-screens react-native-safe-area-context
+
+#"react-native-pager-view"
+```
+
+The above components make use of the following dependecies, which take a few extra steps to install.
+```bash
+# Dependencies
+npm install react-native-reanimated react-native-gesture-handler
+```
+Please see the following links for additional steps needed for installing the dependencies:<br/>
+https://docs.swmansion.com/react-native-gesture-handler/docs/installation/ <br/>
+https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/
+
+### Pod install
+
+After making changes to dependecies, especially those involving native code, you will need to run the following command from the ios folder of your project:
+
+```bash
+pod install
+```
+
+Alternatively you can install the npm package `pod-install` and then run the following command from anywhere within the project:
+
+```bash
+npx pod-install
+```
+
+### Folder structure
+
+To better seperate the typescript code from the other configuration related files, we move `App.tsx` into a new folder called `src/`. In order for the App to recognize this, we make the following change to `index.js`:
+
+```diff
+- import App from './App';
++ import App from './src/App';
+```

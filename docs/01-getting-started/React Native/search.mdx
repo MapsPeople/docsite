@@ -1,0 +1,165 @@
+---
+title: Creating a Search Experience
+hide_title: false
+hide_table_of_contents: true
+sidebar_position: 4
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+Now you have simple app showing a map. In this step, you'll create a simple search implementation and display the search results in a list.
+
+Add the bottomSheet ref, searchResults state and search function inside the `MapScreen` file
+
+```ts
+  const bottomSheet = useRef<BottomSheet>();
+  const [searchResults, setSearchResults] = useState<MPLocation[]|undefined>(undefined);
+```
+
+We define a function `search` that performs a text search on the name of locations. It creates a `MPQuery` containing the search string, as well as an empty filter. These are passed to `MapsIndoors.getLocationsAsync`, which asynchronously returns a list of `MPLocations`.
+
+```tsx
+  const search = async (text: string | undefined) => {
+    if (text === undefined) {
+      console.debug('Clearing search');
+      setSearchResults(undefined);
+      return;
+    }
+
+    // Do search
+    console.debug(`Searching for "${text}"`);
+
+    const query = MPQuery.create({query: text});
+    const filter = MPFilter.create();
+
+    const locations = await MapsIndoors.getLocationsAsync(query, filter)
+
+    setSearchResults(locations);
+    (bottomSheet.current as BottomSheet).expand();
+  };
+```
+
+We also define a clickResult, which will determine what happens when one of the search results are clicked. In this case we will `goTo` on `MapControl` for the location that was clicked. This will pan the map to the location the user clicked.
+
+```tsx
+  const clickResult = (result: MPLocation) => {
+    //Centers the map to the chosen MPLocation
+    mapControl?.goTo(result);
+  };
+```
+
+Now for the changes to the rendered layout.
+
+We have added two new `View`s, one containing the `SearchBox` component and added the `SearchResults` component to the BottomSheet.
+
+```tsx
+return (
+    <GestureHandlerRootView style={{flex:1, flexGrow:1}}>
+      <MapView style={{
+        width: width,
+        height: height,
+        flex: 1,
+      }}/>
+      <View style={{position: 'absolute', width: '100%', height: '100%', padding: 10, pointerEvents: 'box-none'}}>
+        <SearchBox onSearch={search}/>
+      </View>
+      <BottomSheet ref={bottomSheet} snapPoints={['15%', '60%']} index={-1} enablePanDownToClose={true} onChange={() => {}} onClose={() => {setSearchResults(undefined)}}>
+        <SearchResults searchResults={searchResults} clickResult={clickResult}/>
+      </BottomSheet>
+    </GestureHandlerRootView>
+  );
+```
+
+The components have already been made, but we need to fill in some data to show our search results from the `MPLocation`. The SearchBox is just a simple input field with two buttons, to call our search function with a string value from the input box.
+
+components/SearchBox.ts
+```tsx
+import React, {useState} from "react";
+import {Button, TextInput, View} from "react-native";
+import {Colors} from "react-native/Libraries/NewAppScreen";
+
+export default function SearchBox({onSearch}) {
+  const [searchBoxText, setSearchBoxText] = useState<string>("");
+
+  return (
+      <View  style={{flexDirection: 'row'}}>
+        <TextInput
+            enterKeyHint={'search'}
+            value={searchBoxText}
+            onChangeText={setSearchBoxText}
+            onSubmitEditing={(event) => onSearch(event.nativeEvent.text)}
+            placeholder={'Search...'} placeholderTextColor={'#AAA'}
+            style={{
+              height: 48,
+              backgroundColor: Colors.white,
+              borderColor: Colors.dark,
+              borderWidth: 1,
+              paddingHorizontal: 5,
+              flex: 1,
+            }}
+        />
+        <Button title={'Search'} onPress={() => onSearch(searchBoxText)}/>
+        <Button title={'Cancel'} onPress={() => onSearch(undefined)}/>
+      </View>
+  );
+}
+```
+
+The `searchResults` component is a `BottomSheetFlatList` that contains a list of items that display the results of the search.
+
+components/SearchResults.ts
+```tsx
+type SearchResultsProps = {
+  searchResults: MPLocation[] | undefined;
+  clickResult: (location: MPLocation) => void;
+}
+
+export default function SearchResults({searchResults, clickResult}: SearchResultsProps) {
+
+  return (
+      <BottomSheetFlatList data={searchResults} keyExtractor={(item, index) => index.toString()}
+                renderItem={({item}) => <SearchResultItem item={item} clickResult={clickResult} />}
+      />
+  )
+}
+```
+
+The `SearchResultItem` contains two text fields and an image to discern the search results. Notice the use of `DisplayRules` to set the image for each location, as well as the `MPlocation` to show the name of the location as well as the name of the building the location is tied to.
+
+components/SearchResultItem.ts
+```tsx
+type SearchResultItemProps = {
+  item: MPLocation;
+  clickResult: (location: MPLocation) => void;
+}
+
+export default function SearchResultItem({item, clickResult}: SearchResultItemProps) {
+  const fallbackImageUrl = "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs="
+
+  const [itemURL, setItemURL] = useState(fallbackImageUrl)
+
+  useEffect(() => {
+    const _ = async () => {
+      const url = await (await MapsIndoors.getDisplayRuleByLocation(item))?.getIconUrl()
+      setItemURL(url ?? fallbackImageUrl);
+    };
+    _().then();
+  }, [])
+
+  return (
+      <TouchableOpacity
+          style={{paddingVertical: 5, width: '100%'}}
+          onPress={(event) => clickResult(item)}>
+        <View style={{backgroundColor: Colors.lighter, padding: 5, flexDirection: 'row'}}>
+          <Image source={{uri: itemURL}} style={{width: 42, height:42}} />
+          <View style={{flex: 1, paddingHorizontal: 10}}>
+            <Text style={{fontSize: 20, color: Colors.dark}} numberOfLines={1}>{item.name}</Text>
+            <Text style={{fontSize: 10, color: Colors.dark}} numberOfLines={1}>{item.buildingName}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+  );
+}
+```
