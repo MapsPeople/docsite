@@ -8,427 +8,281 @@ sidebar_position: 5
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Now we have a simple map with a floor selector where you can search for locations. When finishing this step you'll be able to create a directions between two points and change the transportation mode.
+Now we have a simple map where you can search for locations. When finishing this step you'll be able to create a directions between two points and change the transportation mode.
 
 ## Get Directions Between Two Locations
 
 After having created our list of search results, we have a good starting point for creating directions between two Locations.
-Since our search only supports a single search, we will hardcode a Location's coordinate into our app, and use that as the basis for our Origin. Then we'll create a route, navigate to a view of the navigation details, and show a route on the map from the Origin to the Destination.
+Since our search only supports a single search, we will hardcode a Location's coordinate into our app, and use that as the basis for our _Origin_. Then we'll create a route, show the navigation details, and display the route on the map.
 
-We have already created a point in the basic example, called `mUserLocation` to use as a starting point for directions on `MapsActivity`
+We have already created a point in the basic example, called `_userPosition` to use as a starting point for directions on `MapState`
 
-<Tabs groupId="getting-started-android-v4-directions">
-<TabItem value="java" label="Java" default>
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/MapsActivity.java#L49">MapsActivity.java</a>
-
-```java
-private MPPoint mUserLocation = new MPPoint(38.897389429704695, -77.03740973527613,0);
+```dart
+final _userPosition = MPPoint.withCoordinates(
+    longitude: -77.03740973527613,
+    latitude: 38.897389429704695,
+    floorIndex: 0);
 ```
 
-</TabItem>
-<TabItem value="kotlin" label="Kotlin">
+We can extend the search functionality we made earlier by implementing the `onLocationSelected` listener on the `MapsIndoorsWidget`, and showing the selected location's details on the bottom sheet:
 
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L38">MapsActivity.kt</a>
-
-```kotlin
-private val mUserLocation: MPPoint = MPPoint(38.897389429704695, -77.03740973527613, 0.0)
-```
-
-</TabItem>
-</Tabs>
-
-Now we will create a method that can generate a route for us with a Location (picked from the search list).
-Start by implementing `OnRouteResultListener` to your MapsActivity.
-
-<Tabs>
-<TabItem value="java-google" label="Java - Google Maps" default>
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/MapsActivity.java#L41">MapsActivity.java</a>
-
-```java
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, OnRouteResultListener
-```
-
-</TabItem>
-<TabItem value="kotlin-google" label="Kotlin - Google Maps">
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L28">MapsActivity.kt</a>
-
-```kotlin
-class MapsActivity : FragmentActivity(), OnMapReadyCallback, OnRouteResultListener
-```
-
-</TabItem>
-<TabItem value="java-mapbox" label="Java - Mapbox" default>
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/MapBox/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/MapsActivity.java#L42">MapsActivity.java</a>
-
-```java
-public class MapsActivity extends FragmentActivity implements OnRouteResultListener
-```
-
-</TabItem>
-<TabItem value="kotlin-mapbox" label="Kotlin - Mapbox">
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/MapBox/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L26">MapsActivity.kt</a>
-
-```kotlin
-class MapsActivity : FragmentActivity(), OnRouteResultListener
-```
-
-</TabItem>
-</Tabs>
-
-Implement the [`onRouteResult` method](https://app.mapsindoors.com/mapsindoors/reference/android/v4/MapsIndoorsSDK/com.mapsindoors.core/-on-route-result-listener/on-route-result.html?query=abstract%20fun%20onRouteResult(route:%20MPRoute,%20error:%20MIError)) and create a method called `createRoute(MPLocation mpLocation)` on your `MapsActivity`.
-
-Use this method to query the [`MPDirectionsService`](https://app.mapsindoors.com/mapsindoors/reference/android/v4/MapsIndoorsSDK/com.mapsindoors.core/-m-p-directions-service/index.html?query=class%20MPDirectionsService%20:%20MPDirectionsServiceInterface), which generates a route between two coordinates. We will use this to query a route with our hardcoded `mUserLocation` and a point from a MPLocation.
-
-To generate a route with the `MPLocation`, we start by creating an `onClickListener` on our search `ViewHolder` inside the `SearchItemAdapter`. In the method `onBindViewHolder` we will call our `createRoute` on the `MapsActivity` for our route to be generated.
-
-<Tabs groupId="getting-started-android-v4-directions">
-<TabItem value="java" label="Java" default>
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/SearchItemAdapter.java#L38-L46">SearchItemAdapter.java</a>
-
-```java
-public void onBindViewHolder(ViewHolder holder, int position) {
+```dart
+void onMapControlReady(MPError? error) async {
+  if (error == null) {
     ...
-    holder.itemView.setOnClickListener(view -> {
-            mMapActivity.createRoute(mLocations.get(position));
-            //Clearing map to remove the location filter from our search result
-            mMapActivity.getMapControl().clearFilter();
-        });
+    // Add a listener for location selection events, we do not want to stop the SDK from moving the camera, so we do not comsume the event
+    _mapControl
+      ..setOnLocationSelectedListener(onLocationSelected, false)
+      ..goTo(await getDefaultVenue());
+  } else {
+    // if loading mapcontrol failed inform the user
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Map load failed: $error"),
+      backgroundColor: Colors.red,
+    ));
+  }
+}
+```
+
+and implementing the `onLocationSelected` listener:
+
+```dart
+void onLocationSelected(MPLocation? location) {
+  // if no location is selected, close the sheet
+  if (location == null) {
+    _controller?.close();
+    _controller = null;
+    return;
+  }
+  // show location details
+  _controller = _scaffoldKey.currentState?.showBottomSheet((context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.25,
+      width: MediaQuery.of(context).size.width,
+      color: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            height: 30,
+          ),
+          Text(location.name),
+          const SizedBox(
+            height: 30,
+          ),
+          Text("Description: ${location.description}"),
+          const SizedBox(
+            height: 30,
+          ),
+          Text("Building: ${location.buildingName} - ${location.floorName}"),
+          const SizedBox(
+            height: 30,
+          ),
+          ...
+        ],
+      ),
+    );
+  });
+  _controller?.closed.then((value) => _mapControl.selectLocation(null));
+}
+```
+
+Now we will create a class that takes a origin and destination and can handle the controls of a route. This is a rather complex class that creates a route, lets us traverse it without errors and displays the steps of the route in the bottom sheet. A minimal example would only require the constructor, the leg selected listener and the UI.
+
+First lets set up the constructor and services, we want to create the `RouteHandler` with an origin, destination and the state of our `Scaffold` (to create a bottom sheet later). We will also set up our `MPDirectionsService` and `MPDirectionsRenderer` and generate a route immediately. finally we show the route on the Renderer.
+
+```dart
+class RouteHandler {
+  RouteHandler(
+      {required MPPoint origin,
+      required MPPoint destination,
+      required ScaffoldState scaffold}) {
+    _service.getRoute(origin: origin, destination: destination).then((route) {
+      _route = route;
+      _renderer.setRoute(route);
+      // Start some UI handling here later
+    });
+  }
+  final _service = MPDirectionsService();
+  final _renderer = MPDirectionsRenderer();
+  late final MPRoute _route;
+}
+```
+
+Now we want some controllers for the state of our route, we want a method to safely update the leg index, we want to listen to when the leg index changes and we want to be able to remove the route again. First we add a `onLegSelectedListener` to the class and set it on the renderer. Then we add a getter/setter for the current leg index, where we ensure that we cannot get an index that is out of bounds for the current route. and finally we add a `removeRoute` method that clears the route from the map.
+
+```dart
+class RouteHandler {
+  RouteHandler(
+      {required MPPoint origin,
+      required MPPoint destination,
+      required ScaffoldState scaffold}) {
+    _service.getRoute(origin: origin, destination: destination).then((route) {
+      _route = route;
+      _renderer.setRoute(route);
+      _renderer.setOnLegSelectedListener(onLegSelected);
+      // Start some UI handling here later
+    });
+  }
+
+  ...
+
+  // backing field for the current route leg index
+  int _currentIndex = 0;
+
+  // if the backing field is negative, return 0 as negative legs do no exist
+  int get currentIndex {
+    return _currentIndex < 0 ? 0 : _currentIndex;
+  }
+
+  // ensure that the new index does not go out of bounds
+  set currentIndex(int index) {
+    _currentIndex = min(index, _route.legs!.length - 1);
+  }
+
+  // updates the state of the routehandler if the route is updated externally, eg. by tapping the next marker on the route
+  void onLegSelected(int legIndex) {
+    _controller?.setState!(() => currentIndex = legIndex);
+  }
+
+  // external handle to clear the route
+  void removeRoute() {
+    _renderer.clear();
+  }
+}
+```
+
+Finally we want some UI interaction, so we add a `ShowRoute(MPRoute)` method that creates a `BottomSheet` which contains some navigation icons, to move between legs of the route, and a text field to display the steps of the current leg. We also add a method to expand the route steps in a way that we can show the leg in a single string.
+
+Then we call `showRoute` from our constructor. Additionally we close the `BottomSheet` when removing the map.
+
+```dart
+class RouteHandler {
+  RouteHandler(
+      {required MPPoint origin,
+      required MPPoint destination,
+      required ScaffoldState scaffold}) {
+        _service.setTravelMode(MPDirectionsService.travelModeDriving);
+    _service.getRoute(origin: origin, destination: destination).then((route) {
+      _route = route;
+      _renderer.setRoute(route);
+      _renderer.setOnLegSelectedListener(onLegSelected);
+      showRoute(scaffold);
+    });
+  }
+  PersistentBottomSheetController? _controller;
+
+  ...
+
+  // opens the route on a bottom sheet
+  void showRoute(ScaffoldState scaffold) {
+    _controller = scaffold.showBottomSheet((context) {
+      return Container(
+        height: MediaQuery.of(context).size.height * 0.35,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // goes a step back on the route
+            IconButton(
+              onPressed: () async {
+                currentIndex--;
+                await _renderer.selectLegIndex(currentIndex);
+              },
+              icon: const Icon(Icons.keyboard_arrow_left),
+              iconSize: 50,
+            ),
+            // displays the route instructions
+            Expanded(
+              child: Text(
+                expandRouteSteps(_route.legs![currentIndex].steps!),
+                softWrap: true,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            // goes a step forward on the route
+            IconButton(
+              onPressed: () async {
+                currentIndex++;
+                await _renderer.selectLegIndex(currentIndex);
+              },
+              icon: const Icon(Icons.keyboard_arrow_right),
+              iconSize: 50,
+            ),
+          ],
+        ),
+      );
+    });
+    // if the bottom sheet is closed, then clear the route
+    _controller?.closed.then((val) {
+      _renderer.clear();
+    });
+  }
+
+  // external handle to clear the route
+  void removeRoute() {
+    _renderer.clear();
+    _controller?.close();
+  }
+
+  // expands the step instructions into a single string for the entire leg
+  String expandRouteSteps(List<MPRouteStep> steps) {
+    String sum = "${steps[0].maneuver}";
+    for (final step in steps.skip(1)) {
+      sum += ", ${step.maneuver}";
+    }
+    return sum;
+  }
+}
+```
+
+With this we now have a class that will handle creating a Route and displaying it on the map for us. You can see the entire implementation of RouteHandler here: [main.dart]()
+
+
+We can now add a button on our `onLocationSelected` bottomsheet to generate a route from `_userPosition` to the selected location:
+
+```dart
+  void onLocationSelected(MPLocation? location) {
     ...
-}
+    // if an active route is displayed, remove it from view
+    _routeHandler?.removeRoute();
+    // show location details
+    _controller = _scaffoldKey.currentState?.showBottomSheet((context) {
+      return Container(
+        height: MediaQuery.of(context).size.height * 0.25,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.white,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ...
+            // when clicked will create a route from the user position to the location
+            ElevatedButton(
+              onPressed: () => _routeHandler = RouteHandler(
+                  origin: _userPosition,
+                  destination: location.point,
+                  scaffold: _scaffoldKey.currentState!),
+              child: const Row(
+                children: [
+                  Icon(Icons.keyboard_arrow_left_rounded),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text("directions")
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+    _controller?.closed.then((value) => _mapControl.selectLocation(null));
+  }
 ```
 
-</TabItem>
-<TabItem value="kotlin" label="Kotlin">
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/SearchItemAdapter.kt#L18-L24">MapsActivity.kt</a>
-
-```kotlin
-override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    ...
-    holder.itemView.setOnClickListener {
-        mLocations[position]?.let { locations -> mMapActivity?.createRoute(locations) }
-        //Clearing map to remove the location filter from our search result
-        mMapActivity?.getMapControl()?.clearFilter()
-    }
-    ...
-}
-```
-
-</TabItem>
-</Tabs>
-
-We start by implementing logic to our createRoute method to query a route through [`MPDirectionsService`](https://app.mapsindoors.com/mapsindoors/reference/android/v4/MapsIndoorsSDK/com.mapsindoors.core/-m-p-directions-service/index.html?query=class%20MPDirectionsService%20:%20MPDirectionsServiceInterface) and assign the onRouteResultListener to the activity. When we call the `createRoute` through our `onClickListener` we will receive a result through our `onRouteResult` implementation.
-
-When we receive a result on our listener, we render the route through the `MPDirectionsRenderer`.
-
-We create global variables of the [`MPdirectionsRenderer`](https://app.mapsindoors.com/mapsindoors/reference/android/v4/MapsIndoorsSDK/com.mapsindoors.core/-m-p-directions-renderer/index.html?query=class%20MPDirectionsRenderer) and [`MPDirectionsService`](https://app.mapsindoors.com/mapsindoors/reference/android/v4/MapsIndoorsSDK/com.mapsindoors.core/-m-p-directions-service/index.html?query=class%20MPDirectionsService%20:%20MPDirectionsServiceInterface) and create a getter to the [`MPdirectionsRenderer`](https://app.mapsindoors.com/mapsindoors/reference/android/v4/MapsIndoorsSDK/com.mapsindoors.core/-m-p-directions-renderer/index.html?query=class%20MPDirectionsRenderer) to access it from _fragments_ later on.
-
-<Tabs groupId="getting-started-android-v4-directions">
-<TabItem value="java" label="Java" default>
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/MapsActivity.java#L221-L252">MapsActivity.java</a>
-
-```java
-void createRoute(MPLocation mpLocation) {
-    if (mpDirectionsService == null) {
-        mpDirectionsService = new MPDirectionsService(this);
-        mpDirectionsService.setRouteResultListener(this);
-    }
-    mpRoutingProvider.query(mUserLocation, mpLocation.getPoint());
-}
-
-@Override
-public void onRouteResult(@Nullable Route route, @Nullable MIError miError) {
-    ...
-    //Create the MPDirectionsRenderer if it has not been instantiated.
-    if (mpDirectionsRenderer == null) {
-        mpDirectionsRenderer = new MPDirectionsRenderer(mMapControl);
-    }
-    //Set the route on the Directions renderer
-    mpDirectionsRenderer.setRoute(mpRoute);
-    //Create a new instance of the navigation fragment
-    mNavigationFragment = NavigationFragment.newInstance(mpRoute, this);
-    //Add the fragment to the BottomSheet
-    addFragmentToBottomSheet(mNavigationFragment);
-}
-```
-
-</TabItem>
-<TabItem value="kotlin" label="Kotlin">
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L186-L218">MapsActivity.kt</a>
-
-```kotlin
-fun createRoute(mpLocation: MPLocation) {
-    //If MPRoutingProvider has not been instantiated create it here and assign the results call back to the activity.
-    if (mpRoutingProvider == null) {
-        mpRoutingProvider = MPDirectionsService(this)
-        mpRoutingProvider?.setRouteResultListener(this)
-    }
-    //Queries the MPRouting provider for a route with the hardcoded user location and the point from a location.
-    mpRoutingProvider?.query(mUserLocation, mpLocation.point)
-}
-
-override fun onRouteResult(@Nullable route: Route?, @Nullable miError: MIError?) {
-    ...
-    //Create the MPDirectionsRenderer if it has not been instantiated.
-    if (mpDirectionsRenderer == null) {
-        mpDirectionsRenderer = MPDirectionsRenderer(mMapControl)
-    }
-    //Set the route on the Directions renderer
-    mpDirectionsRenderer?.setRoute(route)
-    //Create a new instance of the navigation fragment
-    mNavigationFragment = NavigationFragment.newInstance(route, this)
-    //Start a transaction and assign it to the BottomSheet
-    addFragmentToBottomSheet(mNavigationFragment)
-}
-```
-
-</TabItem>
-</Tabs>
-
-See the full implementation of these methods here: [MapsActivity.java](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android/blob/master/app/src/main/java/com/example/mapsindoorsgettingstarted/MapsActivity.java#L218-L267) or [MapsActivity.kt](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android-Kotlin/blob/main/app/src/main/java/com/example/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L185-L225)
-
-Now we will implement logic to our `NavigationFragment` that we can put into our BottomSheet and show the steps for each route, as well as the time and distance it takes to travel the route.
-
-Here we'll use a `viewpager` to allow the user to switch between each step, as well as display a "close" button so we are able to remove the route and the bottom sheet from the activity.
-
-We will start by making a getter for our [`MPdirectionsRenderer`](https://app.mapsindoors.com/mapsindoors/reference/android/v4/MapsIndoorsSDK/com.mapsindoors.core/-m-p-directions-renderer/index.html?query=class%20MPDirectionsRenderer) that we store on `MapsActivity`:
-
-<Tabs groupId="getting-started-android-v4-directions">
-<TabItem value="java" label="Java" default>
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/MapsActivity.java#L128-L134">MapsActivity.java</a>
-
-```java
-public MPDirectionsRenderer getMpDirectionsRenderer() {
-    return mpDirectionsRenderer;
-}
-```
-
-</TabItem>
-<TabItem value="kotlin" label="Kotlin">
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/MapsActivity.kt#L182-L184">MapsActivity.kt</a>
-
-```kotlin
-fun getMpDirectionsRenderer(): MPDirectionsRenderer? {
-    return mpDirectionsRenderer
-}
-```
-
-</TabItem>
-</Tabs>
-
-Inside the `NavigationFragment` we will implement logic to navigate through Legs of our Route.
-
-<Tabs groupId="getting-started-android-v4-directions">
-<TabItem value="java" label="Java" default>
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/NavigationFragment.java">NavigationFragment.java</a>
-
-```java
-public class NavigationFragment extends Fragment {
-    private MPRoute mRoute;
-    private MapsActivity mMapsActivity;
-    ...
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        RouteCollectionAdapter routeCollectionAdapter = new RouteCollectionAdapter(this);
-        ViewPager2 mViewPager = view.findViewById(R.id.view_pager);
-        mViewPager.setAdapter(routeCollectionAdapter);
-        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                //When a page is selected call the renderer with the index
-                mMapsActivity.getMpDirectionsRenderer().selectLegIndex(position);
-                //Update the floor on mapcontrol if the floor might have changed for the routing
-                mMapsActivity.getMapControl().selectFloor(mMapsActivity.getMpDirectionsRenderer().getSelectedLegFloorIndex());
-            }
-        });
-
-        ...
-        //Button for closing the bottom sheet. Clears the route through directionsRenderer as well, and changes map padding.
-        closeBtn.setOnClickListener(v -> {
-            mMapsActivity.removeFragmentFromBottomSheet(this);
-            mMapsActivity.getMpDirectionsRenderer().clear();
-        });
-
-        //Next button for going through the legs of the route.
-        nextBtn.setOnClickListener(v -> {
-            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
-        });
-
-        //Back button for going through the legs of the route.
-        backBtn.setOnClickListener(v -> {
-            mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
-        });
-
-        //Describing the distance in meters
-        distanceTxtView.setText("Distance: " + mRoute.getDistance() + " m");
-        //Describing the time it takes for the route in minutes
-        infoTxtView.setText("Time for route: " + TimeUnit.MINUTES.convert(mRoute.getDuration(), TimeUnit.SECONDS) + " minutes");
-    }
-    public class RouteCollectionAdapter extends FragmentStateAdapter {
-        ...
-    }
-}
-```
-
-</TabItem>
-<TabItem value="kotlin" label="Kotlin">
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/NavigationFragment.kt">NavigationFragment.kt</a>
-
-```kotlin
-class NavigationFragment : Fragment() {
-    private var mRoute: MPRoute? = null
-    private var mMapsActivity: MapsActivity? = null
-
-    ...
-    override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
-        val routeCollectionAdapter = RouteCollectionAdapter(this)
-        val mViewPager: ViewPager2 = view.findViewById(R.id.view_pager)
-        mViewPager.adapter = routeCollectionAdapter
-        mViewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                //When a page is selected call the renderer with the index
-                mMapsActivity?.getMpDirectionsRenderer()?.selectLegIndex(position)
-                //Update the floor on mapcontrol if the floor might have changed for the routing
-                mMapsActivity?.getMpDirectionsRenderer()?.selectedLegFloorIndex?.let {floorIndex ->
-                    mMapsActivity?.getMapControl()?.selectFloor(floorIndex)
-                }
-            }
-        })
-
-        ...
-
-        //Button for closing the bottom sheet. Clears the route through directionsRenderer as well, and changes map padding.
-        closeBtn.setOnClickListener {
-            mMapsActivity!!.removeFragmentFromBottomSheet(this)
-            mMapsActivity!!.getMpDirectionsRenderer()?.clear()
-        }
-
-        //Next button for going through the legs of the route.
-        nextBtn.setOnClickListener {
-            mViewPager.setCurrentItem(
-                mViewPager.currentItem + 1,
-                true
-            )
-        }
-
-        //Back button for going through the legs of the route.
-        backBtn.setOnClickListener {
-            mViewPager.setCurrentItem(
-                mViewPager.currentItem - 1,
-                true
-            )
-        }
-
-        //Describing the distance in meters
-        distanceTxtView.text = "Distance: " + mRoute?.getDistance().toString() + " m"
-        //Describing the time it takes for the route in minutes
-        infoTxtView.text = "Time for route: " + mRoute?.duration?.toLong()?.let {duration ->
-            TimeUnit.MINUTES.convert(duration, TimeUnit.SECONDS).toString()
-        } + " minutes"
-    }
-
-    inner class RouteCollectionAdapter(fragment: Fragment?) :
-        ...
-    }
-
-    companion object {
-        fun newInstance(route: Route?, mapsActivity: MapsActivity?): NavigationFragment {
-            val fragment = NavigationFragment()
-            fragment.mRoute = route
-            fragment.mMapsActivity = mapsActivity
-            return fragment
-        }
-    }
-}
-```
-
-</TabItem>
-</Tabs>
-
-See the full implementation of `NavigationFragment` and the accompanying adapter here: [NavigationFragment.java](https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/NavigationFragment.java) or [NavigationFragment.kt](https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/NavigationFragment.kt)
-
-We will then create a simple textview to describe each step of the Route Leg in the `RouteLegFragment` for the `ViewPager`:
-
-<Tabs groupId="getting-started-android-v4-directions">
-<TabItem value="java" label="Java" default>
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/RouteLegFragment.java">RouteLegFragment.java</a>
-
-```java
-public class RouteLegFragment extends Fragment {
-    private MPRouteLeg mRouteLeg;
-    ...
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //Assigning views
-        TextView fromTxtView = view.findViewById(R.id.from_text_view);
-        String stepsString = "";
-        //A loop to write what to do for each step of the leg.
-        for (int i = 0; i < mRouteLeg.getSteps().size(); i++) {
-            RouteStep routeStep = mRouteLeg.getSteps().get(i);
-            stepsString += "Step " + (i + 1) + routeStep.getManeuver() + "\n";
-        }
-        fromTxtView.setText(stepsString);
-    }
-}
-```
-
-</TabItem>
-<TabItem value="kotlin" label="Kotlin">
-
-<a href="https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/RouteLegFragment.kt">RouteLegFragment.kt</a>
-
-```kotlin
-class RouteLegFragment : Fragment() {
-    private var mRouteLeg: MPRouteLeg? = null
-
-    ...
-
-    override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //Assigning views
-        val fromTxtView = view.findViewById<TextView>(R.id.from_text_view)
-        var stepsString = ""
-        //A loop to write what to do for each step of the leg.
-        for (i in mRouteLeg!!.steps.indices) {
-            val routeStep = mRouteLeg!!.steps[i]
-            stepsString += """
-                Step ${i + 1}${routeStep.maneuver}
-                """.trimIndent()
-        }
-
-        fromTxtView.text = stepsString
-    }
-
-    companion object {
-        fun newInstance(routeLeg: MPRouteLeg?): RouteLegFragment {
-            val fragment = RouteLegFragment()
-            fragment.mRouteLeg = routeLeg
-            return fragment
-        }
-    }
-}
-```
-
-</TabItem>
-</Tabs>
-
-See the full implementation of the fragment here: [RouteLegFragment.java](https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedjava/src/main/java/com/mapspeople/mapsindoorsgettingstartedjava/RouteLegFragment.java) or [RouteLegFragment.kt](https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/Google_Maps/mapsindoorsgettingstartedkotlin/src/main/java/com/mapspeople/mapsindoorsgettingstartedkotlin/RouteLegFragment.kt)
+We can now show and navigate a route from our `_userPosition` to a selected location.
 
 ## Change Transportation Mode
 
@@ -436,39 +290,20 @@ In MapsIndoors, the transportation mode is referred to as **travel mode**. There
 
 To swap Travel Modes you set the Travel Mode before making a query for the route:
 
-<Tabs groupId="getting-started-android-v4-directions">
-<TabItem value="java" label="Java" default>
-
-```java
-void createRoute(MPLocation mpLocation) {
-    //If MPDirectionsService has not been instantiated create it here and assign the results call back to the activity.
-    if (mpDirectionsService == null) {
-        mpDirectionsService = new MPDirectionsService(this);
-        mpDirectionsService.setRouteResultListener(this);
-    }
-    mpDirectionsService.setTravelMode(MPTravelMode.WALKING);
-    mpDirectionsService.query(mUserLocation, mpLocation.getPoint());
+```dart
+RouteHandler(
+    {required MPPoint origin,
+    required MPPoint destination,
+    required ScaffoldState scaffold}) {
+  _service.setTravelMode(MPDirectionsService.travelModeDriving);
+  _service.getRoute(origin: origin, destination: destination).then((route) {
+    _route = route;
+    _renderer.setRoute(route);
+    _renderer.setOnLegSelectedListener(onLegSelected);
+    showRoute(scaffold);
+  });
 }
 ```
-
-</TabItem>
-<TabItem value="kotlin" label="Kotlin">
-
-```kotlin
-fun createRoute(mpLocation: MPLocation) {
-    //If MPDirectionsService has not been instantiated create it here and assign the results call back to the activity.
-    if (mpDirectionsService == null) {
-        mpDirectionsService = MPDirectionsService(this)
-        mpDirectionsService?.setRouteResultListener(this)
-    }
-    mpDirectionsService?.setTravelMode(MPTravelMode.WALKING)
-    //Queries the MPRouting provider for a route with the hardcoded user location and the point from a location.
-    mpDirectionsService?.query(mUserLocation, mpLocation.point)
-}
-```
-
-</TabItem>
-</Tabs>
 
 Expected result:
 
