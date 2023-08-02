@@ -23,6 +23,17 @@ Changelog for the MapsIndoors Android SDK. This document structure is based on [
 ### Security     in case of vulnerabilities.
 -->
 
+## [4.1.10] 2023-08-02
+
+### Changed
+
+- Updated Display Rule validation to only throw when developer mode is enabled (it can be enabled by calling `MPDebugLog.enableDeveloperMode(true)`)
+  - Additionally, validation will now give more usable error messages
+
+### Fixed
+
+- Fixed issue where setting departure time to the current time would fail route creation when using Google Maps in some cases
+
 ## [4.1.9] 2023-07-24
 
 ### Changed
