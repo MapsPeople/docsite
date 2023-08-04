@@ -43,7 +43,7 @@ We use a `useState` hook `apiKeyString` for storing the API key entered by the u
 
 As for what to actually render, we return a react fragment containing a button with a preset API key for a demo solution. And following that, a row containing an input box and a button for using the entered API key. In order to navigate to the MapScreen, we call `navigation.navigate('Map', {apiKey: apiKeyString})}` where `'Map'` is the name we gave the screen in the navigator, and we pass the API key in the parameters, which will be available through `route` on the following screen.
 
-You can add your own button here
+Theese parts are already implemented for you.
 
 screens/FrontScreen.tsx
 ```tsx
@@ -69,7 +69,9 @@ export default function FrontScreen({navigation}) {
 
 For the `MapScreen` we create a functional component similarly to the above. Note the additional property `route` which contains parameters from the navigation stack, such as the API key we provided from the `FrontScreen`
 
-We store the reference to our `MapControl` in a `useState` hook, so that we can pass it to other components in the future. We define a `load` function, which gets the API key from `route.params`. We use it to load `MapsIndoors`, create a `MapControl`, and navigate to the first venue in the solution. Be sure to `await` the asynchronous API calls to know when it has fully loaded.
+From the basic example you are now left to implement the `load` function as well as the `useEffect` hook and adding the `MapView` to the returned view.
+
+We store the reference to our `MapControl` in a `useState` hook, so that we can pass it to other components in the future. We define a `load` function, which gets the API key from `route.params`. We use it to load our solution data through `MapsIndoors`, create a `MapControl`  that is used to control the displayed map, and navigate to the first venue in the solution by using `MapControl`. Be sure to `await` the asynchronous API calls to know when it has fully loaded.
 
 We use a `useEffect` hook to load when entering the `MapScreen`.
 
@@ -131,6 +133,8 @@ export default function MapScreen({navigation, route}) {
         height: height,
         flex: 1,
       }}/>
+      <BottomSheet ref={bottomSheet} snapPoints={['15%', '60%']} index={-1} enablePanDownToClose={true}>
+      </BottomSheet>
     </GestureHandlerRootView>
   );
 }

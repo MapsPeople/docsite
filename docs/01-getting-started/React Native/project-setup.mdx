@@ -10,16 +10,19 @@ import TabItem from '@theme/TabItem';
 
 This guide is made based off a basic application already made, to keep most of the code specific to the MapsIndoors SDK. So that we don't need to spend too much time modifying or implementing UI elements.
 If confident, you can start off by creating your own project, and just taking the context of the different steps of the getting started guide. A short setup of a React native application with MapsIndoors is described below.
-## Set Up Your Environment
+
+## Using basic example
+
+### Set Up Your Environment
 
 Read here how to set up your **[React Native development environment](https://reactnative.dev/docs/environment-setup)**
 
-## Basic Example
+### Basic Example
 
-You can find the basic example to start from here: [INSERT GITHUB LINK HERE](IAMABASICIMPLGITHUBLINK)
+You can find the basic example to start from here: [Basic example](https://github.com/MapsPeople/getting-started-react-native-basic)
 Follow the included README on how to get the project up and running.
 
-## Setup MapsIndoors
+### Setup MapsIndoors
 
 To run MapsIndoors you need to insert a google API key inside your project.
 
@@ -36,7 +39,11 @@ Inside the project navigate to `ios/GettingStartedProject/AppDelegate.mm` and re
 </TabItem>
 </Tabs>
 
-## RN setup
+### Code complete example
+
+During the guide you can use this example to refer to your project, or just play around with the code inside: [Getting started](https://github.com/MapsPeople/getting-started-react-native)
+
+## Manual setup
 
 ### Project creation
 
@@ -64,11 +71,9 @@ npm install @gorholm/bottom-sheet@^4
 # Navigation
 npm install @react-navigation/native @react-navigation/native-stack
 npm install react-native-screens react-native-safe-area-context
-
-#"react-native-pager-view"
 ```
 
-The above components make use of the following dependecies, which take a few extra steps to install.
+The above components make use of the following dependecies, if using React Native 0.59 or below you will also need to link them, you can read how to below.
 ```bash
 # Dependencies
 npm install react-native-reanimated react-native-gesture-handler
@@ -89,13 +94,4 @@ Alternatively you can install the npm package `pod-install` and then run the fol
 
 ```bash
 npx pod-install
-```
-
-### Folder structure
-
-To better seperate the typescript code from the other configuration related files, we move `App.tsx` into a new folder called `src/`. In order for the App to recognize this, we make the following change to `index.js`:
-
-```diff
-- import App from './App';
-+ import App from './src/App';
 ```
