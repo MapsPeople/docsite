@@ -163,7 +163,7 @@ export default function MapScreen({navigation, route}) {
 }
 ```
 
-Now that our `MapScreen` is aware of the to and from route. We will create a function inside the `MapScreen` that queries a route between the two locations.
+Now that our `MapScreen` is aware of the to and from locations. We will create a function inside the `MapScreen` that queries a route between the two locations.
 First we will add three `useState` hooks that stores information to display information about the route as well as rendering it on the map.
 
 Inside the `getRoute` function we will first make sure that both the to and `fromLocation` is defined. Then we will create an `MPDirectionsService` this is used to query for a route, as well as configuring the route that we want to query. Here we set our `travelMode` to walking and then call `getRoute` on the `MPDirectionsService` to get a route result between the two locations.
