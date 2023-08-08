@@ -8,7 +8,7 @@ sidebar_position: 5
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-We are now able to search for locations accross our solution, so we can now use theese search results to get a route between locations.
+We are now able to search for locations accross our solution, so we can now use these search results to get a route between locations.
 
 Firstly we'll add some buttons to the search results to allow a user to select an origin and destination for the route.
 
@@ -67,9 +67,10 @@ export default function SearchResultItem({item, clickResult, setFromLocation, se
 
 We will now add a `NavigationHeader` to the bottom sheet. The navigation header will be used to show the locations selected for getting directions. It's a simple view of two text fields that includes the selected locations name and venue as well as a button to get a route.
 
+Open the `NavigationHeader.tsx` file.
 Start by expanding the `NavigationHeaderProps` with a to and `fromLocation` as well as adding a function `getRoute`.
 Inside the third view add two `Text` elements using the `BoldText` to highlight to and from, and use the location as well as venue name to describe the chosen to or from location.
-Lastly add the `getRoute` function to the `Query` buttons `onPress`
+Lastly add the `getRoute` function to the `Query` buttons `onPress`.
 
 ```tsx
 const BoldText = (props: React.PropsWithChildren) => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>
@@ -111,7 +112,7 @@ export default function NavigationHeader({searchResults, fromLocation, toLocatio
 
 We now want to implement the `setFromLocation` and `setToLocation` inside our `MapScreen` as well as adding the navigation header to the bottom sheet.
 
-First add the function to the props and constructor of `SearchResults` as well as forward it to the `SearchResultItem` above
+First add the function to the props and constructor of `SearchResults` as well as forward it to the `SearchResultItem` inside the `BottomSheetFlatList`.
 
 ```tsx
 type SearchResultsProps = {
@@ -258,7 +259,7 @@ export default function RouteInstructionLeg({leg}: {leg: MPRouteLeg|undefined}) 
 }
 ```
 
-We now need to implement the `onNext` and `onPrevious` methods as well as integrate theese views inside the bottom sheet of our `MapScreen`
+We now need to implement the `onNext` and `onPrevious` methods as well as integrate these views inside the bottom sheet of our `MapScreen`
 We'll start by creating a condition inside the BottomSheet view, that renders a view depending on if the `MPRoute` is not undefined. The MPRoute is the one we set inside the `getRoute` function. The goToPage listens to the index of the current route, by listening to the onLegSelected.
 
 Inside the `BottomSheet` of the `MapScreen` Add the condition if `mproute` is defined below the `NavigationHeader`. When true we will display the `RouteInstructions` and when false, the `SearchResults` are shown.
@@ -292,6 +293,7 @@ Lastly to be able to close our bottomsheet and create new searches we will setup
 Add the function `clear` inside our `MapScreen` component, that sets our route, searchResults, to and fromLocation to undefined.
 Add a `useEffect` hook that checks when the `mproute` and `searchResults` are undefined, that clears any rendered route as well as closing our `BottomSheet`.
 Inside the `SearchBox` on the `MapScreen` component, add an `onCancel` parameter, that invokes the `clear` function we just added.
+
 ```tsx
 const clear = () => {
     setMPRoute(undefined);

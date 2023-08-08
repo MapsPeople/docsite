@@ -17,7 +17,7 @@ Common use-cases are:
 
 Support for Live Data requires that server-side integrations are in place. For example, visualizing live occupancy data requires that a calendar or booking system integration is in place. An integration like that is set up in [collaboration with MapsPeople](https://www.mapspeople.com/mapsindoors-integrations/).
 
-The following section relies on the existence of Live Position Data. If you do not have access to a MapsIndoors Dataset that has a Live Data integration, you should use our demo API key: `d876ff0e60bb430b8fabb145`.
+The following section relies on the existence of Live Position Data. If you do not have access to a MapsIndoors Dataset that has a Live Data integration, you should use our demo API key: `d876ff0e60bb430b8fabb145` / White house demo.
 
 Enabling Live Data through [`MapControl`](https://app.mapsindoors.com/mapsindoors/reference/react-native/google-maps/1.0.0/classes/MapControl.html) is as simple as calling [`mapControl.enableLiveData()`](https://app.mapsindoors.com/mapsindoors/reference/react-native/google-maps/1.0.0/classes/MapControl.html#enableLiveData).
 
@@ -39,9 +39,17 @@ We will create a new functions inside our `MapScreen` component called `livedata
 We can later call this function after loading MapsIndoors to enable it. For demonstration purposes we add a button inside the `MapScreen` that you can click to enable live data.
 
 ```tsx
-<View style={{position: 'absolute', bottom: 50, start: 10, flexDirection: 'column-reverse'}}>
-  <Button title="livedata" onPress={livedata} />
-</View>
+<GestureHandlerRootView style={{flex:1, flexGrow:1}}>
+    <MapView style={{
+      width: width,
+      height: height,
+      flex: 1,
+    }}/>
+    <View style={{position: 'absolute', bottom: 50, start: 10, flexDirection: 'column-reverse'}}>
+      <Button title="livedata" onPress={livedata} />
+    </View>
+    ...
+</GestureHandlerRootView>
 ```
 
 By consequence, enabling live data through [MapControl](https://app.mapsindoors.com/mapsindoors/reference/react-native/google-maps/1.0.0/classes/MapControl.html) is as simple as calling [mapControl.enableLiveData()](https://app.mapsindoors.com/mapsindoors/reference/react-native/google-maps/1.0.0/classes/MapControl.html) will manage the Live Data subscriptions needed for the currently visible map and provide a default rendering of the Live Data updates depending on the Domain Type.

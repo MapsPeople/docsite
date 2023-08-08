@@ -10,6 +10,8 @@ import TabItem from '@theme/TabItem';
 
 This guide is made based off a basic application already made, to keep most of the code specific to the MapsIndoors SDK. So that we don't need to spend too much time modifying or implementing UI elements.
 If confident, you can start off by creating your own project, and just taking the context of the different steps of the getting started guide. A short setup of a React native application with MapsIndoors is described below.
+<Tabs groupId="getting-started-react-native-project-setup">
+<TabItem value="Basic example" label="Basic example" default>
 
 ## Using basic example
 
@@ -26,7 +28,7 @@ Follow the included README on how to get the project up and running.
 
 To run MapsIndoors you need to insert a google API key inside your project.
 
-<Tabs groupId="getting-started-react-native-project-setup">
+<Tabs groupId="getting-started-react-native-project-setup-basic">
 <TabItem value="Android" label="Android" default>
 
 Inside the project navigate to `android/app/src/main/res/values/google_maps_api.xml` and replace the `INSERT_KEY_HERE` with your google API key
@@ -39,9 +41,8 @@ Inside the project navigate to `ios/GettingStartedProject/AppDelegate.mm` and re
 </TabItem>
 </Tabs>
 
-### Code complete example
-
-During the guide you can use this example to refer to your project, or just play around with the code inside: [Getting started](https://github.com/MapsPeople/getting-started-react-native)
+</TabItem>
+<TabItem value="Manual setup" label="Manual setup" default>
 
 ## Manual setup
 
@@ -95,3 +96,15 @@ Alternatively you can install the npm package `pod-install` and then run the fol
 ```bash
 npx pod-install
 ```
+</TabItem>
+</Tabs>
+
+### Code complete example
+
+During the guide you can use this example to refer to your project, or just play around with the code inside: [Getting started](https://github.com/MapsPeople/getting-started-react-native)
+
+### Using Mapbox
+
+While the examples are using google maps, it is also possible to use Mapbox instead with only minor changes to the project.
+
+To do this follow the getting started of this page [MapsIndoors Mapbox](https://www.npmjs.com/package/@mapsindoors/react-native-maps-indoors-mapbox) and replace any imports from `@mapsindoors/react-native-maps-indoors-google-maps` to `@mapsindoors/react-native-maps-indoors-mapbox` after this you is done, you can follow the getting started guide without any changes.

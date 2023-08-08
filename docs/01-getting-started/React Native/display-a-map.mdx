@@ -43,7 +43,7 @@ We use a `useState` hook `apiKeyString` for storing the API key entered by the u
 
 As for what to actually render, we return a react fragment containing a button with a preset API key for a demo solution. And following that, a row containing an input box and a button for using the entered API key. In order to navigate to the MapScreen, we call `navigation.navigate('Map', {apiKey: apiKeyString})}` where `'Map'` is the name we gave the screen in the navigator, and we pass the API key in the parameters, which will be available through `route` on the following screen.
 
-Theese parts are already implemented for you.
+**The `FrontScreen` and app `App` are already implemented for you.**
 
 screens/FrontScreen.tsx
 ```tsx
@@ -66,6 +66,8 @@ export default function FrontScreen({navigation}) {
   )
 }
 ```
+
+## Showing the map
 
 For the `MapScreen` we create a functional component similarly to the above. Note the additional property `route` which contains parameters from the navigation stack, such as the API key we provided from the `FrontScreen`
 
