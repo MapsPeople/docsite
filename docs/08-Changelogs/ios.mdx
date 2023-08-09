@@ -31,14 +31,14 @@ MapsIndoors SDK v4 requires at least iOS 13 and Xcode 14.
 ### Added
 
 - Routes between MapsIndoors venues now have descriptions in the currnet language.
-- DisplayRules with now support unlimited zoom levels. The feature will be available in the MapsIndoors CMS soon.
+- DisplayRules now supports unlimited zoom levels. The feature will be available in the MapsIndoors CMS soon.
 - `MPSelectionBehavior` now has the `zoomToFit` property.
 
 ### Fixed
 
 - Setting the `icon` property of a DisplayRule now works as expected.
-- Fixed an issue with map items not showing immediately, only when map was moved slightly.
-- Fixed an issue that would cause MapsIndoors tiles not to be shown when navigating between venues.
+- Fixed an issue with map items not showing immediately, only when map was moved slightly (Google Maps).
+- Fixed an issue that would cause MapsIndoors tiles to disappear when moving the map (Mapbox Maps).
 - The rendered route is now shown above polygons, e.g. for Locations (Google Maps).
 - Fixed an issue that could cause multiple buildings to have an outline (Google Maps).
 - The button at the end of a rendered route leg is now clickable.
