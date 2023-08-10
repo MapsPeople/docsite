@@ -51,45 +51,45 @@ To get started with your project add MapsIndoors version `2.0.0` to your `pubspe
 mapsindoors_googlemaps: ^2.0.0
 ```
 
-<Tabs 
+<Tabs
     defaultValue="android"
     values={[
         {label: 'Android', value: 'android'},
         {label: 'iOS', value: 'ios'},
     ]}>
-    <TabItem value="android">
-        First you need to extend the allowed gradle repositories to allow the SDK to resolve correctly:
+<TabItem value="android">
+First you need to extend the allowed gradle repositories to allow the SDK to resolve correctly:
 
-        1. Navigate to the app's project level `build.gradle`.
-        2. add `maven { url 'https://maven.mapsindoors.com/' }` to `allprojects`/`repositories` after `mavenCentral()`
+1. Navigate to the app's project level `build.gradle`.
+2. add `maven { url 'https://maven.mapsindoors.com/' }` to `allprojects`/`repositories` after `mavenCentral()`
 
-        ```groovy
-        allprojects {
-            repositories {
-                google()
-                mavenCentral()
-                maven { url 'https://maven.mapsindoors.com/' }
-            }
-        }
-        ```
-        
-        To get the underlying Google Map to work, you need to perform the following steps:
+```groovy
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://maven.mapsindoors.com/' }
+    }
+}
+```
 
-        1. Navigate to `android/app/src/main/res/value`.
-        2. Create a file in this folder called `google_maps_api_key.xml`.
-        3. Copy and paste the below code snippet and replace `YOUR_KEY_HERE` with your Google Maps API key.
+To get the underlying Google Map to work, you need to perform the following steps:
 
-        ```xml
-        <?xml version="1.0" encoding="utf-8"?>
-        <resources>
-            <string name="google_maps_key">YOUR_KEY_HERE</string>
-        </resources>
-        ```
+1. Navigate to `android/app/src/main/res/value`.
+2. Create a file in this folder called `google_maps_api_key.xml`.
+3. Copy and paste the below code snippet and replace `YOUR_KEY_HERE` with your Google Maps API key.
 
-    </TabItem>
-    <TabItem value="ios">
-        //MADHTODO
-    </TabItem>
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="google_maps_key">YOUR_KEY_HERE</string>
+</resources>
+```
+
+</TabItem>
+<TabItem value="ios">
+    //MADHTODO
+</TabItem>
 </Tabs>
 
 
@@ -101,59 +101,59 @@ To get started with your project add MapsIndoors version `2.0.0` to your `pubspe
 mapsindoors_mapbox: ^2.0.0
 ```
 
-<Tabs 
+<Tabs
     defaultValue="android"
     values={[
         {label: 'Android', value: 'android'},
         {label: 'iOS', value: 'ios'},
     ]}>
-    <TabItem value="android">
-        First you need to extend the allowed gradle repositories to allow the SDK to resolve correctly:
+<TabItem value="android">
+First you need to extend the allowed gradle repositories to allow the SDK to resolve correctly:
 
-        1. Navigate to the app's project level `build.gradle`.
-        2. add `maven { url 'https://maven.mapsindoors.com/' }` to `allprojects`/`repositories` after `mavenCentral()`
-        3. add mapbox to repositories like in the example below:
-        4. add your mapbox download token to gradle.properties
+1. Navigate to the app's project level `build.gradle`.
+2. add `maven { url 'https://maven.mapsindoors.com/' }` to `allprojects`/`repositories` after `mavenCentral()`
+3. add mapbox to repositories like in the example below:
+4. add your mapbox download token to gradle.properties
 
-        ```groovy
-        allprojects {
-            repositories {
-                google()
-                mavenCentral()
-                maven { url 'https://maven.mapsindoors.com/' }
-            }
-            maven {
-                url 'https://api.mapbox.com/downloads/v2/releases/maven'
-                authentication {
-                    basic(BasicAuthentication)
-                }
-                credentials {
-                    // Do not change the username below.
-                    // This should always be `mapbox` (not your username).
-                    username = "mapbox"
-                    // Use the secret token you stored in gradle.properties as the password
-                    password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
-                }
-            }
+```groovy
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://maven.mapsindoors.com/' }
+    }
+    maven {
+        url 'https://api.mapbox.com/downloads/v2/releases/maven'
+        authentication {
+            basic(BasicAuthentication)
         }
-        ```
-        
-        To get the underlying Mapbox Map to work, you need to perform the following steps:
+        credentials {
+            // Do not change the username below.
+            // This should always be `mapbox` (not your username).
+            username = "mapbox"
+            // Use the secret token you stored in gradle.properties as the password
+            password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+        }
+    }
+}
+```
 
-        1. Navigate to `android/app/src/main/res/value`.
-        2. Create a file in this folder called `mapbox_api_key.xml`.
-        3. Copy and paste the below code snippet and replace `YOUR_KEY_HERE` with your Mapbox keys.
+To get the underlying Mapbox Map to work, you need to perform the following steps:
 
-        ```xml
-        <?xml version="1.0" encoding="utf-8"?>
-        <resources>
-            <string name="mapbox_api_key" translatable="false">YOUR_KEY_HERE</string>
-            <string name="mapbox_access_token" translatable="false">YOUR_KEY_HERE</string>
-        </resources>
-        ```
+1. Navigate to `android/app/src/main/res/value`.
+2. Create a file in this folder called `mapbox_api_key.xml`.
+3. Copy and paste the below code snippet and replace `YOUR_KEY_HERE` with your Mapbox keys.
 
-    </TabItem>
-    <TabItem value="ios">
-        //MADHTODO
-    </TabItem>
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mapbox_api_key" translatable="false">YOUR_KEY_HERE</string>
+    <string name="mapbox_access_token" translatable="false">YOUR_KEY_HERE</string>
+</resources>
+```
+
+</TabItem>
+<TabItem value="ios">
+    //MADHTODO
+</TabItem>
 </Tabs>

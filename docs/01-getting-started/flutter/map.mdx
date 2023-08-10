@@ -27,13 +27,13 @@ Place the following initialization code in the `initState` method of your apps `
 ```dart
 @override
 void initState() {
-super.initState();
-loadMapsIndoors("YOUR_MAPSINDOORS_API_KEY_HERE").then((error) {
-  // if no error occured during loading, then we can start using the SDK
-  if (error == null) {
-    // do stuff like fetching locations
-  }
-});
+    super.initState();
+    loadMapsIndoors("YOUR_MAPSINDOORS_API_KEY_HERE").then((error) {
+      // if no error occured during loading, then we can start using the SDK
+      if (error == null) {
+        // do stuff like fetching locations
+      }
+    });
 }
 ```
 
