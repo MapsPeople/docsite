@@ -12,6 +12,12 @@ Get started quickly with a MapsIndoors powered [template web app](https://github
 
 ## Getting Started
 
+:::tip Node version
+
+We recommend using the latest LTS version of [Node.js](https://nodejs.org/en/).
+
+:::
+
 Using a terminal/shell in the project folder, run the following commands:
 
 * Clone the repository to your development environment:
@@ -231,7 +237,7 @@ Example of URL:
 
 **Important!** Not all the query parameters can be used together, as they serve their own purpose which in some cases overlaps with other query parameters. Example of cases that **DON’T** work together:
 
-`locationId` + `startZoomLevel` → the `locationId` has priority over the `startZoomLevel`
+`locationId` + `startZoomLevel` → the `startZoomLevel` has priority over the `locationId`
 
 `locationId` + `externalIDs` → the `locationId` has priority over the `externalIDs`
 
