@@ -13,9 +13,9 @@ Now we have a simple map where you can search for locations. When finishing this
 ## Get Directions Between Two Locations
 
 After having created our list of search results, we have a good starting point for creating directions between two Locations.
-Since our search only supports a single search, we will hardcode a Location's coordinate into our app, and use that as the basis for our _Origin_. Then we'll create a route, show the navigation details, and display the route on the map.
+Since our search only supports searching for a single location, we will hardcode a Location's coordinate into our app, and use that as the basis for our _Origin_. Then we'll create a route, show the navigation details, and display the route on the map.
 
-We have already created a point in the basic example, called `_userPosition` to use as a starting point for directions on `MapState`
+We have already created a point in the basic example, called `_userPosition` to use as a starting point for directions on `MapState`. The position given with the example is for the main entrance to the White House, replace it with some location that fits your usecase.
 
 ```dart
 final _userPosition = MPPoint.withCoordinates(
@@ -307,4 +307,4 @@ RouteHandler(
 
 Expected result:
 
-<img src="/img/getting-started/android_directions_gif.gif" alt="An animation showing the desired behaviour of this tutorial" width="350"/>
+<img src="/img/getting-started/flutter_directions.gif" alt="An animation showing the desired behaviour of this tutorial" width="350"/>

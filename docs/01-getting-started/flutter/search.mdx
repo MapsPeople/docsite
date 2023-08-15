@@ -17,7 +17,7 @@ This is already setup in the basic example app.
 
 To perform a search you will need to have initiated [`MapsIndoors`](https://pub.dev/documentation/mapsindoors/latest/mapsindoors/mapsindoors-library.html#functions). This was shown in the previous section of the getting started tutorial how you do this.
 
-For advanced usage of the search functionality read the Search guide and tutorials connected to it: [Search Guide](/searching/)
+For advanced usage of the search functionality read the Search guide and tutorials connected to it: [Search Guide](/searching/), the examples are given for Android and iOS but the parameters and methods are the same in Flutter. 
 
 ## Show a List of Search Results
 
@@ -109,18 +109,26 @@ Widget build(BuildContext context) {
         direction: Axis.vertical,
         children: [
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (ctx, i) {
-                return ListTile(
-                  onTap: () {
-                    // when clicking on a location in the search results we will close the drawer and open a bottom sheet with that locations details
-                    _mapControl.selectLocation(_searchResults[i]);
-                    _scaffoldKey.currentState?.closeDrawer();
-                  },
-                  title: Text(_searchResults[i].name),
-                );
-              },
-              itemCount: _searchResults.length,
+            child: _searchResults.isNotEmpty
+            ? ListView.builder(
+                itemBuilder: (ctx, i) {
+                  return ListTile(
+                    onTap: () {
+                      // when clicking on a location in the search results we will close the drawer and open a bottom sheet with that locations details
+                      _mapControl.selectLocation(_searchResults[i]);
+                      _scaffoldKey.currentState?.closeDrawer();
+                    },
+                    title: Text(_searchResults[i].name),
+                  );
+                },
+                itemCount: _searchResults.length,
+              )
+            :
+            // show something if the search returned no results
+            const Icon(
+              Icons.search_off,
+              color: Colors.black,
+              size: 100.0,
             ),
           ),
         ],
@@ -204,6 +212,6 @@ When you are done showing the search results you can [call `clearFliter()`](exam
 
 Expected result:
 
-<img src="/img/getting-started/android_search_gif.gif" alt="An animation showing the desired behaviour of this tutorial" width="350"/>
+<img src="/img/getting-started/flutter_search.gif" alt="An animation showing the desired behaviour of this tutorial" width="350"/>
 
-The accompanying UI and implementation of this search experience can be found in the getting started app sample. [Getting Started App sample](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedjava) or [Getting Started App sample kotlin](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedkotlin).
+The accompanying UI and implementation of this search experience can be found in the getting started app sample. [Getting Started App sample](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedjava)

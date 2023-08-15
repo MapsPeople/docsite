@@ -10,6 +10,8 @@ import TabItem from '@theme/TabItem';
 
 You begin by creating an initial application. Throughout this tutorial, you will modify and extend that starter application to create a simple application which covers the basic features of this guide.
 
+[If you need help to create a new project use this official Flutter guide](https://docs.flutter.dev/get-started/test-drive?tab=terminal)
+
 ## Set Up Your Environment
 
 This guide explains how to start using a MapsIndoors map in your Flutter application using the MapsIndoors Flutter SDK.
@@ -51,7 +53,7 @@ To get started with your project add MapsIndoors version `2.0.0` to your `pubspe
 mapsindoors_googlemaps: ^2.0.0
 ```
 
-<Tabs
+<Tabs groupId="getting-started-flutter-new-project"
     defaultValue="android"
     values={[
         {label: 'Android', value: 'android'},
@@ -88,7 +90,25 @@ To get the underlying Google Map to work, you need to perform the following step
 
 </TabItem>
 <TabItem value="ios">
-    //MADHTODO
+To get the underlying Google Map to function, you need to perform the following steps:
+
+#### Providing API key
+
+##### Swift
+
+1. Navigate to `iOS/Runner/AppDelegate.swift`.
+2. Import GoogleMaps on the class
+3. Add this code as the first line inside the application function: `GMSServices.provideAPIKey("YOUR GOOGLE MAPS API KEY HERE")`
+
+##### Objective-C
+
+1. Navigate to `iOS/Runner/AppDelegate.h`.
+2. Import `#import "GoogleMaps/GoogleMaps.h"` on the class.
+3. Add this code as the first line inside the application function: `[GMSServices provideAPIKey:@"YOUR GOOGLE MAPS API KEY HERE"];`
+
+#### Adding MapsIndoors script specific to Google Maps, to Podfile
+
+After this you should navigate into the iOS folder of your flutter project and add this script to the applications Podfile: [MapsIndoors podfile Post install](https://github.com/MapsIndoors/MapsIndoorsIOS/wiki/Podfile-post_install-v4)
 </TabItem>
 </Tabs>
 
@@ -101,7 +121,7 @@ To get started with your project add MapsIndoors version `2.0.0` to your `pubspe
 mapsindoors_mapbox: ^2.0.0
 ```
 
-<Tabs
+<Tabs groupId="getting-started-flutter-new-project"
     defaultValue="android"
     values={[
         {label: 'Android', value: 'android'},
@@ -154,6 +174,17 @@ To get the underlying Mapbox Map to work, you need to perform the following step
 
 </TabItem>
 <TabItem value="ios">
-    //MADHTODO
+The MapsIndoors SDK requires iOS 13, so make sure that your podfile is configured for iOS 13. Add !use_frameworks inside your app target as well.
+
+```
+platform :ios, '13.0
+
+target 'MyApp' do
+  use_frameworks!
+...
+```
+#### Providing API key
+Navigate to your application settings and add your Mapbox public access token to info with the key MBXAccessToken
+Setup your secret access token for downloading the sdk. Read how to do this here: [Configure credentials](https://docs.mapbox.com/ios/maps/guides/install/#configure-credentials)
 </TabItem>
 </Tabs>

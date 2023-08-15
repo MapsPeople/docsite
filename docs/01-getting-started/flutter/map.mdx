@@ -18,6 +18,73 @@ Please note that data in MapsIndoors is loaded asynchronously. This results in b
 
 :::
 
+
+Lets start by setting up a simple app with a stateful map widget to contain the app. 
+
+First add the app to your main and import mapsindoors
+
+```dart
+import 'package:mapsindoors_googlemaps/mapsindoors.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MapsIndoorsDemoApp());
+}
+
+class MapsIndoorsDemoApp extends StatelessWidget {
+  const MapsIndoorsDemoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter MapsIndoors Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+    );
+  }
+}
+```
+
+Now we can create the stateful widget, we require a mapsindoors API key when constructing the map, to ensure the map is only linked to a single mapsindoors instance.
+
+```dart
+/// The widget that will contain the map
+class Map extends StatefulWidget {
+  const Map({super.key, required this.apiKey});
+  final String apiKey;
+
+  @override
+  State<Map> createState() => _MapState();
+}
+
+class _MapState extends State<Map> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+```
+
+Now we can add the Map to our App
+
+```dart
+class MapsIndoorsDemoApp extends StatelessWidget {
+  const MapsIndoorsDemoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter MapsIndoors Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+    );
+  }
+}
+```
+
 ### Initialize MapsIndoors
 
 We start by loading `MapsIndoors`. `MapsIndoors` is used to get and store all references to MapsIndoors-specific data. This includes access to all MapsIndoors-specific geodata.
@@ -25,15 +92,17 @@ We start by loading `MapsIndoors`. `MapsIndoors` is used to get and store all re
 Place the following initialization code in the `initState` method of your apps `State` that displays the Google map, Ensure that the `loadMapsIndoors` callback returns before accessing other `MapsIndoors` methods.
 
 ```dart
-@override
-void initState() {
-    super.initState();
-    loadMapsIndoors("YOUR_MAPSINDOORS_API_KEY_HERE").then((error) {
-      // if no error occured during loading, then we can start using the SDK
-      if (error == null) {
-        // do stuff like fetching locations
-      }
-    });
+class _MapState extends State<Map> {
+  @override
+  void initState() {
+      super.initState();
+      loadMapsIndoors("YOUR_MAPSINDOORS_API_KEY_HERE").then((error) {
+        // if no error occured during loading, then we can start using the SDK
+        if (error == null) {
+          // do stuff like fetching locations
+        }
+      });
+  }
 }
 ```
 
@@ -50,7 +119,7 @@ Then create a `onMapControlReady` method to handle the callback from initializin
 
 ```dart
 class _MapState extends State<Map> {
-  late final MapsIndoorsWidget _mapControl;
+  late MapsIndoorsWidget _mapControl;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +154,6 @@ class _MapState extends State<Map> {
 ```
 
 Expected result:
-//MADHTODO
-<img src="/img/getting-started/android_map_gif.gif" alt="An animation showing the desired behaviour of this tutorial" width="350"/>
+<img src="/img/getting-started/flutter_map.gif" alt="An animation showing the desired behaviour of this tutorial" width="350"/>
 
-See the full example of MapsActivity here: [MapsActivity.java](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedjava) or [MapsActivity.kt](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedkotlin)
+See the full example of MapsActivity here: [MapsActivity.java](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedjava)
