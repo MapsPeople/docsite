@@ -61,7 +61,6 @@ class Map extends StatefulWidget {
 class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     throw UnimplementedError();
   }
 }
@@ -80,6 +79,9 @@ class MapsIndoorsDemoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: const Map(
+        apiKey: 'gettingstarted',
+      ), 
     );
   }
 }
@@ -96,7 +98,7 @@ class _MapState extends State<Map> {
   @override
   void initState() {
       super.initState();
-      loadMapsIndoors("YOUR_MAPSINDOORS_API_KEY_HERE").then((error) {
+      loadMapsIndoors(widget.apiKey).then((error) {
         // if no error occured during loading, then we can start using the SDK
         if (error == null) {
           // do stuff like fetching locations
@@ -124,11 +126,9 @@ class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      ...
+      key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(..),
-      // add a drawer that can display search results
-      drawer: Drawer(...),
+      appBar: AppBar(title: Text("Getting Started Project")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -144,10 +144,14 @@ class _MapState extends State<Map> {
 
   void onMapControlReady(MPError? error) async {
     if (error == null) {
-      // move the camera to the default venue, which has been fetched from MapsIndoors
+      ...
       _mapControl.goTo(await getDefaultVenue());
     } else {
       // if loading mapcontrol failed inform the user
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Map load failed: $error"),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 }

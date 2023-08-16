@@ -43,11 +43,7 @@ if (error == null) {
     enableLiveData();
     ...
 } else {
-    // if loading mapcontrol failed inform the user
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text("Map load failed: $error"),
-    backgroundColor: Colors.red,
-    ));
+    ...
 }
 }
 ```

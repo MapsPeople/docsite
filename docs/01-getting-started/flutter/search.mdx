@@ -100,6 +100,8 @@ Widget build(BuildContext context) {
 We now need some UI that can show the result of our search, for this we will use a `Drawer` which we can attach to our `Scaffold`. As the _drawer_ is built directly in the build tree we can use a shared variable `_searchResults` which we will populate when a search is performed.
 
 ```dart
+List<MPLocation> _searchResults = [];
+
 @override
 Widget build(BuildContext context) {
   return Scaffold(
@@ -143,15 +145,7 @@ Now that we have implemented the `Drawer` UI. Now we can add its activation to t
 
 ```dart
 void search(String value) {
-  // we should not search when the searchbar is empty
-  if (value.isEmpty) {
-    return;
-  }
-  // make a query with the search text
-  MPQuery query = (MPQueryBuilder()..setQuery(value)).build();
-  // we just want to see the top 30 results, as not to be overwhelmed
-  MPFilter filter = (MPFilterBuilder()..setTake(30)).build();
-
+  ...
   // fetch all (max 30) locations that match the query
   getLocationsByQuery(query: query, filter: filter).then((locations) {
     if (locations != null && locations.isNotEmpty) {
@@ -163,11 +157,7 @@ void search(String value) {
       ...
     }
   }).catchError((err) {
-    // handle the error, for now just show a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Search failed: $err"),
-      backgroundColor: Colors.red,
-    ));
+    ...
   });
 }
 ```
@@ -180,20 +170,18 @@ When getting a search result, you might want to only show those search results o
 
 The standard implementation animates the camera to fit all Locations on the map and show the info window of a Location, if it's a list of only one Location.
 
-When you are done showing the search results you can [call `clearFliter()`](example.com).
+When you are done showing the search results you can [call `clearFliter`](example.com).
 
 ```dart
   void search(String value) {
-    // we should not search when the searchbar is empty
+    // we should clear the search filter when the query is empty
     if (value.isEmpty) {
-      return;
+      _mapControl.clearFilter();
+      setState(() {
+        _searchResults = [];
+      });
     }
-    // make a query with the search text
-    MPQuery query = (MPQueryBuilder()..setQuery(value)).build();
-    // we just want to see the top 30 results, as not to be overwhelmed
-    MPFilter filter = (MPFilterBuilder()..setTake(30)).build();
-
-    // fetch all (max 30) locations that match the query
+    ...
     getLocationsByQuery(query: query, filter: filter).then((locations) {
       if (locations != null && locations.isNotEmpty) {
         ...
@@ -201,11 +189,7 @@ When you are done showing the search results you can [call `clearFliter()`](exam
         _mapControl.setFilterWithLocations(locations, MPFilterBehavior.DEFAULT);
       }
     }).catchError((err) {
-      // handle the error, for now just show a snackbar
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Search failed: $err"),
-        backgroundColor: Colors.red,
-      ));
+      ...
     });
   }
 ```

@@ -35,11 +35,7 @@ void onMapControlReady(MPError? error) async {
       ..setOnLocationSelectedListener(onLocationSelected, false)
       ..goTo(await getDefaultVenue());
   } else {
-    // if loading mapcontrol failed inform the user
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Map load failed: $error"),
-      backgroundColor: Colors.red,
-    ));
+    ...
   }
 }
 ```
@@ -118,8 +114,7 @@ class RouteHandler {
       required MPPoint destination,
       required ScaffoldState scaffold}) {
     _service.getRoute(origin: origin, destination: destination).then((route) {
-      _route = route;
-      _renderer.setRoute(route);
+      ...
       _renderer.setOnLegSelectedListener(onLegSelected);
       // Start some UI handling here later
     });
@@ -162,11 +157,9 @@ class RouteHandler {
       {required MPPoint origin,
       required MPPoint destination,
       required ScaffoldState scaffold}) {
-        _service.setTravelMode(MPDirectionsService.travelModeDriving);
+    _service.setTravelMode(MPDirectionsService.travelModeDriving);
     _service.getRoute(origin: origin, destination: destination).then((route) {
-      _route = route;
-      _renderer.setRoute(route);
-      _renderer.setOnLegSelectedListener(onLegSelected);
+      ...
       showRoute(scaffold);
     });
   }
@@ -244,42 +237,46 @@ With this we now have a class that will handle creating a Route and displaying i
 We can now add a button on our `onLocationSelected` bottomsheet to generate a route from `_userPosition` to the selected location:
 
 ```dart
-  void onLocationSelected(MPLocation? location) {
-    ...
-    // if an active route is displayed, remove it from view
-    _routeHandler?.removeRoute();
-    // show location details
-    _controller = _scaffoldKey.currentState?.showBottomSheet((context) {
-      return Container(
-        height: MediaQuery.of(context).size.height * 0.25,
-        width: MediaQuery.of(context).size.width,
-        color: Colors.white,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ...
-            // when clicked will create a route from the user position to the location
-            ElevatedButton(
-              onPressed: () => _routeHandler = RouteHandler(
-                  origin: _userPosition,
-                  destination: location.point,
-                  scaffold: _scaffoldKey.currentState!),
-              child: const Row(
-                children: [
-                  Icon(Icons.keyboard_arrow_left_rounded),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text("directions")
-                ],
-              ),
+final _scaffoldKey = GlobalKey<ScaffoldState>();
+RouteHandler? _routeHandler;
+PersistentBottomSheetController? _controller;
+
+void onLocationSelected(MPLocation? location) {
+  ...
+  // if an active route is displayed, remove it from view
+  _routeHandler?.removeRoute();
+  // show location details
+  _controller = _scaffoldKey.currentState?.showBottomSheet((context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.25,
+      width: MediaQuery.of(context).size.width,
+      color: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ...
+          // when clicked will create a route from the user position to the location
+          ElevatedButton(
+            onPressed: () => _routeHandler = RouteHandler(
+                origin: _userPosition,
+                destination: location.point,
+                scaffold: _scaffoldKey.currentState!),
+            child: const Row(
+              children: [
+                Icon(Icons.keyboard_arrow_left_rounded),
+                SizedBox(
+                  width: 5,
+                ),
+                Text("directions")
+              ],
             ),
-          ],
-        ),
-      );
-    });
-    _controller?.closed.then((value) => _mapControl.selectLocation(null));
-  }
+          ),
+        ],
+      ),
+    );
+  });
+  _controller?.closed.then((value) => _mapControl.selectLocation(null));
+}
 ```
 
 We can now show and navigate a route from our `_userPosition` to a selected location.
