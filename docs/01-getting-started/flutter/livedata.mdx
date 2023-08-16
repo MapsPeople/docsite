@@ -34,18 +34,21 @@ _mapControl
 
 By consequence, `MapsIndoorsWidget` will manage the Live Data subscriptions needed for the currently visible map and provide a default rendering of the Live Data updates depending on the Domain Type.
 
-In the context of your view controller showing a map, add the call after your `MapsIndoorsWidget` object is ready. Use the `onMapControlReady` method created earlier in `MapState`.
+In the context of your view controller showing a map, add the call after your `MapsIndoorsWidget` object is ready. We can add a button to our map, that when pressed calls ``enableLiveData``
 
 ```dart
-void onMapControlReady(MPError? error) async {
-if (error == null) {
-    // with mapcontrol loaded, we can enable livedata
-    enableLiveData();
-    ...
-} else {
-    ...
-}
-}
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      ...
+      floatingActionButton: TextButton(
+        onPressed: enableLiveData,
+        style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white)), 
+        child: const Text("Enable Livedata",),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
 ```
 
 Using the demo API key you should now be able to see a "Staff Person" moving from one end to the other at ground floor in The White House main building.
