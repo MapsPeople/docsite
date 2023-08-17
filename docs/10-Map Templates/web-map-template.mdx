@@ -49,6 +49,10 @@ To have any Stencil component changes reflected in this project, you must run `n
 
 ### Supported properties on the MapsIndoors Map component​
 
+The MapsIndoors Map component supports a list of props (see the list below) that can be configured in the `App.jsx` file.
+
+When loading the MapsIndoors Map component for the first time, the map will respect the default values set for the `apiKey`, `venue`, `logo` and `primaryColor` props, which can be found in the `MapsIndoorsMap.jsx` file under the `defaultProps` object. 
+
 Note that when using the React component, the properties should conform to JSX prop naming, eg. `api-key` becomes `apiKey`.
 
 |Attribute|React prop name|Type|Description|
@@ -66,6 +70,7 @@ Note that when using the React component, the properties should conform to JSX p
 |`external-IDs`|`etxternalIDs`|`array`|Array of external IDs which filters the map and shows a list of locations. Because of the way browsers work, you can not use External IDs with the `,`, `&`, `#` and `+`, character in them, as they are interpreted by the browser in a particular way. |
 |`tile-style`|`tileStyle`|`string`|Name of Tile Style to display on the map. |
 |`start-zoom-level`|`startZoomLevel`|`number`|The initial zoom level of the map. |
+|`supports-url-parameters`|`supportsUrlParameters`|`bool`|Indicates if the Map Template supports URL parameters. |
 
 ### Deploying Map Template to a cloud storage provider
 
@@ -114,13 +119,25 @@ Make sure the MapsIndoors JavaScript SDK is loaded by having this somewhere in y
 <script src="https://app.mapsindoors.com/mapsindoors/js/sdk/4.21.5/mapsindoors-4.21.5.js.gz"></script>
 ```
 
-Use the web component in your HTML:
+Use the Web Component in your HTML:
 
 ```html
 <mapsindoors-map></mapsindoors-map>
 ```
 
-Add attributes to the web component as needed (see supported properties below).
+Add attributes to the Web Component as needed (see supported properties below).
+
+**Note!** The `external-IDs` and `app-user-roles` expect an array, which in a Web Component is handled differently (see example below).
+
+In your script, define the array of external IDs that you want to be shown on the Map Template. Then get a hold of the `mapsIndoorsMapElement` using the `document.querySelector()` method. When you have the `mapsIndoorsMapElement`, assign its prop `externalIDs` the array of External IDs that you defined at the beginning.
+
+```javascript
+const externalIDsArray = ["externalID-1", "externalID-2"]
+const mapsIndoorsMapElement = document.querySelector('mapsindoors-map')
+mapsIndoorsMapElement.externalIDs = externalIDsArray;
+```
+
+Use query parameters to configure the Web Component by setting the `supports-url-parameter` attribute to `true`.
 
 ### Using just the browser
 
@@ -154,7 +171,9 @@ Add attributes to the web component as needed (see supported properties below).
 </html>
 ```
 
-Add attributes to the web component as needed (see supported properties above).
+Add attributes to the Web Component as needed (see supported properties above).
+
+Use query parameters to configure the Web Component by setting the `supports-url-parameter` attribute to `true`.
 
 ## React component: Installation and usage
 
@@ -187,9 +206,13 @@ import MapsIndoorsMap from '@mapsindoors/map-template/dist/mapsindoors-react.es.
 
 Add properties to the MapsIndoorsMap component as needed (see list above).
 
+Use query parameters to configure the MapsIndoorsMap component by setting the `supportsUrlParameters` prop to `true`.
+
 ## Query Parameters
 
-The Map Template supports using query parameters for all the properties provided by the MapsIndoorsMap component.
+The Map Template supports using query parameters for all the properties provided by the MapsIndoorsMap component if the `supportsUrlParameters` property is set to true.
+
+In addition, the Web component and the React component also support using the URL parameters if the `supports-url-parameters` attribute or the `supportsUrlParameters` prop is set to `true`.
 
 The supported query parameters are the following:
 
