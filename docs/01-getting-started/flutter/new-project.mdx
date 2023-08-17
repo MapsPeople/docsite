@@ -133,7 +133,6 @@ First you need to extend the allowed gradle repositories to allow the SDK to res
 1. Navigate to the app's project level `build.gradle`.
 2. add `maven { url 'https://maven.mapsindoors.com/' }` to `allprojects`/`repositories` after `mavenCentral()`
 3. add mapbox to repositories like in the example below:
-4. add your mapbox download token to gradle.properties
 
 ```groovy
 allprojects {
@@ -156,6 +155,12 @@ allprojects {
         }
     }
 }
+```
+
+4. add your mapbox download token to gradle.properties
+
+```properties
+MAPBOX_DOWNLOADS_TOKEN=YOUR_DOWNLOAD_TOKEN
 ```
 
 To get the underlying Mapbox Map to work, you need to perform the following steps:
