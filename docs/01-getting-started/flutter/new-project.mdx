@@ -16,6 +16,8 @@ You begin by creating an initial application. Throughout this tutorial, you will
 
 This guide explains how to start using a MapsIndoors map in your Flutter application using the MapsIndoors Flutter SDK.
 
+You will need to [download and install](https://docs.flutter.dev/get-started/install) the flutter toolchain.
+
 We recommend using Android Studio and XCode for using this tutorial. Read how to set Android Studio up here: [Installing Android Studio](https://developer.android.com/studio/install)
 
 If you do not have any devices, you can [set up an emulator through Android Studio](https://developer.android.com/studio/run/emulator), or in Xcode.
@@ -27,23 +29,21 @@ To benefit from the guides, you will need basic knowledge about:
 * Flutter Development
 * Mobile Development
 
-You can get started in two ways, either by reviewing and modifying the [basic example](#basic-example) or do the [clean setup](#setup-mapsindoors). We recommend following the [basic example](#basic-example).
+## Set Up Your Project
 
-## Basic Example
+To get your project started follow these steps:
 
-The tutorial will be based on you starting from our basic map implementation, which contains basic UI implementations. You will then be guided through how to implement the MapsIndoors SDK into this app.
+1. Create a new project by writing the following command in your terminal
 
-The basic example contains a single `widget` app with already made `fragments` to host the different logic to get a complete app interacting with a map and `MapsIndoors` data.
+``flutter create --platforms ios,android getting_started_mapsindoors_flutter``
 
-//MADHTODO You can find the basic example for Google Maps here: [Java](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedbasicjava) or [Kotlin](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedbasickotlin)
+This will create a new project targeting Android and iOS platforms.
 
-The Mapbox basic example is located here:  [Java](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/MapBox/mapsindoorsgettingstartedbasicjava) or [Kotlin](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/MapBox/mapsindoorsgettingstartedbasickotlin)
+2. Go to ``lib/main.dart`` and delete its contents, we will fill it up again during this guide.
 
-//MADHTODO You can open the project through Android Studio by navigating through **File -> New -> Project from Version Control -> GitHub**. Log in and clone the project.
+If you want to see an example of how this guide will look when completed, you can [find it on Github here](https://github.com/MapsPeople/getting_started_flutter).
 
-You can also follow the steps below to start your app from scratch or to enhance the Basic Examples, more features will be explained in later guides.
-
-## Setup MapsIndoors
+## Set Up MapsIndoors
 
 ### Google Maps
 

@@ -91,7 +91,7 @@ class MapsIndoorsDemoApp extends StatelessWidget {
 
 We start by loading `MapsIndoors`. `MapsIndoors` is used to get and store all references to MapsIndoors-specific data. This includes access to all MapsIndoors-specific geodata.
 
-Place the following initialization code in the `initState` method of your apps `State` that displays the Google map, Ensure that the `loadMapsIndoors` callback returns before accessing other `MapsIndoors` methods.
+Place the following initialization code in the `initState` method of your apps `State` that displays the Google map, Ensure that the [`loadMapsIndoors`](https://pub.dev/documentation/mapsindoors_googlemaps/latest/mapsindoors/loadMapsIndoors.html) callback returns before accessing other `MapsIndoors` methods.
 
 ```dart
 class _MapState extends State<Map> {
@@ -112,11 +112,11 @@ If you are not a customer you can use this demo MapsIndoors API key `d876ff0e60b
 
 ### Initialize MapsIndoorsWidget
 
-We now want to add all the data we get by initializing `MapsIndoors` to our map. This is done by initializing [`MapsIndoorsWidget`](https://pub.dev/documentation/mapsindoors/latest/mapsindoors/MapsIndoorsWidget-class.html) onto the map. `MapsIndoorsWidget` is used as a layer between the map and MapsIndoors.
+We now want to add all the data we get by initializing `MapsIndoors` to our map. This is done by initializing [`MapsIndoorsWidget`](https://pub.dev/documentation/mapsindoors_googlemaps/latest/mapsindoors/MapsIndoorsWidget-class.html) onto the map. `MapsIndoorsWidget` is used as a layer between the map and MapsIndoors.
 
 First add the `MapsIndoorsWidget` to the build hierarchy, in this example it is placed in the body of a `Scaffold`, but it can be placed anywhere, just ensure there is enough space to use the map comfortably.
 
-Then create a `onMapControlReady` method to handle the callback from initializing `MapsIndoorsWidget`:
+Then create a `OnMapReadyListener` method to handle the callback from initializing `MapsIndoorsWidget`:
 
 
 ```dart
@@ -160,4 +160,5 @@ class _MapState extends State<Map> {
 Expected result:
 <img src="/img/getting-started/flutter_map.gif" alt="An animation showing the desired behaviour of this tutorial" width="350"/>
 
-See the full example of MapsActivity here: [MapsActivity.java](https://github.com/MapsPeople/MapsIndoors-Android-Examples/tree/main/Google_Maps/mapsindoorsgettingstartedjava)
+//MADHTODO
+See the full example of the app here: [main.dart](https://github.com/MapsPeople/getting_started_flutter/blob/main/lib/main.dart)
