@@ -172,6 +172,9 @@ public void onDestroyView() {
 }
 ```
 
+The code shown in this guide can be found here for [java](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android/tree/feature/appconfig)/[kotlin](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android-Kotlin/tree/feature/appconfig). -->
+
+
 </TabItem>
 <TabItem value="kotlin" label="Kotlin">
 
@@ -331,7 +334,294 @@ override fun onDestroyView() {
 }
 ```
 
+The code shown in this guide can be found here for [java](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android/tree/feature/appconfig)/[kotlin](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android-Kotlin/tree/feature/appconfig). -->
+
+
+</TabItem>
+
+<TabItem value="iOS V4" label="iOS v4" default>
+
+<!-- lets divulge the general information and why this is useful -->
+`AppConfig` contains elements that are useful for any app developer using the SDK. This guide will showcase how to use `AppConfig` to create a list of catagories and then the connected locations. 
+The goal is to show the name of the catagores, image og the catagories and then the location names. By following this guide, you can create a working solution based on your `AppConfig`. This
+demo app will not show a map or use `MPMapControl`.
+
+
+### Import Required Libraries
+Begin by importing the necessary libraries at the beginning of your Swift file: 
+
+```swift
+import UIKit
+import MapsIndoorsCore
+```
+
+### Set Up the AppConfigMenu Class
+Define the AppConfigMenu class by inheriting from UIViewController, UITableViewDataSource, and UITableViewDelegate. This will be needed for making a tableview menu:
+
+```swift
+class AppConfigMenu: UIViewController, UITableViewDataSource, UITableViewDelegate {
+```
+
+Now, create these instance variables within the class. The variables will be used later:
+```swift
+//Keep an array of the MPmenuInfo, there could be a few...
+var menuInfo: [MPMenuInfo] = []
+
+//Keep an array of the catagories inside the menuInfo property. This will be usefull for the UIStoryboardSegue.
+var catagories: [String] = []
+
+// Define a tableView
+var tableView: UITableView!
+
+//Keep track of the catagory image URL
+var imageUrl: String?
+```
+
+
+### Implement viewDidLoad Method
+```swift
+  override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView = UITableView(frame: view.bounds, style: .plain)
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
+        
+        view.addSubview(tableView)
+        
+        Task {
+            try await MPMapsIndoors.shared.load(apiKey: INSERT_API_KEY)
+            
+            let data = await MPMapsIndoors.shared.appData()
+            if let datax = data?.menuInfo {
+                for (_, value) in datax {
+                    menuInfo.append(contentsOf: value)
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+```
+
+### Implement UITableViewDataSource Methods
+Provide data to the table view by implementing the UITableViewDataSource methods:
+```swift
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return menuInfo.count
+}
+
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
+    
+    let menuItem = menuInfo[indexPath.row]
+    cell.textLabel?.text = menuItem.categoryKey
+    
+    return cell
+}
+```
+
+### Implement UITableViewDelegate Method
+Handle row selection using the UITableViewDelegate method. Keep in mind that the `subMenuViewController` will be crated in part two. For running the app, you can outcomment the subMenuViewController part, for now.
+```swift 
+func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let selectedItem = menuInfo[indexPath.row]
+    if let key = selectedItem.categoryKey {
+        catagories.append(key)
+    }
+    if let mpImageUrl = selectedItem.iconUrl {
+        imageUrl = mpImageUrl
+    }
+        
+    let subMenuViewController = SubMenuViewController()
+    subMenuViewController.menuItem = catagories
+    subMenuViewController.imageUrl = imageUrl
+
+    navigationController?.pushViewController(subMenuViewController, animated: true)
+}
+```
+
+
+### Implement viewWillDisappear
+Implement viewWillDisappear and make sure the catagories-array is cleaned when returning to the catagories list.
+```swift
+override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+        
+    catagories = []
+}
+```
+
+You have now successfully integrated the AppConfigMenu class into your iOS application. 
+This class allows you to display a menu with categories using the MapsIndoors SDK. Next step is to use the `AppConfig` to filter MPMocations on a solution. This can be seen in 
+part 2. 
+
+## Part Two
+In this part, we will create a new class that handles the sub-list of locations based on your choosen catagory.
+
+### Create a CustomCell class
+this class will be used for alligning the image with the cells in the SubMenuViewController.
+```swift
+class CustomCell: UITableViewCell {
+    let customImageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        contentView.addSubview(customImageView)
+        
+        NSLayoutConstraint.activate([
+            customImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            customImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            customImageView.widthAnchor.constraint(equalToConstant: 25),
+            customImageView.heightAnchor.constraint(equalToConstant: 25)
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+```
+
+
+### Set Up the SubMenuViewController Class
+Define the AppConfigMenu class by inheriting from UIViewController, UITableViewDataSource, and UITableViewDelegate. This will be needed for making a tableview menu:
+
+```swift
+class SubMenuViewController: UIViewController, UITableViewDataSource {
+```
+
+Now, create these instance variables within the class.
+```swift
+// menuItem hold that data based on the choosen catagory from the AppConfigMenu class.
+var menuItem: [String]?
+
+// Define a tableView
+var tableView: UITableView!
+
+//Hold the filtered locations
+var filteredLocations: [MPLocation]? = nil
+
+//Hold the image URL
+var imageUrl: String?
+```
+
+### Implement viewDidLoad Method
+
+```swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+    tableView = UITableView(frame: view.bounds, style: .plain)
+    tableView.dataSource = self
+
+    tableView.register(CustomCell.self, forCellReuseIdentifier: "LocationMenuCell")
+
+    view.addSubview(tableView)
+}
+```
+
+### Handle data
+Create a method inside the SubMenuViewController. This method will handle MapsIndoors and get locations using a filter of witch the catagory key is used.
+
+```swift
+func loadAndDisplayData() {
+    Task {
+        try await MPMapsIndoors.shared.load(apiKey: INSERT_API_KEY)
+            
+        // Get all locations under the specific category key using a filter
+        if let menu = menuItem {
+            let filter = MPFilter()
+            filter.categories = menu
+            filteredLocations = await MPMapsIndoors.shared.locationsWith(query: nil, filter: filter)
+        }
+            
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+} 
+```
+
+### Handle the views
+```swift
+override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+        
+    filteredLocations = []
+            
+    // Load data and update the table view
+    loadAndDisplayData()
+}
+    
+override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+}
+```
+
+### Handle the tableview
+These two methods will set the text and images in the cells, using the CustomCell class.
+
+```swift
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return filteredLocations?.count ?? 0
+}
+    
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "LocationMenuCell", for: indexPath) as! CustomCell
+        
+    if let myFilteredLocations = filteredLocations {
+        let locations = myFilteredLocations[indexPath.row]
+        cell.textLabel?.text = locations.name
+            
+        getAppConfigImage { image in
+            DispatchQueue.main.async {
+                cell.customImageView.image = image
+            }
+        }
+    }
+        
+    return cell
+}
+```
+
+### Handle image data
+make a method inside the `SubMenuViewController`that handles the URLSession. This will fetch the image data and make a UIImage baded on that data.
+
+```swift
+func getAppConfigImage(completion: @escaping (UIImage?) -> Void) {
+    guard let imageUrl = imageUrl, let url = URL(string: imageUrl) else {
+        completion(nil)
+        return
+    }
+        
+    URLSession.shared.dataTask(with: url) { data, response, error in
+        if let data = data, let image = UIImage(data: data) {
+            completion(image)
+        } else {
+            completion(nil)
+        }
+    }.resume()
+}
+```
+
+
+### End results
+<img src="/img/map/appConfig2.png" width="350"/><img src="/img/map/appConfig1.png" width="350"/>
+
+The code shown in this guide can be found [here](DEMOS) 
+
+
+
 </TabItem>
 </Tabs>
-
-The code shown in this guide can be found here for [java](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android/tree/feature/appconfig)/[kotlin](https://github.com/MapsPeople/MapsIndoors-Getting-Started-Android-Kotlin/tree/feature/appconfig). -->
