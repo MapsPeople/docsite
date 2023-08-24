@@ -395,8 +395,8 @@ var imageUrl: String?
             try await MPMapsIndoors.shared.load(apiKey: INSERT_API_KEY)
             
             let data = await MPMapsIndoors.shared.appData()
-            if let datax = data?.menuInfo {
-                for (_, value) in datax {
+            if let mpData = data?.menuInfo {
+                for (_, value) in mpData {
                     menuInfo.append(contentsOf: value)
                 }
                 
