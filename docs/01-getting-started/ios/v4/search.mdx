@@ -7,15 +7,17 @@ sidebar_position: 4
 
 ## Search for a Location
 
-From here onwards, code for both Mapbox and Google Maps is similar.
+See the full example of Searching here: [SearchLocation.swift](https://github.com/MapsPeople/MapsIndoorsSDK-iOS-Examples/blob/main/MapsIndoorsSDK-iOS-Examples/Getting%20Started/SearchLocation.swift)
 
-Take a look at the following code, as discussed before, this was selects a location named "Family Dining Room".
+From here onwards, code for both `Mapbox` and `Google Maps` is similar.
+
+Take a look at the following code. As discussed before, this will select a location named "Family Dining Room".
 
 ```swift
 Task {
         do {
                 // Load MapsIndoors with the MapsIndoors API key.
-                try await MPMapsIndoors.shared.load(apiKey: AppDelegate.mApiKey)
+                try await MPMapsIndoors.shared.load(apiKey: YOUR_MAPSINDOORS_API_KEY)
                 
                 if let mapConfig = mapConfig {
                     if let mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig) {
