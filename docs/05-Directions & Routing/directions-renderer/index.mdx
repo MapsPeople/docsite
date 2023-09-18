@@ -335,7 +335,8 @@ miDirectionsServiceInstance.getRoute(routeParameters).then(directionsResult => {
 
 As previously mentioned, the route object is separated into objects of [`Leg`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/Leg.html) and these Legs are again separated into objects of [`Step`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/Step.html). 
 Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. Therefore, if a Leg contains multiple Steps, they will all be shown on the map at the same time, but once the Leg is changed, the previous Steps are not visible anymore.
-A specific part of the route can be rendered by setting the step index and/or leg index using the `DirectionsRenderer`.
+
+A specific part of the route can be rendered by setting the step index and/or Leg index using the `DirectionsRenderer`.
 
 ```js
 miDirectionsRendererInstance.setStepIndex(stepIndex, legIndex)
