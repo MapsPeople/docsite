@@ -232,8 +232,10 @@ Task {
 
 ## Controlling the Visible Segments on the Directions Renderer
 
-As previously mentioned, the route object is seperated into objects of `MPRouteLeg` and these legs are again seperated indo objects of `MPRouteStep`.
+As previously mentioned, the route object is seperated into objects of `MPRouteLeg` and these Legs are again separated indo objects of `MPRouteStep`.
+
 Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. Therefore, if a Leg contains multiple Steps, they will all be shown on the map at the same time, but once the Leg is changed, the previous Steps are not visible anymore.
+
 A specific segment of the route can be rendered by setting the `routeLegIndex` and/or `routeStepIndex` properties on the `MPDirectionsRenderer`.
 
 ```swift
