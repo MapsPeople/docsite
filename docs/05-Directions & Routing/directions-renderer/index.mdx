@@ -42,7 +42,9 @@ void getRoute() {
 
 ## Controlling the Visible Segments on the Directions Renderer
 
-As previously mentioned, the route object is seperated into objects of `MPRouteLeg`. Each leg is again separated into objects of `MPRouteStep`. Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. A specific segment of the route can be rendered by setting the `legIndex` on the `MPDirectionsRenderer`
+As previously mentioned, the route object is seperated into objects of `MPRouteLeg`. Each leg is again separated into objects of `MPRouteStep`. 
+Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. Therefore, if a Leg contains multiple Steps, they will all be shown on the map at the same time, but once the Leg is changed, the previous Steps are not visible anymore.
+A specific segment of the route can be rendered by setting the `legIndex` on the `MPDirectionsRenderer`.
 
 ```java
 void setLegIndex(int position) {
@@ -127,7 +129,9 @@ fun getRoute() {
 
 ## Controlling the Visible Segments on the Directions Renderer
 
-As previously mentioned, the route object is seperated into objects of `MPRouteLeg`. Each leg is again separated into objects of `MPRouteStep`. Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. A specific segment of the route can be rendered by setting the `legIndex` on the `MPDirectionsRenderer`
+As previously mentioned, the route object is seperated into objects of `MPRouteLeg`. Each leg is again separated into objects of `MPRouteStep`. 
+Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. Therefore, if a Leg contains multiple Steps, they will all be shown on the map at the same time, but once the Leg is changed, the previous Steps are not visible anymore.
+A specific segment of the route can be rendered by setting the `legIndex` on the `MPDirectionsRenderer`
 
 ```kotlin
 fun setRouteLegIndex(position: Int) {
@@ -226,7 +230,9 @@ Task {
 
 ## Controlling the Visible Segments on the Directions Renderer
 
-As previously mentioned, the route object is seperated into objects of `MPRouteLeg` and these legs are again seperated indo objects of `MPRouteStep`. Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. A specific segment of the route can be rendered by setting the `routeLegIndex` and/or `routeStepIndex` properties on the `MPDirectionsRenderer`.
+As previously mentioned, the route object is seperated into objects of `MPRouteLeg` and these legs are again seperated indo objects of `MPRouteStep`.
+Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. Therefore, if a Leg contains multiple Steps, they will all be shown on the map at the same time, but once the Leg is changed, the previous Steps are not visible anymore.
+A specific segment of the route can be rendered by setting the `routeLegIndex` and/or `routeStepIndex` properties on the `MPDirectionsRenderer`.
 
 ```swift
 let renderer = mapControl?.newDirectionsRenderer()
@@ -323,7 +329,9 @@ miDirectionsServiceInstance.getRoute(routeParameters).then(directionsResult => {
 
 > See all available directions render options in the [reference documentation](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/mapsindoors.directions.DirectionsRenderer.html).
 
-As previously mentioned, the route object is separated into objects of [`Leg`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/Leg.html) and these legs are again separated into objects of [`Step`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/Step.html). Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. A specific part of the route can be rendered by setting the step index and/or leg index using the `DirectionsRenderer`.
+As previously mentioned, the route object is separated into objects of [`Leg`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/Leg.html) and these legs are again separated into objects of [`Step`](https://app.mapsindoors.com/mapsindoors/js/sdk/latest/docs/Step.html). 
+Unless the Route only contains one Leg, the Directions Renderer does not allow the full Route to be rendered all at once. Therefore, if a Leg contains multiple Steps, they will all be shown on the map at the same time, but once the Leg is changed, the previous Steps are not visible anymore.
+A specific part of the route can be rendered by setting the step index and/or leg index using the `DirectionsRenderer`.
 
 ```js
 miDirectionsRendererInstance.setStepIndex(stepIndex, legIndex)
