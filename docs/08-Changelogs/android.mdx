@@ -23,6 +23,22 @@ Changelog for the MapsIndoors Android SDK. This document structure is based on [
 ### Security     in case of vulnerabilities.
 -->
 
+## [4.2.0] 2023-09-20
+
+### Added
+- Added functionality to respect the building outline `display rule` set in the CMS
+- Added functionality to show floor plans
+- Added functionality to remove route leg buttons from the map
+  - Use `MPDirectionsRenderer` to call `showRouteLegButtons(boolean)`
+
+### Removed
+- `3D models` are still experimental, and will not be included in this release
+
+### Fixed
+- Fixed label text color and halo options not being respected when using mapbox
+- Fixed build issue where some classes had their methods transformed to be final
+- Fixed issue where a location's position sometimes was moved unintentionally
+
 ## [4.1.11] 2023-08-24
 
 ### Fixed
@@ -35,23 +51,19 @@ Changelog for the MapsIndoors Android SDK. This document structure is based on [
 ## [4.1.10] 2023-08-02
 
 ### Changed
-
 - Updated Display Rule validation to only throw when developer mode is enabled (it can be enabled by calling `MPDebugLog.enableDeveloperMode(true)`)
   - Additionally, validation will now give more usable error messages
 
 ### Fixed
-
 - Fixed issue where setting departure time to the current time would fail route creation when using Google Maps in some cases
 
 ## [4.1.9] 2023-07-24
 
 ### Changed
-
 - External routes will now respect the language set in the SDK
 - The SDK now supports zoom levels beyond 22 where applicable
 
 ### Fixed
-
 - Fixed rare issue where SDK would attempt to update a dead marker resulting in a crash
 
 ## [4.2.0-beta.1] 2023-06-28
