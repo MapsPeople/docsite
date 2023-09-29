@@ -342,9 +342,8 @@ The code shown in this guide can be found here for [java](https://github.com/Map
 <TabItem value="iOS V4" label="iOS v4" default>
 
 <!-- lets divulge the general information and why this is useful -->
-`AppConfig` contains elements that are useful for any app developer using the SDK. This guide will showcase how to use `AppConfig` to create a list of catagories and then the connected locations. 
-The goal is to show the name of the catagores, image of the catagories and then the location names. By following this guide, you can create a working app based on your `AppConfig`. This
-demo app will not show a map or use `MPMapControl`.
+`AppConfig` contains elements that are useful for any app developer using the SDK. This guide will showcase how to use `AppConfig` to create a list of categories and then the connected locations. 
+The goal is to show the name of the categories, image of the categories and then the location names. By following this guide you can create a working app based on your `AppConfig`. This demo app will not show a map or use `MPMapControl`.
 
 
 ### Import Required Libraries
@@ -364,16 +363,16 @@ class AppConfigMenu: UIViewController, UITableViewDataSource, UITableViewDelegat
 
 Now, create these instance variables within the class. The variables will be used later:
 ```swift
-//Keep an array of the MPmenuInfo, there could be a few...
+// Keep an array of the MPMenuInfo, there could be a few...
 var menuInfo: [MPMenuInfo] = []
 
-//Keep an array of the catagories inside the menuInfo property.
-var catagories: [String] = []
+// Keep an array of the categories inside the menuInfo property.
+var categories: [String] = []
 
 // Define a tableView
 var tableView: UITableView!
 
-//Keep track of the catagory image URL
+// Keep track of the category image URL
 var imageUrl: String?
 ```
 
@@ -426,19 +425,19 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 ```
 
 ### Implement UITableViewDelegate Method
-Handle row selection using the UITableViewDelegate method. Keep in mind that the `subMenuViewController` will be crated in part two. To make the app run without the `subMenuViewController`, you can outcomment the `subMenuViewController` part, for now.
+Handle row selection using the UITableViewDelegate method. Keep in mind that the `subMenuViewController` will be created in part two. To make the app run without the `subMenuViewController`, you can comment out the `subMenuViewController` part for now.
 ```swift 
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = menuInfo[indexPath.row]
     if let key = selectedItem.categoryKey {
-        catagories.append(key)
+        categories.append(key)
     }
     if let mpImageUrl = selectedItem.iconUrl {
         imageUrl = mpImageUrl
     }
         
     let subMenuViewController = SubMenuViewController()
-    subMenuViewController.menuItem = catagories
+    subMenuViewController.menuItem = categories
     subMenuViewController.imageUrl = imageUrl
 
     navigationController?.pushViewController(subMenuViewController, animated: true)
@@ -447,24 +446,23 @@ func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
 
 ### Implement viewWillDisappear
-Implement `viewWillDisappear` and make sure the catagories-array is cleaned when returning to the catagories list.
+Implement `viewWillDisappear` and make sure the categories array is cleaned when returning to the categories list.
 ```swift
 override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
         
-    catagories = []
+    categories = []
 }
 ```
 
 You have now successfully integrated the AppConfigMenu class into your iOS application. 
-This class allows you to display a menu with categories, using the MapsIndoors SDK. Next step is to use `AppConfig` to filter `MPLocations` on a solution. This can be seen in 
-part 2. 
+This class allows you to display a menu with categories, using the MapsIndoors SDK. Next step is to use `AppConfig` to filter `MPLocations` on a solution.
 
-## Part Two
-In this part, we will create a new class that handles the sub-list of locations based on your choosen catagory.
+## Show Locations in a Category
+In this part, we will create a new class that handles the sub-list of locations based on your choosen category.
 
 ### Create a CustomCell class
-This class will be used for alligning the image with the cells in the `SubMenuViewController`.
+This class will be used for aligning the image with the cells in the `SubMenuViewController`.
 ```swift
 class CustomCell: UITableViewCell {
     let customImageView: UIImageView = {
@@ -503,16 +501,16 @@ class SubMenuViewController: UIViewController, UITableViewDataSource {
 
 Now, create these instance variables within the class.
 ```swift
-// menuItem hold that data based on the choosen catagory from the AppConfigMenu class.
+// menuItem hold that data based on the choosen category from the AppConfigMenu class.
 var menuItem: [String]?
 
 // Define a tableView
 var tableView: UITableView!
 
-//Hold the filtered locations
+// Hold the filtered locations
 var filteredLocations: [MPLocation]? = nil
 
-//Hold the image URL
+// Hold the image URL
 var imageUrl: String?
 ```
 
@@ -532,7 +530,7 @@ override func viewDidLoad() {
 ```
 
 ### Implement data handling
-Create a method inside the `SubMenuViewController`. This method will load MapsIndoors and fetch locations using a filter of witch the catagory key is used.
+Create a method inside the `SubMenuViewController`. This method will load MapsIndoors and fetch locations using a filter of which the category key is used.
 
 ```swift
 func loadAndDisplayData() {
