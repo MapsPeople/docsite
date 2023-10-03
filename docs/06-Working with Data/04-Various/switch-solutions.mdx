@@ -17,7 +17,7 @@ At it's core, this is done simply by switching out the API key and reloading the
 
 ### Starting a Solution
 
-To initialise MapsIndoors, do the following:
+To initialize MapsIndoors, do the following:
 
 <Tabs groupId="various-switch-solutions">
 <TabItem value="android" label="Android v4" default>
@@ -147,18 +147,75 @@ fun initMapControl(view: View) {
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v4" label="iOS v4">
 
-When you load your initial Solution, it's beneficial to initialise MapsIndoors properly, to ensure it's easy to switch Solutions later if needed.
+When you load your initial Solution, it's beneficial to initialize MapsIndoors properly, to ensure it's easy to switch Solutions later if needed.
+
+<Tabs groupId="various-switch-solutions-platform">
+
+<TabItem value="googlemaps" label="Google Maps">
+
+```swift
+func setupMapsIndoors(mapsIndoorsAPIKey: String, googleMapsAPIKey: String) async throws {
+    // Orient your map to where you need data to be shown.
+    // This can e.g. be done by pointing the camera to a specific location (shown below)
+    // or getting the default venue after MapsIndoors is loaded and panning the camera there.
+    let camera = .camera(withLatitude: 57.057964, longitude: 9.9504112, zoom: 20)
+    self.mapView = GMSMapView.map(withFrame: self.view.bounds, camera: camera)
+    self.view = self.mapView
+
+    // Initialize the MPMapConfig with the GMSMapView
+    self.mapConfig = MPMapConfig(gmsMapView: self.mapView, googleApiKey: googleMapsAPIKey)
+
+    try await MPMapsIndoors.shared.load(apiKey: mapsIndoorsAPIKey)
+
+    self.mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig)
+}
+```
+
+</TabItem>
+
+<TabItem value="mapbox" label="Mapbox">
+
+```swift
+func setupMapsIndoors(mapsIndoorsAPIKey: String, mapboxAccessToken: String) async throws {
+    // Set up the Mapbox map view
+    let mapInitOptions = MapInitOptions(resourceOptions: ResourceOptions(accessToken: mapboxAccessToken))
+    self.mapView = MapView(frame: self.view.bounds, mapInitOptions: mapInitOptions)
+    self.view = self.mapView
+
+    // Orient your map to where you need data to be shown.
+    // This can e.g. be done by pointing the camera to a specific location (shown below)
+    // or getting the default venue after MapsIndoors is loaded and panning the camera there.
+    let centerCoordinate = CLLocationCoordinate2D(latitude: 57.057964, longitude: 9.9504112, zoom: 20)
+    self.mapView.mapboxMap.setCamera(to: CameraOptions(center: centerCoordinate, zoom: 20))
+
+    // Initialize the MPMapConfig with the Mapbox MapView
+    self.mapConfig = MPMapConfig(mapBoxView: mapView, accessToken: mapboxAccessToken)
+
+    try await MPMapsIndoors.shared.load(apiKey: mapsIndoorsAPIKey)
+
+    self.mapControl = MPMapsIndoors.createMapControl(mapConfig: mapConfig)
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
+
+When you load your initial Solution, it's beneficial to initialize MapsIndoors properly, to ensure it's easy to switch Solutions later if needed.
 
 :::info
 
-You don't have to initialise `positionProvider` or `enableLiveData`. This is only needed if you use third-party Positioning such as Cisco DNA Spaces or MapsIndoors' Live Data function.
+You don't have to initialize `positionProvider` or `enableLiveData`. This is only needed if you use third-party Positioning such as Cisco DNA Spaces or MapsIndoors' Live Data function.
 
 :::
 
 ```swift
-func setupMapIndoors(mapsIndoorsAPIKey: String, googleMapsAPIKey: String) {
+func setupMapsIndoors(mapsIndoorsAPIKey: String, googleMapsAPIKey: String) {
     map = GMSMapView(frame: CGRect.zero)
     view = map
     mapControl = MPMapControl(map: map!)
@@ -181,7 +238,7 @@ func setupMapIndoors(mapsIndoorsAPIKey: String, googleMapsAPIKey: String) {
 
 ### Switching Solutions
 
-You switch Solutions by changing the active API key using `setAPIKey()`.
+You switch Solutions by changing the active API key.
 
 We recommend creating your own function to call in the future for this purpose, like the example here with `switchSolution()`:
 
@@ -250,9 +307,39 @@ initMapControl(mMapBoxMap, mMapView)
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v4" label="iOS v4">
 
-To switch Solutions, you first need to ensure that all your existing instances are closed down safely. Once this is done, you can use `setupMapIndoors` to restart with your new desired API key.
+To switch Solutions you just set up MapsIndoors with a new MapsIndoors API key by calling `setupMapsIndoors` with your new desired API key.
+
+We recommend creating your own function to call in the future for this purpose, like the example here with `switchSolution()`:
+
+<Tabs>
+<TabItem value="googlemaps" label="Google Maps">
+
+```swift
+func switchSolution() {
+    // Setup MapsIndoors anew
+    setupMapsIndoors(mapsIndoorsAPIKey: "YOUR_SECONDARY_API_KEY", googleMapsAPIKey: "YOUR_GOOGLE_API_KEY")
+}
+```
+
+</TabItem>
+<TabItem value="mapbox" label="Mapbox">
+
+```swift
+func switchSolution() {
+    // Setup MapsIndoors anew
+    setupMapsIndoors(mapsIndoorsAPIKey: "YOUR_SECONDARY_API_KEY", mapboxAccessToken: "YOUR_MAPBOX_ACCESS_TOKEN")
+}
+```
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
+
+To switch Solutions, you first need to ensure that all your existing instances are closed down safely. Once this is done, you can use `setupMapsIndoors` to restart with your new desired API key.
 
 We recommend creating your own function to call in the future for this purpose, like the example here with `switchSolution()`:
 
@@ -266,7 +353,7 @@ func switchSolution() {
     // Setup MapsIndoors anew
     map = nil
     mapControl = nil
-    setupMapIndoors(mapsIndoorsAPIKey: "YOUR_SECONDARY_API_KEY", googleMapsAPIKey: "YOUR_GOOGLE_API_KEY")
+    setupMapsIndoors(mapsIndoorsAPIKey: "YOUR_SECONDARY_API_KEY", googleMapsAPIKey: "YOUR_GOOGLE_API_KEY")
 }
 ```
 
