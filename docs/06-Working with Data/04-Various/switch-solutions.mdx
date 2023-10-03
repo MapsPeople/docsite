@@ -178,9 +178,9 @@ func setupMapsIndoors(mapsIndoorsAPIKey: String, googleMapsAPIKey: String) async
 <TabItem value="mapbox" label="Mapbox">
 
 ```swift
-func setupMapsIndoors(mapsIndoorsAPIKey: String, mapboxAPIKey: String) async throws {
+func setupMapsIndoors(mapsIndoorsAPIKey: String, mapboxAccessToken: String) async throws {
     // Set up the Mapbox map view
-    let mapInitOptions = MapInitOptions(resourceOptions: ResourceOptions(accessToken: mapboxAPIKey))
+    let mapInitOptions = MapInitOptions(resourceOptions: ResourceOptions(accessToken: mapboxAccessToken))
     self.mapView = MapView(frame: self.view.bounds, mapInitOptions: mapInitOptions)
     self.view = self.mapView
 
@@ -190,8 +190,8 @@ func setupMapsIndoors(mapsIndoorsAPIKey: String, mapboxAPIKey: String) async thr
     let centerCoordinate = CLLocationCoordinate2D(latitude: 57.057964, longitude: 9.9504112, zoom: 20)
     self.mapView.mapboxMap.setCamera(to: CameraOptions(center: centerCoordinate, zoom: 20))
 
-    // Initialize the MPMapConfig with the GMSMapView
-    self.mapConfig = MPMapConfig(mapBoxView: mapView, accessToken: mapboxAPIKey)
+    // Initialize the MPMapConfig with the Mapbox MapView
+    self.mapConfig = MPMapConfig(mapBoxView: mapView, accessToken: mapboxAccessToken)
 
     try await MPMapsIndoors.shared.load(apiKey: mapsIndoorsAPIKey)
 
@@ -309,7 +309,7 @@ initMapControl(mMapBoxMap, mMapView)
 </TabItem>
 <TabItem value="ios-v4" label="iOS v4">
 
-To switch Solutions, you first need to ensure that all your existing instances are closed down safely. Once this is done, you can use `setupMapsIndoors` to restart with your new desired API key.
+To switch Solutions you just set up MapsIndoors with a new MapsIndoors API key by calling `setupMapsIndoors` with your new desired API key.
 
 We recommend creating your own function to call in the future for this purpose, like the example here with `switchSolution()`:
 
@@ -318,9 +318,6 @@ We recommend creating your own function to call in the future for this purpose, 
 
 ```swift
 func switchSolution() {
-    // Shut down existing MapsIndoors instance
-    MPMapsIndoors.share.shutdown()
-
     // Setup MapsIndoors anew
     setupMapsIndoors(mapsIndoorsAPIKey: "YOUR_SECONDARY_API_KEY", googleMapsAPIKey: "YOUR_GOOGLE_API_KEY")
 }
@@ -331,11 +328,8 @@ func switchSolution() {
 
 ```swift
 func switchSolution() {
-    // Shut down existing MapsIndoors instance
-    MPMapsIndoors.share.shutdown()
-
     // Setup MapsIndoors anew
-    setupMapsIndoors(mapsIndoorsAPIKey: "YOUR_SECONDARY_API_KEY", mapboxAPIKey: "YOUR_MAPBOX_API_KEY")
+    setupMapsIndoors(mapsIndoorsAPIKey: "YOUR_SECONDARY_API_KEY", mapboxAccessToken: "YOUR_MAPBOX_ACCESS_TOKEN")
 }
 ```
 
