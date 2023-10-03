@@ -55,10 +55,17 @@ MapsIndoors.setLanguage("fr")
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v4" label="iOS v4">
 
 ```swift
-MapsIndoors.setLanguage("fr");
+MPMapsIndoors.shared.language = "fr"
+```
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
+
+```swift
+MapsIndoors.setLanguage("fr")
 ```
 
 </TabItem>
@@ -97,12 +104,19 @@ MapsIndoors.setLanguage(lang)
 </Tabs>
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v4" label="iOS v4">
 
+```swift
+let languageCode = Locale.current.languageCode ?? "en"
+MPMapsIndoors.shared.language = languageCode
+```
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
 
 ```swift
 let languageCode = Locale.current.languageCode
-MapsIndoors.setLanguage(languageCode!);
+MapsIndoors.setLanguage(languageCode!)
 ```
 
 </TabItem>
