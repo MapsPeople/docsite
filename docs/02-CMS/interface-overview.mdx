@@ -71,7 +71,7 @@ From left to right, the functionalities in the Toolbar are as follows (you can a
 
 Doors and Barriers are Route Elements that allow you to manipulate certain portions of the Route Network. They appear if you click the **Show Network** button mentioned above.
 
-**Doors** are a Route Element that indicates the presence of a door - or other entryway - in a building.
+**Doors** are Route Elements that indicates the presence of a door - or other entryway - in a building. Here is an example of doors editor that shows up after we choose a door placement on the map:
 
 <img src="/img/cms/door_menu.png" alt="A screenshot of menu for adjusting doors" width="300"/>
 
@@ -92,6 +92,26 @@ Doors and Barriers are Route Elements that allow you to manipulate certain porti
 * **One way direction (bearing)** - The exit angle of a one-way Door, in degrees, like a compass bearing. In the illustration below, the entered value would be 45, as the user would exit at a 45 degree bearing.
 
 <img src="/img/cms/one_way_bearing_compass.png" alt="An illustration that demonstrates how to interpret bearing" width="300"/>
+
+By default doors are snapping, meaning they are following the lines of current solution's geometry:
+
+<img src="/img/cms/snapping-doors.png" alt="A screenshot of menu for adjusting doors"/>
+
+While holding Shift keyboard button and moving mouse around doors:
+* will snap to the middle point of the polygon that mouse is intersecting with/over,
+* will snap to the corners of the polygon that mouse is intersectiny with/over.
+
+
+Different doors creation modes:
+* **Single** - Creates single door on the map. Can be accessed by Add Door Route Element button in the toolbar:
+<img src="/img/cms/single-door-icon.png" alt="An illustration that demonstrates how to interpret bearing"/>
+* **Multiple with fixed width** - Creates multiple doors on the map with fixed width. Can be accessed by keyboard shortcut: Ctrl+Shift+D for **Windows**, Shift+Control+D for **IOS**.
+
+<img src="/img/cms/multiple-fixed-width-doors-example.png" alt="A screenshot of menu for adjusting doors"/>
+
+* **Multiple with custom width** - Creates multiple doors on the map with custom width. Can be accessed by keyboard shortcut: Ctrl+Shift+F for **Windows**, Shift+Control+F for **IOS**.
+
+<img src="/img/cms/multiple-custom-width-doors-example.png" alt="A screenshot of menu for adjusting doors"/>
 
 **Barriers** are similar to Doors in the sense that they are used to modify the Route Network. Many of the settings and restrictions you can set are the same between the two kinds.
 
