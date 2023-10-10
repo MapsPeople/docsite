@@ -23,6 +23,16 @@ Changelog for the MapsIndoors Android SDK. This document structure is based on [
 ### Security     in case of vulnerabilities.
 -->
 
+## [4.2.3] 2023-10-10
+
+### Fixed
+
+- Fixed issue where the disk cache would be accessed after it was closed
+- Fixed issue where tapping on the map and moving it in quick succession could result in a crash
+- Fixed race condition where the DataSetCacheManager was sometimes initialized too late
+- Fixed issue where icons could be null when handed over to google maps
+- Fixed rare NPE when selecting a location
+
 ## [4.2.2] 2023-09-22
 
 ### Fixed
