@@ -47,7 +47,25 @@ MapsIndoors.applyUserRoles(savedUserRoles);
 > For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/reference/android/v3/index.html).
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v4" label="iOS v4">
+
+You get all the User Roles available in the loaded solution with `MPMapsIndoors.shared.availableUserRoles`:
+
+```swift
+let allUserRoles = MPMapsIndoors.shared.availableUserRoles
+let myUserRole = allUserRoles.first
+```
+
+The active User Roles can be set on a global level using `MPMapsIndoors.shared.userRoles`.
+
+```swift
+MPMapsIndoors.shared.userRoles = [myUserRole]
+```
+
+> For more information, see the [reference documentation](https://app.mapsindoors.com/mapsindoors/reference/ios/4.2.6/documentation/mapsindoors/mapsindoorsshared).
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
 
 You get the available Roles with help of the `MPSolutionProvider`:
 
