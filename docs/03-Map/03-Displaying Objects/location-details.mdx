@@ -88,7 +88,75 @@ A `TextView` will now appear when a user selects a location and it will disapear
 [See the sample in LocationDetailsFragment.kt](https://github.com/MapsPeople/MapsIndoors-Android-Examples/blob/main/MapsIndoorsSamples/app/src/main/java/com/mapspeople/mapsindoorssamples/ui/locationdetails/LocationDetailsFragment.kt)
 
 </TabItem>
-<TabItem value="ios" label="iOS v3">
+<TabItem value="ios-v4" label="iOS v4">
+
+This is an example of displaying some details of a MapsIndoors location.
+
+Start by creating a `UIViewController` class that conforms to the `MPMapControlDelegate` protocol
+
+```swift
+class LocationDetailsController: UIViewController, MPMapControlDelegate {
+```
+
+Add a `MPMapControl` to the class
+
+```swift
+var mapControl: MPMapControl?
+```
+
+Add other views needed for this example
+
+```swift
+var detailsView = UIStackView()
+var mainView = UIStackView()
+var nameLabel = UILabel()
+var descrLabel = UILabel()
+```
+
+Inside `viewDidLoad`, setup the label views
+
+```swift
+mapControl?.delegate = self
+nameLabel.backgroundColor = UIColor.white
+descrLabel.backgroundColor = UIColor.white
+```
+
+Arrange the labels inside a stackview
+
+```swift
+detailsView = UIStackView(arrangedSubviews: [nameLabel, descrLabel])
+detailsView.axis = .vertical
+```
+
+Arrange the map and the stackview inside another stackview
+
+```swift
+mainView = UIStackView(arrangedSubviews: [map!, detailsView])
+mainView.axis = .vertical
+```
+
+When marker is tapped, get related MapsIndoors location object and set label text, based on the name and description of the location
+
+```swift
+func didTapInfoWindow(location: MPLocation) -> Bool {
+    self.nameLabel.text = location.name
+    self.descrLabel.text = location.descr
+    return false
+}
+```
+
+When map is tapped, reset label text
+
+```swift
+func didTap(coordinate: MPPoint) -> Bool {
+    self.nameLabel.text = nil
+    self.descrLabel.text = nil
+    return false
+}
+```
+
+</TabItem>
+<TabItem value="ios-v3" label="iOS v3">
 
 This is an example of displaying some details of a MapsIndoors location
 
@@ -108,26 +176,26 @@ var mapControl: MPMapControl? = nil
 Add other views needed for this example
 
 ```swift
-var detailsView:UIStackView = UIStackView.init()
-var mainView:UIStackView = UIStackView.init()
-var nameLabel = UILabel.init()
-var descrLabel = UILabel.init()
+var detailsView = UIStackView()
+var mainView = UIStackView()
+var nameLabel = UILabel()
+var descrLabel = UILabel()
 ```
 
 Inside `viewDidLoad`, setup the map and the mapControl instance:
 
 ```swift
-self.map = GMSMapView.init(frame: CGRect.zero)
+self.map = GMSMapView(frame: CGRect.zero)
 self.map?.delegate = self
 self.map?.camera = .camera(withLatitude: 57.057964, longitude: 9.9504112, zoom: 20)
-self.mapControl = MPMapControl.init(map: self.map!)
+self.mapControl = MPMapControl(map: self.map!)
 ```
 
 Setup the label views
 
 ```swift
-nameLabel = UILabel.init()
-descrLabel = UILabel.init()
+nameLabel = UILabel()
+descrLabel = UILabel()
 nameLabel.backgroundColor = UIColor.white
 descrLabel.backgroundColor = UIColor.white
 ```
@@ -135,14 +203,14 @@ descrLabel.backgroundColor = UIColor.white
 Arrange the labels inside a stackview
 
 ```swift
-detailsView = UIStackView.init(arrangedSubviews: [nameLabel, descrLabel])
+detailsView = UIStackView(arrangedSubviews: [nameLabel, descrLabel])
 detailsView.axis = .vertical
 ```
 
 Arrange the map and the stackview inside another stackview
 
 ```swift
-mainView = UIStackView.init(arrangedSubviews: [map!, detailsView])
+mainView = UIStackView(arrangedSubviews: [map!, detailsView])
 mainView.axis = .vertical
 ```
 
